@@ -19,13 +19,12 @@
                     class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> المشرفين وصلاحياتهم</span><i
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-               
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">المشرفين</span></a>
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i> <span
+                            class="app-menu__label">المشرفين</span></a>
                 </li>
-           
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i>
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">اوامر وصلاحيات</span></a></li>
             </ul>
         </li>
@@ -35,18 +34,18 @@
                     class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> الاقسام</span><i
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-              
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">الاقسام
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i> <span
+                            class="app-menu__label">الاقسام
                             الرئيسيه</span></a></li>
-       
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">الاقسام</span></a></li>
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i> <span
+                            class="app-menu__label">الاقسام</span></a></li>
             </ul>
         </li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-user"></i>
                 <span class="app-menu__label">الماركات</span></a></li>
-   
+
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-user"></i>
                 <span class="app-menu__label">الاعلانات</span></a></li>
 
@@ -57,17 +56,15 @@
                     class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> الاعدادات
                     والسياسات</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-            
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i>
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">الاعدادات</span></a></li>
- 
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i>
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">الشروط والاحكام </span></a></li>
-   
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i> <span
+                            class="app-menu__label">
                             عن المنظمة</span></a></li>
             </ul>
         </li>
@@ -77,9 +74,8 @@
                     class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> التواصل</span><i
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-               
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i>
+
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">رسائل المستخدمين او الزوار</span></a></li>
             </ul>
         </li>
@@ -89,7 +85,8 @@
                 </span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
 
-                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('governorates.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">المحافظات</span></a></li>
 
                 <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
@@ -102,16 +99,14 @@
 
 
 
-         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
                     class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> العملاء وطلبات الانضمام
-                    </span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                </span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">طلبات الانضمام</span></a></li>
 
-                <li><a class="treeview-item" href="#"><i
-                            class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">العملاء </span></a></li>
 
             </ul>

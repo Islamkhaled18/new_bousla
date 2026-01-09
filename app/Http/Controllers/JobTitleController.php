@@ -46,7 +46,7 @@ class JobTitleController extends Controller
     public function destroy(JobTitle $job_title)
     {
         $job_title->delete();
-        return redirect()->route('job-titles.index');
+        return redirect()->route('job-titles.index')->with('success', 'تم الحذف بنجاح');
     } //end of destroy
 
     public function toggleStatus(JobTitle $job_title)

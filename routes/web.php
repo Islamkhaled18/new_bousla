@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('job-titles', JobTitleController::class);
     Route::post('job-titles/{job_title}/toggle-status', [JobTitleController::class, 'toggleStatus'])->name('job-titles.toggle-status');
 
+    //governorates
+    Route::resource('governorates', GovernorateController::class);
+    Route::post('governorates/{governorate}/toggle-status', [GovernorateController::class, 'toggleStatus'])->name('governorates.toggle-status');
 });
 
 require __DIR__ . '/auth.php';
