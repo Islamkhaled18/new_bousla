@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 @section('title')
-تعديل وظيفه
+تعديل وظيفه - {{ $job_title->name }}
 @endsection
 @section('content')
 <main class="app sidebar-mini rtl">
