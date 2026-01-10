@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             JobTitleTableSeeder::class,
             GovernorateTableSeeder::class,
             CityTableSeeder::class,
+            AreaTableSeeder::class,
         ]);
     }
 }

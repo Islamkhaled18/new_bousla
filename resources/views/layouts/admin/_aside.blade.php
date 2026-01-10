@@ -92,7 +92,7 @@
                 <li><a class="treeview-item" href="{{ route('cities.index') }}"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">المدن</span></a></li>
 
-                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('areas.index') }}"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">المناطق</span></a></li>
             </ul>
         </li>

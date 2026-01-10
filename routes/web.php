@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
@@ -30,6 +31,10 @@ Route::middleware('auth')->group(function () {
     //cities
     Route::resource('cities', CityController::class);
     Route::post('cities/{city}/toggle-status', [CityController::class, 'toggleStatus'])->name('cities.toggle-status');
+
+    //areas
+    Route::resource('areas', AreaController::class);
+    Route::post('areas/{area}/toggle-status', [AreaController::class, 'toggleStatus'])->name('areas.toggle-status');
 });
 
 require __DIR__ . '/auth.php';
