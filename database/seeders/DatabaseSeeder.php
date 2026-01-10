@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             AdminTableSeeder::class,
             JobTitleTableSeeder::class,
             GovernorateTableSeeder::class,
+            CityTableSeeder::class,
         ]);
     }
 }
