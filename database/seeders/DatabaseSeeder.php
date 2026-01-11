@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CityTableSeeder::class,
             AreaTableSeeder::class,
             MainCategoryTableSeeder::class,
+            CategoryTableSeeder::class,
         ]);
     }
 }

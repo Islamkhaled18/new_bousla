@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 @section('title')
-    تعديل قسم رئيسي
+    تعديل قسم رئيسي - {{ $main_category->name }}
 @endsection
 @section('content')
     <main class="app sidebar-mini rtl">
