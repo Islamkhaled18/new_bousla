@@ -55,7 +55,7 @@
                     والسياسات</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
 
-                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('settings.index') }}"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">الاعدادات</span></a></li>
 
                 <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
