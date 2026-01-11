@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             AreaTableSeeder::class,
             MainCategoryTableSeeder::class,
             CategoryTableSeeder::class,
+            AdTableSeeder::class,
         ]);
     }
 }
