@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
     //categories
     Route::resource('categories', CategoryController::class);
     Route::post('categories/{category}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggle-status');
+
+    //ads
+    Route::resource('ads', AdController::class);
+    Route::post('ads/{ad}/toggle-status', [AdController::class, 'toggleStatus'])->name('ads.toggle-status');
 });
 
 require __DIR__ . '/auth.php';

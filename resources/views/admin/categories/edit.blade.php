@@ -71,7 +71,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label for="image" class="form-label">صورة القسم الرئيسي</label>
                                     <input type="file" class="form-control" id="image" name="image"

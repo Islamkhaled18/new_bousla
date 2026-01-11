@@ -43,10 +43,8 @@
                             class="app-menu__label">الاقسام</span></a></li>
             </ul>
         </li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-user"></i>
-                <span class="app-menu__label">الماركات</span></a></li>
 
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-user"></i>
+        <li><a class="app-menu__item" href="{{ route('ads.index') }}"><i class="app-menu__icon fa fa-user"></i>
                 <span class="app-menu__label">الاعلانات</span></a></li>
 
         <li><a class="app-menu__item" href="{{ route('job-titles.index') }}"><i class="app-menu__icon fa fa-user"></i>
