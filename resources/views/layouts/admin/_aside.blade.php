@@ -35,7 +35,7 @@
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
 
-                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i> <span
+                <li><a class="treeview-item" href="{{ route('main-categories.index') }}"><i class="app-menu__icon fa fa-user"></i> <span
                             class="app-menu__label">الاقسام
                             الرئيسيه</span></a></li>
 

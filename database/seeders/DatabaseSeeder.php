@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             GovernorateTableSeeder::class,
             CityTableSeeder::class,
             AreaTableSeeder::class,
+            MainCategoryTableSeeder::class,
         ]);
     }
 }

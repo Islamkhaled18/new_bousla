@@ -4,6 +4,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
+use App\Http\Controllers\MainCategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,10 @@ Route::middleware('auth')->group(function () {
     //areas
     Route::resource('areas', AreaController::class);
     Route::post('areas/{area}/toggle-status', [AreaController::class, 'toggleStatus'])->name('areas.toggle-status');
+
+    //main-categories
+    Route::resource('main-categories', MainCategoryController::class);
+    Route::post('main-categories/{main_category}/toggle-status', [MainCategoryController::class, 'toggleStatus'])->name('main-categories.toggle-status');
 });
 
 require __DIR__ . '/auth.php';
