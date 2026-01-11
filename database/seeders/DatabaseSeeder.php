@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             CategoryTableSeeder::class,
             AdTableSeeder::class,
             SettingTableSeeder::class,
+            TermsConditionsTableSeeder::class,
+            AboutUsTableSeeder::class,
         ]);
     }
 }

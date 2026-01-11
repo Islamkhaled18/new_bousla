@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\MainCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TermConditionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -57,6 +59,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('settings.index');
         Route::post('update/{id}', [SettingController::class, 'update'])->name('settings.update');
     });
+
+
+    Route::resource('terms', TermConditionController::class);
+    Route::resource('about-us', AboutUsController::class);
 });
 
 require __DIR__ . '/auth.php';
