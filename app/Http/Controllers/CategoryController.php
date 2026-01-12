@@ -8,6 +8,7 @@ use App\Models\MainCategory;
 use App\Services\FileUploadService;
 use App\Traits\ToggleStatusTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -35,22 +36,37 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        $data = $request->validated();
+        DB::beginTransaction();
+        
+        try {
+            $data = $request->validated();
 
-        if ($request->type == 1) {
-            $data['parent_id'] = null;
+            if ($request->type == 1) {
+                $data['parent_id'] = null;
+            }
+
+            // Handle image upload using FileUploadService
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $path = $this->fileUploadService->upload($file, 'categories', 'public');
+                $data['image'] = $path;
+            }
+
+            Category::create($data);
+
+            DB::commit();
+            return redirect()->route('categories.index')->with('success', 'تم الحفظ بنجاح');
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            // Delete uploaded image if exists
+            if (isset($data['image'])) {
+                $this->fileUploadService->delete($data['image'], 'public');
+            }
+            
+            return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
         }
-
-        // Handle image upload using FileUploadService
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $this->fileUploadService->upload($file, 'categories', 'public');
-            $data['image'] = $path;
-        }
-
-        Category::create($data);
-
-        return redirect()->route('categories.index')->with('success', 'تم الحفظ بنجاح');
     } //end of store
 
     public function edit(Category $category)
@@ -67,43 +83,68 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category)
     {
+        DB::beginTransaction();
+        
+        try {
+            $data = $request->validated();
+            $oldImage = $category->image;
 
-        $data = $request->validated();
-
-        // Handle parent_id based on type
-        if ($request->type == 1) {
-            $data['parent_id'] = null;
-        }
-
-        // Handle image update using FileUploadService
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($category->image) {
-                $this->fileUploadService->delete($category->image, 'public');
+            // Handle parent_id based on type
+            if ($request->type == 1) {
+                $data['parent_id'] = null;
             }
 
-            // Upload new image
-            $file = $request->file('image');
-            $path = $this->fileUploadService->upload($file, 'categories', 'public');
-            $data['image'] = $path;
+            // Handle image update using FileUploadService
+            if ($request->hasFile('image')) {
+                // Upload new image
+                $file = $request->file('image');
+                $path = $this->fileUploadService->upload($file, 'categories', 'public');
+                $data['image'] = $path;
+            }
+
+            $category->update($data);
+
+            // Delete old image only after successful update
+            if ($request->hasFile('image') && $oldImage) {
+                $this->fileUploadService->delete($oldImage, 'public');
+            }
+
+            DB::commit();
+            return redirect()->route('categories.index')->with('success', 'تم التعديل بنجاح');
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            // Delete newly uploaded image if exists
+            if (isset($data['image'])) {
+                $this->fileUploadService->delete($data['image'], 'public');
+            }
+            
+            return back()->with('error', 'حدث خطأ أثناء التعديل')->withInput();
         }
-
-        $category->update($data);
-
-
-        return redirect()->route('categories.index')->with('success', 'تم التعديل بنجاح');
-    }
+    } //end of update
 
     public function destroy(Category $category)
     {
+        DB::beginTransaction();
+        
+        try {
+            $imagePath = $category->image;
 
-        // Delete image using trait
-        if ($category->image) {
-            $this->fileUploadService->delete($category->image, 'public');
+            $category->delete();
+
+            // Delete image after successful deletion from database
+            if ($imagePath) {
+                $this->fileUploadService->delete($imagePath, 'public');
+            }
+
+            DB::commit();
+            return redirect()->route('categories.index')->with('success', 'تم الحذف بنجاح');
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحذف');
         }
-
-        $category->delete();
-        return redirect()->route('categories.index')->with('success', 'تم الحذف بنجاح');
     } //end of destroy
 
     public function toggleStatus(Category $category)

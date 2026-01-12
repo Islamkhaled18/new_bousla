@@ -39,7 +39,7 @@
 
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{!! $about_u->text !!}</td>
-                                <td>{!! $about_u->text_en !!}</td>
+                                <td>{!! $about_u->text_en ?? '-' !!}</td>
                                 <td>
                                     <a class="btn btn-sm btn-dark" href="{{ route('about-us.edit', $about_u) }}"
                                         title="تعديل">تعديل</a>

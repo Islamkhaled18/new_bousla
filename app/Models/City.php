@@ -10,8 +10,17 @@ class City extends Model
 {
     use HasFactory, HasSlug;
     protected $table   = 'cities';
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'name',
+        'name_en',
+        'slug',
+        'is_active',
+        'governorate_id'
+    ];
 
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
     //relations
     public function governorate()
     {

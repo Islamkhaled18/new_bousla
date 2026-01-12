@@ -45,7 +45,7 @@
                                         <td>{{ $area->city->governorate->name ?? '--' }}</td>
                                         <td>{{ $area->city->name }}</td>
                                         <td>{{ $area->name }}</td>
-                                        <td>{{ $area->name_en }}</td>
+                                        <td>{{ $area->name_en ?? '-' }}</td>
                                         <td>
                                             <div style="display: flex; align-items: center; gap: 8px;">
                                                 <input class="status-toggle" type="checkbox" id="status_{{ $area->id }}"

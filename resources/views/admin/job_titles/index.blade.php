@@ -89,44 +89,50 @@
     <script type="text/javascript">
         $('#sampleTable').DataTable();
 
-       $('.status-toggle').change(function() {
-    let checkbox = $(this);
-    let slug = checkbox.data('slug');
-    let isActive = checkbox.is(':checked') ? 1 : 0;
-
-    checkbox.prop('disabled', true);
-
-    $.ajax({
-        url: '{{ route("job-titles.toggle-status", ":slug") }}'.replace(':slug', slug),
-        method: 'POST',
-        data: {
-            _token: '{{ csrf_token() }}',
-            is_active: isActive
-        },
-        success: function(response) {
-            if (response.success) {
-                // Update badge
-                let badge = checkbox.closest('td').find('.badge');
-                if (isActive) {
-                    badge.removeClass('badge-danger').addClass('badge-success').text('نشط');
-                    toastr.success('تم التفعيل بنجاح');
-                } else {
-                    badge.removeClass('badge-success').addClass('badge-danger').text('غير نشط');
-                    toastr.info('تم إلغاء التفعيل');
-                }
-                checkbox.prop('disabled', false);
-            } else {
-                checkbox.prop('checked', !isActive);
-                checkbox.prop('disabled', false);
-                toastr.error('حدث خطأ');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        },
-        error: function(xhr) {
-            checkbox.prop('checked', !isActive);
-            checkbox.prop('disabled', false);
-            toastr.error('فشل الاتصال بالخادم');
-        }
-    });
-});
+        });
+
+        $('.status-toggle').change(function() {
+            let checkbox = $(this);
+            let slug = checkbox.data('slug');
+            let isActive = checkbox.is(':checked') ? 1 : 0;
+
+            checkbox.prop('disabled', true);
+
+            $.ajax({
+                url: '{{ route('job-titles.toggle-status', ':slug') }}'.replace(':slug', slug),
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    is_active: isActive
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Update badge
+                        let badge = checkbox.closest('td').find('.badge');
+                        if (isActive) {
+                            badge.removeClass('badge-danger').addClass('badge-success').text('نشط');
+                            toastr.success('تم التفعيل بنجاح');
+                        } else {
+                            badge.removeClass('badge-success').addClass('badge-danger').text('غير نشط');
+                            toastr.info('تم إلغاء التفعيل');
+                        }
+                        checkbox.prop('disabled', false);
+                    } else {
+                        checkbox.prop('checked', !isActive);
+                        checkbox.prop('disabled', false);
+                        toastr.error('حدث خطأ');
+                    }
+                },
+                error: function(xhr) {
+                    checkbox.prop('checked', !isActive);
+                    checkbox.prop('disabled', false);
+                    toastr.error('فشل الاتصال بالخادم');
+                }
+            });
+        });
     </script>
 @endpush

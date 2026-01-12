@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class GovernorateRequest extends FormRequest
 {
@@ -21,10 +23,21 @@ class GovernorateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:91',
-            'name_en' => 'nullable|string|max:91',
+        $governorateId = $this->route('governorate')?->id;
 
+        return [
+            'name' => [
+                'required',
+                'string',
+                'max:91',
+                Rule::unique('governorates', 'name')->ignore($governorateId)
+            ],
+            'name_en' => [
+                'nullable',
+                'string',
+                'max:91',
+                Rule::unique('governorates', 'name_en')->ignore($governorateId)
+            ],
         ];
     }
 
@@ -34,9 +47,19 @@ class GovernorateRequest extends FormRequest
             'name.required' => 'يجب ادخال اسم المحافظة',
             'name.string'   => 'يجب ادخال نص في اسم المحافظة',
             'name.max'      => 'يجب الا يزيد اسم المحافظة عن 91 حرف',
+            'name.unique'   => 'اسم المحافظة موجود مسبقاً',
 
-            'name_en.string'   => 'يجب ادخال نص في اسم المحافظة بالانجليزية',
-            'name_en.max'      => 'يجب الا يزيد اسم المحافظة بالانجليزية عن 91 حرف',
+            'name_en.string' => 'يجب ادخال نص في اسم المحافظة بالانجليزية',
+            'name_en.max'    => 'يجب الا يزيد اسم المحافظة بالانجليزية عن 91 حرف',
+            'name_en.unique' => 'اسم المحافظة بالانجليزية موجود مسبقاً',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name' => strip_tags($this->name),
+            'name_en' => strip_tags($this->name_en),
+        ]);
     }
 }

@@ -42,7 +42,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $city->governorate->name ?? '--' }}</td>
                                         <td>{{ $city->name }}</td>
-                                        <td>{{ $city->name_en }}</td>
+                                        <td>{{ $city->name_en ?? '-' }}</td>
                                         <td>
                                             <div style="display: flex; align-items: center; gap: 8px;">
                                                 <input class="status-toggle" type="checkbox" id="status_{{ $city->id }}"

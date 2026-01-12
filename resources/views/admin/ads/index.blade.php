@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $ad->name }}</td>
-                                        <td>{{ $ad->name_en }}</td>
+                                        <td>{{ $ad->name_en ?? '-' }}</td>
 
                                         <td><img src="{{ $ad->image_url }}" title="{{ $ad->name }}"
                                                 alt="{{ $ad->name }}" width="60" height="60">

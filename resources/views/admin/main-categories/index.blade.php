@@ -42,7 +42,7 @@
 
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $main_category->name }}</td>
-                                        <td>{{ $main_category->name_en }}</td>
+                                        <td>{{ $main_category->name_en ?? '-' }}</td>
                                         <td><img src="{{ $main_category->image_url }}" title="{{ $main_category->name }}"
                                                 alt="{{ $main_category->name }}" width="60" height="60">
                                         </td>

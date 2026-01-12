@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AreaRequest;
 use App\Models\Area;
 use App\Models\City;
-use Illuminate\Http\Request;
 use App\Traits\ToggleStatusTrait;
-
+use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 {
@@ -28,8 +27,15 @@ class AreaController extends Controller
 
     public function store(AreaRequest $request)
     {
-        Area::create($request->validated());
-        return redirect()->route('areas.index')->with('success', 'تم الحفظ بنجاح');
+        DB::beginTransaction();
+        try {
+            Area::create($request->validated());
+            DB::commit();
+            return redirect()->route('areas.index')->with('success', 'تم الحفظ بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
+        }
     }
 
     public function edit(Area $area)
@@ -41,15 +47,28 @@ class AreaController extends Controller
 
     public function update(AreaRequest $request, Area $area)
     {
-        $area->update($request->validated());
-        return redirect()->route('areas.index')->with('success', 'تم التعديل بنجاح');
+        DB::beginTransaction();
+        try {
+            $area->update($request->validated());
+            DB::commit();
+            return redirect()->route('areas.index')->with('success', 'تم التعديل بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء التعديل')->withInput();
+        }
     }
 
     public function destroy(Area $area)
     {
-
-        $area->delete();
-        return redirect()->route('areas.index')->with('success', 'تم الحذف بنجاح');
+        DB::beginTransaction();
+        try {
+            $area->delete();
+            DB::commit();
+            return redirect()->route('areas.index')->with('success', 'تم الحذف بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحذف');
+        }
     }
 
     public function toggleStatus(Area $area)
