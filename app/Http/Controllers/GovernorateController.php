@@ -58,6 +58,9 @@ class GovernorateController extends Controller
 
     public function destroy(Governorate $governorate)
     {
+        if ($governorate->cities()->exists()) {
+            return redirect()->back()->with('error', 'لا يمكن حذف المحافظة لوجود مدن تابعة لها');
+        }
         DB::beginTransaction();
         try {
             $governorate->delete();

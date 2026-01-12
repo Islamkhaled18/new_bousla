@@ -20,4 +20,9 @@ class Governorate extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    public function cities()
+    {
+        return $this->hasMany(City::class, 'governorate_id');
+    }
 }
