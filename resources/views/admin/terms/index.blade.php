@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($terms as $term)
+                        @foreach ($terms as $term)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{!! Str::limit($term->name, 100) !!}</td>
@@ -46,8 +46,7 @@
 
                                 <form action="{{ route('terms.destroy', $term) }}" 
                                     method="post" 
-                                    style="display: inline-block"
-                                    onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
+                                    style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger delete btn-sm">
@@ -56,18 +55,9 @@
                                 </form>
                             </td>
                         </tr>
-                        @empty
-                        <tr>
-                            <td colspan="4" class="text-center">لا توجد شروط وأحكام</td>
-                        </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
-                
-                <!-- إضافة pagination links -->
-                <div class="d-flex justify-content-center">
-                    {{ $terms->links() }}
-                </div>
             </div>
         </div>
     </div>
