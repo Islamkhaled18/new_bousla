@@ -6,6 +6,7 @@ use App\Http\Requests\AdRequest;
 use App\Models\Ad;
 use App\Services\FileUploadService;
 use App\Traits\ToggleStatusTrait;
+use Illuminate\Support\Facades\DB;
 
 class AdController extends Controller
 {
@@ -16,6 +17,7 @@ class AdController extends Controller
     {
         $this->fileUploadService = $fileUploadService;
     }
+
     public function index()
     {
         $ads = Ad::paginate(10);
@@ -24,26 +26,38 @@ class AdController extends Controller
 
     public function create()
     {
-
-        $ads    = Ad::get();
+        $ads = Ad::get();
         return view('admin.ads.create', compact('ads'));
     } //end of create
 
     public function store(AdRequest $request)
     {
+        DB::beginTransaction();
+        try {
+            $data = $request->validated();
 
-        $data = $request->validated();
+            // Handle image upload using FileUploadService
+            if ($request->hasFile('image')) {
+                $file          = $request->file('image');
+                $path          = $this->fileUploadService->upload($file, 'ads', 'public');
+                $data['image'] = $path;
+            }
 
-        // Handle image upload using FileUploadService
-        if ($request->hasFile('image')) {
-            $file          = $request->file('image');
-            $path          = $this->fileUploadService->upload($file, 'ads', 'public');
-            $data['image'] = $path;
+            Ad::create($data);
+
+            DB::commit();
+            return redirect()->route('ads.index')->with('success', 'تم الحفظ بنجاح');
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            // Delete uploaded image if exists
+            if (isset($data['image'])) {
+                $this->fileUploadService->delete($data['image'], 'public');
+            }
+
+            return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
         }
-
-        Ad::create($data);
-
-        return redirect()->route('ads.index')->with('success', 'تم الحفظ بنجاح');
     } //end of store
 
     public function edit(Ad $ad)
@@ -53,36 +67,61 @@ class AdController extends Controller
 
     public function update(AdRequest $request, Ad $ad)
     {
+        DB::beginTransaction();
+        try {
+            $data     = $request->validated();
+            $oldImage = $ad->image;
 
-        $data = $request->validated();
-
-        // Handle image update using FileUploadService
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($ad->image) {
-                $this->fileUploadService->delete($ad->image, 'public');
+            // Handle image update using FileUploadService
+            if ($request->hasFile('image')) {
+                // Upload new image
+                $file          = $request->file('image');
+                $path          = $this->fileUploadService->upload($file, 'ads', 'public');
+                $data['image'] = $path;
             }
 
-            // Upload new image
-            $file          = $request->file('image');
-            $path          = $this->fileUploadService->upload($file, 'ads', 'public');
-            $data['image'] = $path;
+            $ad->update($data);
+
+            // Delete old image after successful update
+            if ($request->hasFile('image') && $oldImage) {
+                $this->fileUploadService->delete($oldImage, 'public');
+            }
+
+            DB::commit();
+            return redirect()->route('ads.index')->with('success', 'تم التعديل بنجاح');
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            // Delete new uploaded image if exists
+            if (isset($data['image']) && $data['image'] !== $oldImage) {
+                $this->fileUploadService->delete($data['image'], 'public');
+            }
+
+            return back()->with('error', 'حدث خطأ أثناء التعديل')->withInput();
         }
-
-        $ad->update($data);
-
-        return redirect()->route('ads.index')->with('success', 'تم التعديل بنجاح');
     } //end of update
 
     public function destroy(Ad $ad)
     {
-        // Delete image using FileUploadService
-        if ($ad->image) {
-            $this->fileUploadService->delete($ad->image, 'public');
-        }
+        DB::beginTransaction();
+        try {
+            $imagePath = $ad->image;
 
-        $ad->delete();
-        return redirect()->route('ads.index')->with('success', 'تم الحذف بنجاح');
+            $ad->delete();
+
+            // Delete image after successful deletion from database
+            if ($imagePath) {
+                $this->fileUploadService->delete($imagePath, 'public');
+            }
+
+            DB::commit();
+            return redirect()->route('ads.index')->with('success', 'تم الحذف بنجاح');
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحذف');
+        }
     } //end of destroy
 
     public function toggleStatus(Ad $ad)

@@ -6,6 +6,7 @@ use App\Http\Requests\CityRequest;
 use App\Models\City;
 use App\Models\Governorate;
 use App\Traits\ToggleStatusTrait;
+use Illuminate\Support\Facades\DB;
 
 class CityController extends Controller
 {
@@ -26,8 +27,15 @@ class CityController extends Controller
 
     public function store(CityRequest $request)
     {
-        City::create($request->validated());
-        return redirect()->route('cities.index')->with('success', 'تم الحفظ بنجاح');
+        DB::beginTransaction();
+        try {
+            City::create($request->validated());
+            DB::commit();
+            return redirect()->route('cities.index')->with('success', 'تم الحفظ بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
+        }
     }
 
     public function edit(City $city)
@@ -39,14 +47,28 @@ class CityController extends Controller
 
     public function update(CityRequest $request, City $city)
     {
-        $city->update($request->validated());
-        return redirect()->route('cities.index')->with('success', 'تم التعديل بنجاح');
+        DB::beginTransaction();
+        try {
+            $city->update($request->validated());
+            DB::commit();
+            return redirect()->route('cities.index')->with('success', 'تم التعديل بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء التعديل')->withInput();
+        }
     }
 
     public function destroy(City $city)
     {
-        $city->delete();
-        return redirect()->route('cities.index')->with('success', 'تم الحذف بنجاح');
+        DB::beginTransaction();
+        try {
+            $city->delete();
+            DB::commit();
+            return redirect()->route('cities.index')->with('success', 'تم الحذف بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحذف');
+        }
     }
 
     public function toggleStatus(City $city)

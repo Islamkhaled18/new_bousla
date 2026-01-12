@@ -6,6 +6,7 @@ use App\Http\Requests\GovernorateRequest;
 use App\Models\Governorate;
 use Illuminate\Http\Request;
 use App\Traits\ToggleStatusTrait;
+use Illuminate\Support\Facades\DB;
 
 class GovernorateController extends Controller
 {
@@ -26,28 +27,46 @@ class GovernorateController extends Controller
 
     public function store(GovernorateRequest $request)
     {
-        Governorate::create($request->validated());
-
-        return redirect()->route('governorates.index')->with('success', 'تم الحفظ بنجاح');
+        DB::beginTransaction();
+        try {
+            Governorate::create($request->validated());
+            DB::commit();
+            return redirect()->route('governorates.index')->with('success', 'تم الحفظ بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
+        }
     } //end of store
 
     public function edit(Governorate $governorate)
     {
-
         return view('admin.governorates.edit', compact('governorate'));
     } //end of edit
 
     public function update(GovernorateRequest $request, Governorate $governorate)
     {
-        $governorate->update($request->validated());
-
-        return redirect()->route('governorates.index')->with('success', 'تم التعديل بنجاح');
+        DB::beginTransaction();
+        try {
+            $governorate->update($request->validated());
+            DB::commit();
+            return redirect()->route('governorates.index')->with('success', 'تم التعديل بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء التعديل')->withInput();
+        }
     } //end of update
 
     public function destroy(Governorate $governorate)
     {
-        $governorate->delete();
-        return redirect()->route('governorates.index')->with('success', 'تم الحذف بنجاح');
+        DB::beginTransaction();
+        try {
+            $governorate->delete();
+            DB::commit();
+            return redirect()->route('governorates.index')->with('success', 'تم الحذف بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحذف');
+        }
     } //end of destroy
 
     public function toggleStatus(Governorate $governorate)

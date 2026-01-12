@@ -21,7 +21,7 @@
     <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
     <meta property="og:description"
         content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>بوصلة - @yield('title')</title>
 
     <!-- jQuery (يجب تحميله أولاً) -->

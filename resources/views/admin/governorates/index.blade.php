@@ -44,7 +44,7 @@
 
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $governorate->name }}</td>
-                                        <td>{{ $governorate->name_en }}</td>
+                                        <td>{{ $governorate->name_en ?? '-' }}</td>
                                         <td>
                                             {{-- @can('jobs.edit') --}}
                                             <div style="display: flex; align-items: center; gap: 8px;">

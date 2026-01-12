@@ -10,5 +10,14 @@ class Governorate extends Model
 {
     use HasFactory, HasSlug;
     protected $table   = 'governorates';
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'name',
+        'name_en',
+        'slug',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

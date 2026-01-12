@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TermConditionRequest;
 use App\Models\TermCondition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TermConditionController extends Controller
 {
@@ -21,8 +22,15 @@ class TermConditionController extends Controller
 
     public function store(TermConditionRequest $request)
     {
-        TermCondition::create($request->validated());
-        return redirect()->route('terms.index')->with('success', 'تم الحفظ بنجاح');
+        DB::beginTransaction();
+        try {
+            TermCondition::create($request->validated());
+            DB::commit();
+            return redirect()->route('terms.index')->with('success', 'تم الحفظ بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
+        }
     } //end of store
 
     public function edit(TermCondition $term)
@@ -32,13 +40,27 @@ class TermConditionController extends Controller
 
     public function update(TermConditionRequest $request, TermCondition $term)
     {
-        $term->update($request->validated());
-        return redirect()->route('terms.index')->with('success', 'تم التعديل بنجاح');
+        DB::beginTransaction();
+        try {
+            $term->update($request->validated());
+            DB::commit();
+            return redirect()->route('terms.index')->with('success', 'تم التعديل بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء التعديل')->withInput();
+        }
     } //end of update
 
     public function destroy(TermCondition $term)
     {
-        $term->delete();
-        return redirect()->route('terms.index')->with('success', 'تم الحذف بنجاح');
+        DB::beginTransaction();
+        try {
+            $term->delete();
+            DB::commit();
+            return redirect()->route('terms.index')->with('success', 'تم الحذف بنجاح');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'حدث خطأ أثناء الحذف');
+        }
     } //end of destroy
 }

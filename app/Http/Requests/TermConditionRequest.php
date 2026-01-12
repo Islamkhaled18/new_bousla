@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TermConditionRequest extends FormRequest
 {
@@ -21,20 +22,52 @@ class TermConditionRequest extends FormRequest
      */
     public function rules(): array
     {
+        $termConditionId = $this->route('term')?->id;
+
         return [
-            'name'    => 'required|string|max:1000',
-            'name_en' => 'nullable|string|max:1000',
+            'name' => [
+                'required',
+                'string',
+                'min:10',
+                'max:10000',
+                Rule::unique('terms_conditions', 'name')->ignore($termConditionId)
+            ],
+            'name_en' => [
+                'nullable',
+                'string',
+                'min:10',
+                'max:10000',
+                Rule::unique('terms_conditions', 'name_en')->ignore($termConditionId)
+            ],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
-            'name.required'    => 'الاسم مطلوب',
-            'name.string'      => 'لابد ان يكون حقل نصي',
-            'name.max'         => 'لابد ان يكون اقل من 1000 حرف',
-            'name_en.string'   => 'لابد ان يكون حقل نصي',
-            'name_en.max'      => 'لابد ان يكون اقل من 1000 حرف',
+            'name.required' => 'الشروط والأحكام مطلوبة',
+            'name.min' => 'يجب أن يكون النص على الأقل 10 أحرف',
+            'name.max' => 'يجب ألا يزيد النص عن 10000 حرف',
+            'name.unique' => 'هذا النص موجود مسبقاً',
+
+            'name_en.min' => 'يجب أن يكون النص بالإنجليزية على الأقل 10 أحرف',
+            'name_en.max' => 'يجب ألا يزيد النص بالإنجليزية عن 10000 حرف',
+            'name_en.unique' => 'هذا النص بالإنجليزية موجود مسبقاً',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if ($this->has('name')) {
+            $this->merge([
+                'name' => strip_tags(trim($this->name)),
+            ]);
+        }
+
+        if ($this->has('name_en')) {
+            $this->merge([
+                'name_en' => $this->name_en ? strip_tags(trim($this->name_en)) : null,
+            ]);
+        }
     }
 }
