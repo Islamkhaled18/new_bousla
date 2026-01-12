@@ -47,7 +47,6 @@ class MainCategoryController extends Controller
 
             DB::commit();
             return redirect()->route('main-categories.index')->with('success', 'تم الاضافه بنجاح');
-
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -89,7 +88,6 @@ class MainCategoryController extends Controller
 
             DB::commit();
             return redirect()->route('main-categories.index')->with('success', 'تم التعديل بنجاح');
-
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -104,6 +102,10 @@ class MainCategoryController extends Controller
 
     public function destroy(MainCategory $main_category)
     {
+        if ($main_category->categories()->exists()) {
+            return redirect()->back()->with('error', 'لا يمكن حذف القسم الرئيسي لوجود اقسام تابعة لها');
+        }
+
         DB::beginTransaction();
         try {
             $imagePath = $main_category->image;
@@ -117,7 +119,6 @@ class MainCategoryController extends Controller
 
             DB::commit();
             return redirect()->route('main-categories.index')->with('success', 'تم الحذف بنجاح');
-
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'حدث خطأ أثناء الحذف');

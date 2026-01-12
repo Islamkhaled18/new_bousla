@@ -60,6 +60,9 @@ class CityController extends Controller
 
     public function destroy(City $city)
     {
+        if ($city->areas()->exists()) {
+            return redirect()->back()->with('error', 'لا يمكن حذف المدينة لوجود مناطق تابعة لها');
+        }
         DB::beginTransaction();
         try {
             $city->delete();
