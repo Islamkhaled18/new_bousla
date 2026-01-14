@@ -15,13 +15,13 @@ class AdminTableSeeder extends Seeder
      */
     public function run(): void
     {
-          DB::table('users')->delete();
+        DB::table('users')->delete();
 
         $users = [
             [
                 'id'       => 1,
                 'name'     => 'Islam Khaled',
-                // 'slug'     => 'super-admin',
+                'slug'     => 'Islam-Khaled',
                 'email'    => 'islam.hegazy72@gmail.com',
                 'password' => bcrypt('123456789'),
                 // 'phone'    => '01015949894',
@@ -30,6 +30,8 @@ class AdminTableSeeder extends Seeder
             [
                 'id'       => 2,
                 'name'     => 'mohamed elabasy',
+                'slug'     => 'mohamed-elabasy',
+
                 'email'    => 'mohamed.elabasy@gmail.com',
                 'password' => bcrypt('123456789'),
                 // 'phone'    => '01228772551',
@@ -41,6 +43,5 @@ class AdminTableSeeder extends Seeder
         foreach ($users as $user) {
             User::create($user);
         }
-
     }
 }
