@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
@@ -60,9 +61,18 @@ Route::middleware('auth')->group(function () {
         Route::post('update/{id}', [SettingController::class, 'update'])->name('settings.update');
     });
 
-
+    //terms
     Route::resource('terms', TermConditionController::class);
+
+    //about-us
     Route::resource('about-us', AboutUsController::class);
+
+    //roles and permission
+    Route::resource('admins',AdminController::class);
+    Route::post('admins/{admin}/toggle-status', [AdminController::class, 'toggleStatus'])->name('admins.toggle-status')->middleware(['throttle:60,1']);
+
+
+    // Route::resource('roles',RoleController);
 });
 
 require __DIR__ . '/auth.php';
