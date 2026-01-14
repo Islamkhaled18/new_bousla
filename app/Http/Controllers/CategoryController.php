@@ -37,7 +37,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         DB::beginTransaction();
-        
+
         try {
             $data = $request->validated();
 
@@ -56,15 +56,14 @@ class CategoryController extends Controller
 
             DB::commit();
             return redirect()->route('categories.index')->with('success', 'تم الحفظ بنجاح');
-            
         } catch (\Exception $e) {
             DB::rollback();
-            
+
             // Delete uploaded image if exists
             if (isset($data['image'])) {
                 $this->fileUploadService->delete($data['image'], 'public');
             }
-            
+
             return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
         }
     } //end of store
@@ -84,7 +83,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         DB::beginTransaction();
-        
+
         try {
             $data = $request->validated();
             $oldImage = $category->image;
@@ -111,23 +110,27 @@ class CategoryController extends Controller
 
             DB::commit();
             return redirect()->route('categories.index')->with('success', 'تم التعديل بنجاح');
-            
         } catch (\Exception $e) {
             DB::rollback();
-            
+
             // Delete newly uploaded image if exists
             if (isset($data['image'])) {
                 $this->fileUploadService->delete($data['image'], 'public');
             }
-            
+
             return back()->with('error', 'حدث خطأ أثناء التعديل')->withInput();
         }
     } //end of update
 
     public function destroy(Category $category)
     {
+        if ($category->children()->exists()) {
+            return redirect()->back()->with('error', 'لا يمكن حذف القسم  لوجود اقسام تابعة لها');
+        }
+
+
         DB::beginTransaction();
-        
+
         try {
             $imagePath = $category->image;
 
@@ -140,7 +143,6 @@ class CategoryController extends Controller
 
             DB::commit();
             return redirect()->route('categories.index')->with('success', 'تم الحذف بنجاح');
-            
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'حدث خطأ أثناء الحذف');

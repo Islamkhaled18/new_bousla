@@ -32,7 +32,7 @@
                                     <th>اسم الاعلان</th>
                                     <th>اسم الاعلان باللغه الانجليزيه</th>
                                     <th>صورة الاعلان</th>
-                                    <th>تاريخ البداية</th>
+
                                     <th>تاريخ النهاية</th>
                                     <th>الحاله</th>
                                     <th>العمليات</th>
@@ -49,8 +49,7 @@
                                         <td><img src="{{ $ad->image_url }}" title="{{ $ad->name }}"
                                                 alt="{{ $ad->name }}" width="60" height="60">
                                         </td>
-                                        <td>{{ $ad->start_date }}</td>
-                                        <td>{{ $ad->end_date }}</td>
+                                        <td>{{ $ad->end_date->format('Y-m-d') ?? '--' }}</td>
                                         <td>
                                             <div style="display: flex; align-items: center; gap: 8px;">
                                                 <input class="status-toggle" type="checkbox"
@@ -90,8 +89,6 @@
 @endsection
 @push('scripts')
     <script type="text/javascript">
-        $('#sampleTable').DataTable();
-
         $('.status-toggle').change(function() {
             let checkbox = $(this);
             let slug = checkbox.data('slug');

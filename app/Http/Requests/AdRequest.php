@@ -39,17 +39,11 @@ class AdRequest extends FormRequest
                 'max:5120',
                 'dimensions:min_width=300,min_height=200,max_width=3000,max_height=3000'
             ],
-            'start_date' => [
-                $isCreating ? 'required' : 'sometimes',
-                'date',
-                'date_format:Y-m-d',
-                $isCreating ? 'after_or_equal:today' : 'date'
-            ],
+
             'end_date' => [
                 $isCreating ? 'required' : 'sometimes',
                 'date',
                 'date_format:Y-m-d',
-                'after:start_date'
             ],
         ];
     }
@@ -103,17 +97,10 @@ class AdRequest extends FormRequest
             'image.max' => 'حجم الصورة يجب ألا يتجاوز 5 ميجابايت',
             'image.dimensions' => 'أبعاد الصورة غير مناسبة',
 
-            // start_date
-            'start_date.required' => 'تاريخ البدء مطلوب',
-            'start_date.date' => 'تاريخ البدء يجب أن يكون تاريخاً صالحاً',
-            'start_date.date_format' => 'تنسيق تاريخ البدء غير صحيح',
-            'start_date.after_or_equal' => 'تاريخ البدء يجب أن يكون اليوم أو في المستقبل',
-
             // end_date
             'end_date.required' => 'تاريخ الانتهاء مطلوب',
             'end_date.date' => 'تاريخ الانتهاء يجب أن يكون تاريخاً صالحاً',
             'end_date.date_format' => 'تنسيق تاريخ الانتهاء غير صحيح',
-            'end_date.after' => 'تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء',
         ];
     }
 

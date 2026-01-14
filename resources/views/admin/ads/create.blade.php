@@ -45,15 +45,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="start_date">تاريخ البداية</label>
-                                    <input class="form-control @error('start_date') is-invalid @enderror" id="start_date"
-                                        name="start_date" type="date" value="{{ old('start_date') }}">
-                                    @error('start_date')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
                                     <label for="end_date">تاريخ النهائة</label>
                                     <input class="form-control @error('end_date') is-invalid @enderror" id="end_date"
                                         name="end_date" type="date" value="{{ old('end_date') }}">

@@ -49,16 +49,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="start_date">تاريخ البداية</label>
-                                    <input class="form-control @error('start_date') is-invalid @enderror" id="start_date"
-                                        name="start_date" type="date"
-                                        value="{{ old('start_date', $ad->start_date ? \Carbon\Carbon::parse($ad->start_date)->format('Y-m-d') : '') }}">
-                                    @error('start_date')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
                                     <label for="end_date">تاريخ النهاية</label>
                                     <input class="form-control @error('end_date') is-invalid @enderror" id="end_date"
                                         name="end_date" type="date"

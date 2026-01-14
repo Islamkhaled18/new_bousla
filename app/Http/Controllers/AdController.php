@@ -20,6 +20,11 @@ class AdController extends Controller
 
     public function index()
     {
+        Ad::where('end_date', '<', now())
+            ->where('is_active', 1)
+            ->update(['is_active' => 0]);
+
+
         $ads = Ad::paginate(10);
         return view('admin.ads.index', compact('ads'));
     } //end of index
@@ -47,7 +52,6 @@ class AdController extends Controller
 
             DB::commit();
             return redirect()->route('ads.index')->with('success', 'تم الحفظ بنجاح');
-
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -89,7 +93,6 @@ class AdController extends Controller
 
             DB::commit();
             return redirect()->route('ads.index')->with('success', 'تم التعديل بنجاح');
-
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -117,7 +120,6 @@ class AdController extends Controller
 
             DB::commit();
             return redirect()->route('ads.index')->with('success', 'تم الحذف بنجاح');
-
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'حدث خطأ أثناء الحذف');

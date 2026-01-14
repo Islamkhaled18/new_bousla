@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\TermCondition;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -15,8 +17,12 @@ return new class extends Migration
             $table->id();
             $table->longText('name');
             $table->longText('name_en')->nullable();
-            $table->uuid('uuid')->unique()->nullable();
+            $table->uuid('uuid')->unique();
             $table->timestamps();
+        });
+        TermCondition::whereNull('uuid')->each(function ($term) {
+            $term->uuid = Str::uuid();
+            $term->save();
         });
     }
 

@@ -1,6 +1,6 @@
 <!-- Navbar-->
 <header class="app-header"><a class="app-header__logo" style="font-family: 'Cairo', 'sans-serif';"
-        href="#">Bousla</a>
+        href="{{ route('dashboard') }}">Bousla</a>
 
     <!-- Sidebar toggle button-->
     <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
