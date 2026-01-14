@@ -6,6 +6,7 @@ use App\Models\AboutUs;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AboutUsTableSeeder extends Seeder
 {
@@ -14,13 +15,15 @@ class AboutUsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('aboutuses')->delete();
+        AboutUs::truncate();
 
         $aboutuses = [
             [
                 'id'   => 1,
                 'text' => 'شروط واحكام شروط واحكام شروط واحكام ',
                 'text_en' => 'شروط واحكام شروط واحكام شروط واحكام ',
+                'uuid'    => Str::uuid()->toString(),
+
             ],
 
         ];

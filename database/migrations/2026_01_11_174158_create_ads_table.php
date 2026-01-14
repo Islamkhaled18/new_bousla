@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(1);
-            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();
         });

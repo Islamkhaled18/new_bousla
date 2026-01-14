@@ -28,31 +28,31 @@ Route::middleware('auth')->group(function () {
 
     //job_titles
     Route::resource('job-titles', JobTitleController::class);
-    Route::post('job-titles/{job_title}/toggle-status', [JobTitleController::class, 'toggleStatus'])->name('job-titles.toggle-status')->middleware(['throttle:60,1', 'ajax']);
+    Route::post('job-titles/{job_title}/toggle-status', [JobTitleController::class, 'toggleStatus'])->name('job-titles.toggle-status')->middleware(['throttle:60,1']);
 
     //governorates
     Route::resource('governorates', GovernorateController::class);
-    Route::post('governorates/{governorate}/toggle-status', [GovernorateController::class, 'toggleStatus'])->name('governorates.toggle-status')->middleware(['throttle:60,1', 'ajax']);
+    Route::post('governorates/{governorate}/toggle-status', [GovernorateController::class, 'toggleStatus'])->name('governorates.toggle-status')->middleware(['throttle:60,1']);
 
     //cities
     Route::resource('cities', CityController::class);
-    Route::post('cities/{city}/toggle-status', [CityController::class, 'toggleStatus'])->name('cities.toggle-status')->middleware(['throttle:60,1', 'ajax']);
+    Route::post('cities/{city}/toggle-status', [CityController::class, 'toggleStatus'])->name('cities.toggle-status')->middleware(['throttle:60,1']);
 
     //areas
     Route::resource('areas', AreaController::class);
-    Route::post('areas/{area}/toggle-status', [AreaController::class, 'toggleStatus'])->name('areas.toggle-status')->middleware(['throttle:60,1', 'ajax']);
+    Route::post('areas/{area}/toggle-status', [AreaController::class, 'toggleStatus'])->name('areas.toggle-status')->middleware(['throttle:60,1']);
 
     //main-categories
     Route::resource('main-categories', MainCategoryController::class);
-    Route::post('main-categories/{main_category}/toggle-status', [MainCategoryController::class, 'toggleStatus'])->name('main-categories.toggle-status')->middleware(['throttle:60,1', 'ajax']);
+    Route::post('main-categories/{main_category}/toggle-status', [MainCategoryController::class, 'toggleStatus'])->name('main-categories.toggle-status')->middleware(['throttle:60,1']);
 
     //categories
     Route::resource('categories', CategoryController::class);
-    Route::post('categories/{category}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggle-status')->middleware(['throttle:60,1', 'ajax']);
+    Route::post('categories/{category}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggle-status')->middleware(['throttle:60,1']);
 
     //ads
     Route::resource('ads', AdController::class);
-    Route::post('ads/{ad}/toggle-status', [AdController::class, 'toggleStatus'])->name('ads.toggle-status')->middleware(['throttle:60,1', 'ajax']);
+    Route::post('ads/{ad}/toggle-status', [AdController::class, 'toggleStatus'])->name('ads.toggle-status')->middleware(['throttle:60,1']);
 
     //settings
     Route::group(['prefix' => 'settings'], function () {

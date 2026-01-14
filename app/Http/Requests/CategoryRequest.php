@@ -17,7 +17,7 @@ class CategoryRequest extends FormRequest
         $categoryId = $this->route('category')?->id;
         $isCreating = $this->isMethod('post');
 
-        return [
+        $rules = [
             'name' => [
                 $isCreating ? 'required' : 'sometimes',
                 'string',
@@ -40,7 +40,6 @@ class CategoryRequest extends FormRequest
                 'nullable',
                 'integer',
                 'exists:categories,id',
-                'different:' . $categoryId
             ],
             'image' => [
                 $isCreating ? 'required' : 'nullable',
@@ -54,12 +53,14 @@ class CategoryRequest extends FormRequest
                 'integer',
                 'exists:main_categories,id'
             ],
-            'type' => [
-                'nullable',
-                'integer',
-                'in:1,2'
-            ],
         ];
+
+        // Only add 'different' rule when updating (when categoryId exists)
+        if ($categoryId) {
+            $rules['parent_id'][] = 'different:' . $categoryId;
+        }
+
+        return $rules;
     }
 
     public function withValidator($validator): void
