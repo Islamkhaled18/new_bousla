@@ -31,6 +31,7 @@
                                     <th>#</th>
                                     <th>اسم المشرف</th>
                                     <th>البريد الالكتروني</th>
+                                    <th>رقم الهاتف</th>
                                     <th>الحالة</th>
                                     <th>نوع المستخدم</th>
                                     <th>العمليات</th>
@@ -42,8 +43,9 @@
                                     <tr>
 
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $admin->name }}</td>
+                                        <td>{{ $admin->full_name }}</td>
                                         <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->phone }}</td>
                                         <td>
                                             <div style="display: flex; align-items: center; gap: 8px;">
                                                 @if ($admin->id != auth()->id())

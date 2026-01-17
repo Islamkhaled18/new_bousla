@@ -32,8 +32,10 @@ class AdminController extends Controller
     public function store(AdminRequest $request)
     {
         $admin = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
 
@@ -62,8 +64,10 @@ class AdminController extends Controller
     public function update(AdminRequest $request, User $admin)
     {
         $data = [
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
+            'phone' => $request->phone,
         ];
 
         if ($request->filled('password') && $request->filled('current_password')) {

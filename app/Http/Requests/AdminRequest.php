@@ -27,12 +27,17 @@ class AdminRequest extends FormRequest
         $adminId = $this->route('admin')?->id;
 
         $rules = [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'email',
                 'max:255',
                 Rule::unique('users', 'email')->ignore($adminId)
+            ],
+            'phone' => [
+                'required',
+                'regex:/^01[0-9]{9}$/'
             ],
             'roles_name' => ['required', 'array'],
             'roles_name.*' => ['exists:roles,name']
@@ -78,6 +83,9 @@ class AdminRequest extends FormRequest
             'roles_name.required' => 'يجب اختيار صلاحية واحدة على الأقل',
             'roles_name.array' => 'الصلاحيات يجب أن تكون مصفوفة',
             'roles_name.*.exists' => 'الصلاحية المختارة غير موجودة',
+
+            'phone.required' => 'رقم الهاتف مطلوب',
+            'phone.regex' => 'رقم الهاتف يجب أن يكون 11 رقم ويبدأ بـ 01'
         ];
     }
 }
