@@ -14,7 +14,8 @@
 
                 <li class="breadcrumb-item"><a href="{{ route('admins.index') }}" title="المشرفين">المشرفين</a></li>
 
-                <li class="breadcrumb-item active"><a href="{{ route('admins.edit', $admin) }}" title="تعديل بيانات المشرف">تعديل
+                <li class="breadcrumb-item active"><a href="{{ route('admins.edit', $admin) }}"
+                        title="تعديل بيانات المشرف">تعديل
                         بيانات المشرف</a></li>
             </ul>
         </div>
@@ -23,17 +24,31 @@
                 <div class="tile">
                     <div class="tile-body">
                         <div class="col-12">
-                            <form action="{{ route('admins.update', $admin) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admins.update', $admin) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الاسم <span class="tx-danger">*</span></label>
-                                            <input type="text" name="name" class="form-control"
-                                                value="{{ old('name', $admin->name) }}" placeholder="اكتب الاسم">
-                                            @error('name')
+                                            <label>الاسم الاول <span class="tx-danger">*</span></label>
+                                            <input type="text" name="first_name" class="form-control"
+                                                value="{{ old('first_name', $admin->first_name) }}"
+                                                placeholder="اكتب الاسم الاول">
+                                            @error('first_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>الاسم الثاني <span class="tx-danger">*</span></label>
+                                            <input type="text" name="last_name" class="form-control"
+                                                value="{{ old('last_name', $admin->last_name) }}"
+                                                placeholder="اكتب الاسم الثاني">
+                                            @error('last_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -43,8 +58,20 @@
                                         <div class="form-group">
                                             <label>البريد الالكتروني <span class="tx-danger">*</span></label>
                                             <input type="email" name="email" class="form-control"
-                                                value="{{ old('email', $admin->email) }}" placeholder="اكتب البريد الالكتروني">
+                                                value="{{ old('email', $admin->email) }}"
+                                                placeholder="اكتب البريد الالكتروني">
                                             @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>الهاتف <span class="tx-danger">*</span></label>
+                                            <input type="text" name="phone" class="form-control"
+                                                value="{{ old('phone', $admin->phone) }}"
+                                                placeholder="اكتب الهاتف">
+                                            @error('phone')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -54,7 +81,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="alert alert-info">
-                                            <i class="fa fa-info-circle"></i> إذا كنت تريد تغيير كلمة المرور، يجب عليك إدخال كلمة المرور القديمة أولاً
+                                            <i class="fa fa-info-circle"></i> إذا كنت تريد تغيير كلمة المرور، يجب عليك إدخال
+                                            كلمة المرور القديمة أولاً
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +130,7 @@
                                             <label>صلاحية المستخدم <span class="tx-danger">*</span></label>
                                             <select name="roles_name[]" class="form-control" multiple>
                                                 @foreach ($roles as $key => $role)
-                                                    <option value="{{ $key }}" 
+                                                    <option value="{{ $key }}"
                                                         {{ in_array($key, $adminRoles) ? 'selected' : '' }}>
                                                         {{ $role }}
                                                     </option>

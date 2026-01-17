@@ -20,22 +20,22 @@ class AdminTableSeeder extends Seeder
         $users = [
             [
                 'id'       => 1,
-                'name'     => 'Islam Khaled',
+                'first_name'     => 'Islam',
+                'last_name'     => 'Khaled',
                 'slug'     => 'Islam-Khaled',
                 'email'    => 'islam.hegazy72@gmail.com',
                 'password' => bcrypt('123456789'),
-                // 'phone'    => '01015949894',
-                // 'role_id'  => 1,
+                'phone'    => '01015949894',
             ],
             [
                 'id'       => 2,
-                'name'     => 'mohamed elabasy',
+                'first_name'     => 'mohamed',
+                'last_name'     => 'elabasy',
                 'slug'     => 'mohamed-elabasy',
 
                 'email'    => 'mohamed.elabasy@gmail.com',
                 'password' => bcrypt('123456789'),
-                // 'phone'    => '01228772551',
-                // 'role_id'  => 2,
+                'phone'    => '01228772551',
             ],
 
         ];
