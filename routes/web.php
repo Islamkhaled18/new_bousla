@@ -10,6 +10,7 @@ use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\MainCategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TermConditionController;
 use Illuminate\Support\Facades\Route;
@@ -68,11 +69,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('about-us', AboutUsController::class);
 
     //roles and permission
-    Route::resource('admins',AdminController::class);
+    Route::resource('admins', AdminController::class);
     Route::post('admins/{admin}/toggle-status', [AdminController::class, 'toggleStatus'])->name('admins.toggle-status')->middleware(['throttle:60,1']);
 
 
-    // Route::resource('roles',RoleController);
+    Route::resource('roles', RoleController::class);
 });
 
 require __DIR__ . '/auth.php';

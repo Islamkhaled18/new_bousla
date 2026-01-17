@@ -24,7 +24,7 @@
                             class="app-menu__label">المشرفين</span></a>
                 </li>
 
-                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('roles.index') }}"><i class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">اوامر وصلاحيات</span></a></li>
             </ul>
         </li>
