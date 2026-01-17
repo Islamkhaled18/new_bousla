@@ -49,7 +49,7 @@
                                         <td><img src="{{ $ad->image_url }}" title="{{ $ad->name }}"
                                                 alt="{{ $ad->name }}" width="60" height="60">
                                         </td>
-                                        <td>{{ $ad->end_date->format('Y-m-d') ?? '--' }}</td>
+                                        <td>{{ optional($ad->end_date)->format('Y-m-d') ?? '--' }}</td>
                                         <td>
                                             <div style="display: flex; align-items: center; gap: 8px;">
                                                 <input class="status-toggle" type="checkbox"
