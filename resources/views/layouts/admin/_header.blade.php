@@ -8,8 +8,6 @@
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
 
-
-
         {{-- notification --}}
         <li class="dropdown" id="notifications">
             {{-- <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"
@@ -22,7 +20,6 @@
             <ul class="app-notification dropdown-menu dropdown-menu-right">
 
                 <div class="app-notification__content">
-
 
                     <li>
                         <a class="app-notification__item" href="#">
@@ -49,15 +46,14 @@
             <ul class="dropdown-menu settings-menu dropdown-menu-right">
                 <li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> الصفحه الشخصيه</a></li>
                 <li>
-                    <a class="dropdown-item" href="page-login.html" href="#"
+                    <a class="dropdown-item" href="#"
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <i class="fa fa-sign-out fa-lg"></i>
                         تسجيل الخروج
-                        <form id="logout-form" action="#" method="get"
-                            style="display: none;">
-                            @csrf
-                        </form>
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </li>

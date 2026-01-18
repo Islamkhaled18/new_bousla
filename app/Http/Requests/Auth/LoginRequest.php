@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,11 +41,39 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // تحديد نوع الحقل (email أو phone)
+        $fieldType = filter_var($this->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+        
+        $credentials = [
+            $fieldType => $this->input('email'),
+            'password' => $this->input('password')
+        ];
+
+        if (! Auth::attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'بيانات الدخول غير صحيحة',
+            ]);
+        }
+
+        // التحقق من نوع المستخدم
+        $user = Auth::user();
+        
+        if ($user->type !== 'admin') {
+            Auth::logout();
+            
+            throw ValidationException::withMessages([
+                'email' => 'أنت لست من مشرفي الموقع',
+            ]);
+        }
+
+        // التحقق من حالة الحساب
+        if ($user->is_active != 1) {
+            Auth::logout();
+            
+            throw ValidationException::withMessages([
+                'email' => 'أنت ممنوع من الدخول، برجاء التواصل مع إدارة الموقع',
             ]);
         }
 
