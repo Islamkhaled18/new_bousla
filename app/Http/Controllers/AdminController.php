@@ -37,6 +37,7 @@ class AdminController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
+            'type' => 'admin'
         ]);
 
         $admin->assignRole($request->roles_name);
@@ -68,6 +69,7 @@ class AdminController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'type' => 'admin'
         ];
 
         if ($request->filled('password') && $request->filled('current_password')) {
