@@ -16,7 +16,7 @@ class AdminController extends Controller
     use ToggleStatusTrait;
     public function index()
     {
-        $admins = User::with('roles')
+        $admins = User::where('type', 'admin')->with('roles')
             ->orderBy('id', 'DESC')
             ->paginate(15);
 

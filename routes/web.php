@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\JoinRequestController;
@@ -80,6 +81,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('join-requests', JoinRequestController::class);
     Route::delete('/join-request-images/{id}', [JoinRequestController::class, 'destroyOrganizationImage'])->name('join-requests.images.destroy');
     Route::post('join-requests/{id}/toggle-status', [JoinRequestController::class, 'toggleStatus'])->name('join-requests.toggleStatus');
+
+    //doctors
+    Route::resource('doctors', DoctorController::class)->only(['index', 'show','destroy']);
+    Route::post('doctors/{doctor}/toggle-status', [DoctorController::class, 'toggleStatus'])->name('doctors.toggle-status')->middleware(['throttle:60,1']);
 });
 
 require __DIR__ . '/auth.php';

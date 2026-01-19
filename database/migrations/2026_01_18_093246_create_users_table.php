@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['admin', 'client', 'provider'])->default('client');
+            $table->enum('type', ['admin', 'client', 'doctor'])->default('client');
             $table->string('slug')->unique();
 
             //required for all
@@ -23,13 +23,13 @@ return new class extends Migration
             $table->string('phone');
             $table->boolean('is_active')->default(1);
 
-            //required for admins and providers
+            //required for admins and doctors
             $table->text('address')->nullable();
 
-            //required for client and provider
+            //required for client and doctor
             $table->string('email')->unique()->nullable();
 
-            //required for provider
+            //required for doctor
             $table->text('about_me')->nullable();
             $table->string('id_number')->unique()->nullable();
             $table->foreignId('job_title_id')->nullable()->constrained('job_titles')->cascadeOnDelete();

@@ -1,19 +1,19 @@
 @extends('layouts.admin.app')
 @section('title')
-    عرض طلب الانضمام -- {{ $joinRequest->full_name }}
+    عرض بيانات الطبيب -- {{ $doctor->full_name }}
 @endsection
 @section('content')
     <main class="app sidebar-mini rtl">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-th-list"></i> طلبات الانضمام </h1>
+                <h1><i class="fa fa-th-list"></i> بيانات الطبيب </h1>
             </div>
             <ul class="app-breadcrumb breadcrumb side">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i><a href="{{ route('dashboard') }}"></a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ route('join-requests.index') }}" title="طلبات الانضمام">طلبات
-                        الانضمام</a></li>
-                <li class="breadcrumb-item active"><a href="#" title="عرض طلب الانضمام">عرض طلب الانضمام</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('doctors.index') }}" title="بيانات الطبيب">الاطباء</a></li>
+                      بيانات الطبيب  </a></li>
+                <li class="breadcrumb-item active"><a href="#" title="عرض بيانات الطبيب">عرض بيانات الطبيب</a></li>
             </ul>
         </div>
         <div class="row">
@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <label for="first_name">الاسم الاول</label>
                                     <input class="form-control" id="first_name" name="first_name" readonly
-                                        value="{{ old('first_name', $joinRequest->first_name) }}" type="text"
+                                        value="{{ old('first_name', $doctor->first_name) }}" type="text"
                                         placeholder="اكتب الاسم الاول">
 
                                 </div>
@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     <label for="last_name">الاسم الثاني</label>
                                     <input class="form-control" id="last_name" name="last_name" readonly
-                                        value="{{ old('last_name', $joinRequest->last_name) }}" type="text"
+                                        value="{{ old('last_name', $doctor->last_name) }}" type="text"
                                         placeholder="اكتب الاسم الثاني">
 
                                 </div>
@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label for="phone">الهاتف</label>
                                     <input class="form-control" id="phone" name="phone" readonly
-                                        value="{{ old('phone', $joinRequest->phone) }}" type="text"
+                                        value="{{ old('phone', $doctor->phone) }}" type="text"
                                         placeholder="اكتب الهاتف">
 
                                 </div>
@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label for="address">العنوان</label>
                                     <input class="form-control" id="address" name="address" readonly
-                                        value="{{ old('address', $joinRequest->address) }}" type="text"
+                                        value="{{ old('address', $doctor->address) }}" type="text"
                                         placeholder="اكتب العنوان">
 
                                 </div>
@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <label for="building_number">رقم العماره</label>
                                     <input class="form-control" id="building_number" name="building_number" readonly
-                                        value="{{ old('building_number', $joinRequest->building_number) }}" type="text"
+                                        value="{{ old('building_number', $doctor->building_number) }}" type="text"
                                         placeholder="رقم العماره">
 
                                 </div>
@@ -80,7 +80,7 @@
                                 <div class="form-group">
                                     <label for="floor_number">رقم الطابق</label>
                                     <input class="form-control" id="floor_number" name="floor_number" readonly
-                                        value="{{ old('floor_number', $joinRequest->floor_number) }}" type="text"
+                                        value="{{ old('floor_number', $doctor->floor_number) }}" type="text"
                                         placeholder="رقم الطابق">
 
                                 </div>
@@ -92,7 +92,7 @@
                                 <div class="form-group">
                                     <label for="apartment_number">رقم الشقه</label>
                                     <input class="form-control" id="apartment_number" name="apartment_number" readonly
-                                        value="{{ old('apartment_number', $joinRequest->apartment_number) }}" type="text"
+                                        value="{{ old('apartment_number', $doctor->apartment_number) }}" type="text"
                                         placeholder="رقم الشقه">
 
                                 </div>
@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                     <label for="email">البريد الالكتروني</label>
                                     <input class="form-control" id="email" name="email" readonly
-                                        value="{{ old('email', $joinRequest->email) }}" type="text"
+                                        value="{{ old('email', $doctor->email) }}" type="text"
                                         placeholder="اكتب البريد الالكتروني">
 
                                 </div>
@@ -114,7 +114,7 @@
                                 <div class="form-group">
                                     <label for="about_me">نبذه عن الدكتور</label>
                                     <input class="form-control" id="about_me" name="about_me" readonly
-                                        value="{{ old('about_me', $joinRequest->about_me) }}" type="text"
+                                        value="{{ old('about_me', $doctor->about_me) }}" type="text"
                                         placeholder="اكتب نبذة عن الدكتور">
 
                                 </div>
@@ -124,7 +124,7 @@
                                 <div class="form-group">
                                     <label for="id_number">رقم البطاقه</label>
                                     <input class="form-control" id="id_number" name="id_number" readonly
-                                        value="{{ old('id_number', $joinRequest->id_number) }}" type="text"
+                                        value="{{ old('id_number', $doctor->id_number) }}" type="text"
                                         placeholder="اكتب رقم البطاقه">
 
                                 </div>
@@ -136,7 +136,7 @@
                                 <div class="form-group">
                                     <label for="organization_name">اسم المنظمة</label>
                                     <input class="form-control" id="organization_name" name="organization_name" readonly
-                                        value="{{ old('organization_name', $joinRequest->organization_name) }}"
+                                        value="{{ old('organization_name', $doctor->organization_name) }}"
                                         type="text" placeholder="اكتب اسم المنظمة">
 
                                 </div>
@@ -147,7 +147,7 @@
                                     <label for="organization_phone_first">رقم هاتف المنظمة</label>
                                     <input class="form-control" id="organization_phone_first"
                                         name="organization_phone_first" readonly
-                                        value="{{ old('organization_phone_first', $joinRequest->organization_phone_first) }}"
+                                        value="{{ old('organization_phone_first', $doctor->organization_phone_first) }}"
                                         type="text" placeholder="اكتب رقم هاتف المنظمة">
 
                                 </div>
@@ -160,7 +160,7 @@
                                     <label for="organization_phone_second">رقم هاتف ثاني للمنظمة</label>
                                     <input class="form-control" id="organization_phone_second" readonly
                                         name="organization_phone_second"
-                                        value="{{ old('organization_phone_second', $joinRequest->organization_phone_second) }}"
+                                        value="{{ old('organization_phone_second', $doctor->organization_phone_second) }}"
                                         type="text" placeholder="رقم هاتف ثاني للمنظمة">
 
                                 </div>
@@ -171,7 +171,7 @@
                                     <label for="organization_phone_third">رقم هاتف ثالث للمنظمة</label>
                                     <input class="form-control" id="organization_phone_third" readonly
                                         name="organization_phone_third"
-                                        value="{{ old('organization_phone_third', $joinRequest->organization_phone_third) }}"
+                                        value="{{ old('organization_phone_third', $doctor->organization_phone_third) }}"
                                         type="text" placeholder="رقم هاتف ثالث للمنظمة">
 
                                 </div>
@@ -183,7 +183,7 @@
                                 <div class="form-group">
                                     <label for="organization_location_url">رابط الموقع</label>
                                     <div>
-                                        <a href="{{ $joinRequest->organization_location_url }}" target="_blank"
+                                        <a href="{{ $doctor->organization_location_url }}" target="_blank"
                                             class="btn btn-outline-primary">
                                             <i class="fas fa-map-marker-alt"></i> عرض الموقع على الخريطة
                                         </a>
@@ -197,7 +197,7 @@
                                     <select class="form-control" id="job_title_id" name="job_title_id" readonly>
                                         @foreach ($job_titles as $job_title)
                                             <option value="{{ $job_title->id }}"
-                                                {{ old('job_title_id', $joinRequest->job_title_id) == $job_title->id ? 'selected' : '' }}>
+                                                {{ old('job_title_id', $doctor->job_title_id) == $job_title->id ? 'selected' : '' }}>
                                                 {{ $job_title->name }}
                                             </option>
                                         @endforeach
@@ -213,7 +213,7 @@
                                     <select class="form-control" id="area_id" name="area_id" readonly>
                                         @foreach ($areas as $area)
                                             <option value="{{ $area->id }}"
-                                                {{ old('area_id', $joinRequest->area_id) == $area->id ? 'selected' : '' }}>
+                                                {{ old('area_id', $doctor->area_id) == $area->id ? 'selected' : '' }}>
                                                 {{ $area->name }}
                                             </option>
                                         @endforeach
@@ -226,11 +226,11 @@
                                     <label for="personal_image">صورة شخصيه</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->personal_image)
+                                    @if ($doctor->personal_image)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->personal_image) }}"
+                                            <a href="{{ asset('storage/' . $doctor->personal_image) }}"
                                                 target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->personal_image) }}"
+                                                <img src="{{ asset('storage/' . $doctor->personal_image) }}"
                                                     alt="Personal Image" class="img-thumbnail"
                                                     style="max-width: 150px; cursor: pointer;">
                                             </a>
@@ -247,10 +247,10 @@
                                     <label for="logo">اللوجو</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->logo)
+                                    @if ($doctor->logo)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->logo) }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->logo) }}" alt="Logo"
+                                            <a href="{{ asset('storage/' . $doctor->logo) }}" target="_blank">
+                                                <img src="{{ asset('storage/' . $doctor->logo) }}" alt="Logo"
                                                     class="img-thumbnail" style="max-width: 150px; cursor: pointer;">
                                             </a>
                                             <p class="text-muted small">الشعار الحالي (اضغط للعرض بحجم كامل)</p>
@@ -264,11 +264,11 @@
                                     <label for="id_image_front">صورة البطاقه الاماميه</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->id_image_front)
+                                    @if ($doctor->id_image_front)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->id_image_front) }}"
+                                            <a href="{{ asset('storage/' . $doctor->id_image_front) }}"
                                                 target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->id_image_front) }}"
+                                                <img src="{{ asset('storage/' . $doctor->id_image_front) }}"
                                                     alt="ID Front" class="img-thumbnail"
                                                     style="max-width: 150px; cursor: pointer;">
                                             </a>
@@ -285,11 +285,11 @@
                                     <label for="id_image_back">صورة البطاقه الخلفيه</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->id_image_back)
+                                    @if ($doctor->id_image_back)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->id_image_back) }}"
+                                            <a href="{{ asset('storage/' . $doctor->id_image_back) }}"
                                                 target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->id_image_back) }}"
+                                                <img src="{{ asset('storage/' . $doctor->id_image_back) }}"
                                                     alt="ID Back" class="img-thumbnail"
                                                     style="max-width: 150px; cursor: pointer;">
                                             </a>
@@ -304,11 +304,11 @@
                                     <label for="graduation_certificate">شهادة التخرج</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->graduation_certificate)
+                                    @if ($doctor->graduation_certificate)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->graduation_certificate) }}"
+                                            <a href="{{ asset('storage/' . $doctor->graduation_certificate) }}"
                                                 target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->graduation_certificate) }}"
+                                                <img src="{{ asset('storage/' . $doctor->graduation_certificate) }}"
                                                     alt="Graduation Certificate" class="img-thumbnail"
                                                     style="max-width: 150px; cursor: pointer;">
                                             </a>
@@ -325,11 +325,11 @@
                                     <label for="professional_license">شهادة مزاولة المهنه</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->professional_license)
+                                    @if ($doctor->professional_license)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->professional_license) }}"
+                                            <a href="{{ asset('storage/' . $doctor->professional_license) }}"
                                                 target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->professional_license) }}"
+                                                <img src="{{ asset('storage/' . $doctor->professional_license) }}"
                                                     alt="Professional License" class="img-thumbnail"
                                                     style="max-width: 150px; cursor: pointer;">
                                             </a>
@@ -344,11 +344,11 @@
                                     <label for="syndicate_card">كارنيه النقابة</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->syndicate_card)
+                                    @if ($doctor->syndicate_card)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->syndicate_card) }}"
+                                            <a href="{{ asset('storage/' . $doctor->syndicate_card) }}"
                                                 target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->syndicate_card) }}"
+                                                <img src="{{ asset('storage/' . $doctor->syndicate_card) }}"
                                                     alt="Syndicate Card" class="img-thumbnail"
                                                     style="max-width: 150px; cursor: pointer;">
                                             </a>
@@ -362,10 +362,10 @@
 
                         <div class="form-group">
                             <label for="photo" class="form-label">صور للمنظمه</label>
-                            @if ($joinRequest->images && $joinRequest->images->count() > 0)
+                            @if ($doctor->images && $doctor->images->count() > 0)
                                 <div class="mt-3">
                                     <div class="row">
-                                        @foreach ($joinRequest->images as $image)
+                                        @foreach ($doctor->images as $image)
                                             <div class="col-md-3 mb-3">
                                                 <div class="position-relative">
                                                     <a href="{{ asset('storage/' . $image->photo) }}" target="_blank">
