@@ -287,7 +287,7 @@ class JoinRequestController extends Controller
 
                 // 4.3 إنشاء المستخدم
                 $user = User::create([
-                    'type' => 'provider',
+                    'type' => 'doctor',
                     'slug' => 'user-' . uniqid(),
                     'first_name' => $joinRequest->first_name,
                     'last_name' => $joinRequest->last_name,
@@ -316,7 +316,7 @@ class JoinRequestController extends Controller
                 }
 
                 // 4.5 تحديد مسار المجلد الجديد
-                $userFolder = "providers/{$user->id}";
+                $userFolder = "doctors/{$user->id}";
 
                 // 4.6 الصور الفردية
                 $imageFields = [

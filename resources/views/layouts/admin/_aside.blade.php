@@ -20,8 +20,8 @@
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
 
-                <li><a class="treeview-item" href="{{ route('admins.index') }}"><i class="app-menu__icon fa fa-user"></i> <span
-                            class="app-menu__label">المشرفين</span></a>
+                <li><a class="treeview-item" href="{{ route('admins.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">المشرفين</span></a>
                 </li>
 
                 <li><a class="treeview-item" href="{{ route('roles.index') }}"><i class="app-menu__icon fa fa-user"></i>
@@ -35,12 +35,12 @@
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
 
-                <li><a class="treeview-item" href="{{ route('main-categories.index') }}"><i class="app-menu__icon fa fa-user"></i> <span
-                            class="app-menu__label">الاقسام
+                <li><a class="treeview-item" href="{{ route('main-categories.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">الاقسام
                             الرئيسيه</span></a></li>
 
-                <li><a class="treeview-item" href="{{ route('categories.index') }}"><i class="app-menu__icon fa fa-user"></i> <span
-                            class="app-menu__label">الاقسام</span></a></li>
+                <li><a class="treeview-item" href="{{ route('categories.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">الاقسام</span></a></li>
             </ul>
         </li>
 
@@ -55,14 +55,16 @@
                     والسياسات</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
 
-                <li><a class="treeview-item" href="{{ route('settings.index') }}"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('settings.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">الاعدادات</span></a></li>
 
-                <li><a class="treeview-item" href="{{ route('terms.index') }}"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('terms.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">الشروط والاحكام </span></a></li>
 
-                <li><a class="treeview-item" href="{{ route('about-us.index') }}"><i class="app-menu__icon fa fa-user"></i> <span
-                            class="app-menu__label">
+                <li><a class="treeview-item" href="{{ route('about-us.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">
                             عن المنظمة</span></a></li>
             </ul>
         </li>
@@ -77,25 +79,28 @@
                             class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">المحافظات</span></a></li>
 
-                <li><a class="treeview-item" href="{{ route('cities.index') }}"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('cities.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">المدن</span></a></li>
 
-                <li><a class="treeview-item" href="{{ route('areas.index') }}"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('areas.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">المناطق</span></a></li>
             </ul>
         </li>
 
 
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
-                    class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> العملاء وطلبات الانضمام
+                    class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> الاطباء وطلبات الانضمام
                 </span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="{{ route('join-requests.index') }}"><i class="app-menu__icon fa fa-user"></i>
+                <li><a class="treeview-item" href="{{ route('join-requests.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">طلبات الانضمام</span></a></li>
 
-                <li><a class="treeview-item" href="#"><i class="app-menu__icon fa fa-user"></i>
-                        <span class="app-menu__label">العملاء </span></a></li>
-
+                <li><a class="treeview-item" href="{{ route('doctors.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
+                        <span class="app-menu__label">الاطباء </span></a></li>
             </ul>
         </li>
 
