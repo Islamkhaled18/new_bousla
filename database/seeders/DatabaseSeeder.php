@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             SettingTableSeeder::class,
             TermsConditionsTableSeeder::class,
             AboutUsTableSeeder::class,
+            JoinRequestTableSeeder::class,
         ]);
     }
 }

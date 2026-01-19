@@ -11,25 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('join_requests', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['admin', 'client', 'provider'])->default('client');
             $table->string('slug')->unique();
 
-            //required for all
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('password');
             $table->string('phone');
-            $table->boolean('is_active')->default(1);
-
-            //required for admins and providers
             $table->text('address')->nullable();
-            
-            //required for client and provider
             $table->string('email')->unique()->nullable();
-
-            //required for provider
             $table->text('about_me')->nullable();
             $table->string('id_number')->unique()->nullable();
             $table->foreignId('job_title_id')->nullable()->constrained('job_titles')->cascadeOnDelete();
@@ -39,6 +29,9 @@ return new class extends Migration
             $table->string('organization_phone_second')->nullable();
             $table->string('organization_phone_third')->nullable();
             $table->string('organization_location_url')->nullable();
+            $table->integer('building_number')->nullable();
+            $table->integer('floor_number')->nullable();
+            $table->integer('apartment_number')->nullable();
             $table->string('personal_image')->nullable();
             $table->string('logo')->nullable();
             $table->string('id_image_front')->nullable();
@@ -47,25 +40,10 @@ return new class extends Migration
             $table->string('professional_license')->nullable();
             $table->string('syndicate_card')->nullable();
 
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+
             $table->softDeletes();
             $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
         });
     }
 
@@ -74,8 +52,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('join_requests');
     }
 };

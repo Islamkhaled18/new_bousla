@@ -46,6 +46,9 @@ class User extends Authenticatable
         'graduation_certificate',
         'professional_license',
         'syndicate_card',
+        'building_number',
+        'floor_number',
+        'apartment_number',
         'roles_name',
     ];
 
@@ -80,5 +83,10 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function images()
+    {
+        return $this->hasMany(UserImage::class, 'user_id');
     }
 }

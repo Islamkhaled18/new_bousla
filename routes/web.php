@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
+use App\Http\Controllers\JoinRequestController;
 use App\Http\Controllers\MainCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -68,12 +69,17 @@ Route::middleware('auth')->group(function () {
     //about-us
     Route::resource('about-us', AboutUsController::class);
 
-    //roles and permission
+    //admins
     Route::resource('admins', AdminController::class);
     Route::post('admins/{admin}/toggle-status', [AdminController::class, 'toggleStatus'])->name('admins.toggle-status')->middleware(['throttle:60,1']);
 
-
+    //roles
     Route::resource('roles', RoleController::class);
+
+    //join-requests
+    Route::resource('join-requests', JoinRequestController::class);
+    Route::delete('/join-request-images/{id}', [JoinRequestController::class, 'destroyOrganizationImage'])->name('join-requests.images.destroy');
+    Route::post('join-requests/{id}/toggle-status', [JoinRequestController::class, 'toggleStatus'])->name('join-requests.toggleStatus');
 });
 
 require __DIR__ . '/auth.php';
