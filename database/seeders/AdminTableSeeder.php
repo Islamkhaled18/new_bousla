@@ -43,7 +43,8 @@ class AdminTableSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            User::create($user);
+           $user = User::create($user);
+           $user->regenerateNickname();
         }
     }
 }

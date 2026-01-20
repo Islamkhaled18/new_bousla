@@ -19,6 +19,7 @@ return new class extends Migration
             //required for all
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('nick_name')->nullable();
             $table->string('password')->nullable();
             $table->string('phone');
             $table->boolean('is_active')->default(1);
