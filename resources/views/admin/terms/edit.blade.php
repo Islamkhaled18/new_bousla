@@ -46,6 +46,24 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="role">الدور</label>
+                                    <select class="form-control" id="role" name="role">
+                                        <option value="general" {{ old('role', $term->role) == 'general' ? 'selected' : '' }}>عام</option>
+                                        <option value="patient" {{ old('role', $term->role) == 'patient' ? 'selected' : '' }}>مريض</option>
+                                        <option value="doctor" {{ old('role', $term->role) == 'doctor' ? 'selected' : '' }}>طبيب</option>
+                                    </select>
+                                    @error('role')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="version">الاصدار</label>
+                                    <input type="text" class="form-control" id="version" name="version" placeholder="مثال: v1.0" value="{{ old('version', $term->version) }}">
+                                    @error('version')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="tile-footer">
                                     <button class="btn btn-primary" type="submit">تعديل</button>
                                 </div>

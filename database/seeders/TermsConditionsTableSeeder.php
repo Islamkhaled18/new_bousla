@@ -15,13 +15,16 @@ class TermsConditionsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        TermCondition::truncate();
+        DB::table('terms_conditions')->delete();
         $terms_conditions = [
             [
                 'id'      => 1,
                 'name'    => 'شروط واحكام شروط واحكام شروط واحكام ',
                 'name_en' => 'terms and conditions and conditions and conditions ',
                 'uuid'    => Str::uuid()->toString(),
+                'version' => 'v1.0',
+                'role'    => 'general',
+                'is_active' => 1,
 
             ],
 

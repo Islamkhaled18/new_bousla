@@ -39,6 +39,15 @@ class TermConditionRequest extends FormRequest
                 'max:10000',
                 Rule::unique('terms_conditions', 'name_en')->ignore($termConditionId)
             ],
+            'role' => [
+                'required',
+                Rule::in(['general', 'patient', 'doctor']),
+            ],
+            'version' => [
+                'required',
+                'string',
+                'max:20',
+            ],
         ];
     }
 

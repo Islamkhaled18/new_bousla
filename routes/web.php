@@ -65,7 +65,9 @@ Route::middleware('auth')->group(function () {
     });
 
     //terms
-    Route::resource('terms', TermConditionController::class);
+    Route::resource('terms', TermConditionController::class)->except('show');
+    Route::post('terms/{term}/toggle-status', [TermConditionController::class, 'toggleStatus'])->name('terms.toggle-status')->middleware(['throttle:60,1']);
+    Route::get('terms/acceptances', [TermConditionController::class, 'termAcceptances'])->name('terms.acceptances');
 
     //about-us
     Route::resource('about-us', AboutUsController::class);

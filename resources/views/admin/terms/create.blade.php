@@ -42,6 +42,25 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label for="role">الدور</label>
+                                <select class="form-control" id="role" name="role">
+                                    <option value="general">عام</option>
+                                    <option value="patient">مريض</option>
+                                    <option value="doctor">طبيب</option>
+                                </select>
+                                @error('role')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="version">الاصدار</label>
+                                <input type="text" class="form-control" id="version" name="version" value="{{old('version')}}" placeholder="مثال: v1.0">
+                                @error('version')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div class="tile-footer">
                                 <button class="btn btn-primary" type="submit">حفظ</button>
                             </div>

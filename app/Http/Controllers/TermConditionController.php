@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TermConditionRequest;
 use App\Models\TermCondition;
+use App\Models\TermsAcceptance;
+use App\Traits\ToggleStatusTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TermConditionController extends Controller
 {
+    use ToggleStatusTrait;
+
     public function index()
     {
         $terms = TermCondition::paginate(10);
@@ -63,4 +67,17 @@ class TermConditionController extends Controller
             return back()->with('error', 'حدث خطأ أثناء الحذف');
         }
     } //end of destroy
+
+    public function toggleStatus(TermCondition $term)
+    {
+        return $this->toggleStatusModel($term);
+    } //end of toggleStatus
+
+    public function termAcceptances()
+    {
+        $acceptances = TermsAcceptance::with(['user:id,first_name,last_name', 'termCondition:id,name,version'])
+            ->paginate(10);
+
+        return view('admin.terms.acceptances', compact('acceptances'));
+    }
 }
