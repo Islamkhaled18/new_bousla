@@ -87,6 +87,7 @@
         </div>
     </main>
 @endsection
+
 @push('scripts')
     <script type="text/javascript">
         $('.status-toggle').change(function() {

@@ -12,4 +12,9 @@ class TermCondition extends Model
 
     protected $table   = 'terms_conditions';
     protected $guarded = ['id'];
+
+    public function acceptances()
+    {
+        return $this->hasMany(TermsAcceptance::class, 'terms_condition_id');
+    }
 }

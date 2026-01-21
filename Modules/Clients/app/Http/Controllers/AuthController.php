@@ -3,9 +3,12 @@
 namespace Modules\Clients\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\TermCondition;
+use App\Models\TermsAcceptance;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\Clients\app\Http\Requests\LoginRequest;
 use Modules\Clients\app\Http\Requests\RegisterRequest;
@@ -15,21 +18,46 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name'  => $request->last_name,
-            'phone'      => $request->phone,
-            'password'   => Hash::make($request->password),
-            'type'       => 'client',
-        ]);
+        DB::beginTransaction();
+        try {
+            $user = User::create([
+                'first_name' => $request->first_name,
+                'last_name'  => $request->last_name,
+                'phone'      => $request->phone,
+                'password'   => Hash::make($request->password),
+                'type'       => 'client',
+            ]);
 
-        $token = $user->createToken('api-token')->plainTextToken;
+            $termCondition = TermCondition::where('uuid', $request->terms_condition_uuid)->first();
 
-        return response()->json([
-            'message' => 'تم إنشاء الحساب بنجاح',
-            'token'   => $token,
-            'user'    => $user,
-        ], 201);
+            TermsAcceptance::create([
+                'user_id' => $user->id,
+                'terms_condition_id' => $termCondition->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'accepted_at' => now(),
+            ]);
+
+            $token = $user->createToken('api-token')->plainTextToken;
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'تم إنشاء الحساب بنجاح',
+                'data' => [
+                    'token' => $token,
+                    'user' => $user,
+                ]
+            ], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'message' => 'حدث خطأ أثناء إنشاء الحساب',
+            ], 500);
+        }
     }
 
     public function login(LoginRequest $request)
@@ -77,6 +105,17 @@ class AuthController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'user' => new LoginResource($user),
+            ],
+        ], 200);
     }
 
 
