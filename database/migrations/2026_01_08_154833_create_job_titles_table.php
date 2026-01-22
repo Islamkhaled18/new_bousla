@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->string('slug')->unique();
             $table->boolean('is_active')->default(1);
+
+            $table->string('icon')->nullable();    
+            $table->string('icon_color')->default('#00B6B0');
+            $table->string('bg_color')->default('#E6F7F6');
             $table->timestamps();
         });
     }

@@ -37,6 +37,21 @@ class JobTitleRequest extends FormRequest
                 'max:91',
                 'unique:job_titles,name_en,' . $jobTitleId
             ],
+            'icon' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'icon_color' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'bg_color' => [
+                'required',
+                'string',
+                'max:255'
+            ]
         ];
     }
 
