@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('icon')->nullable();    
             $table->string('icon_color')->default('#00B6B0');
             $table->string('bg_color')->default('#E6F7F6');
+
+            $table->string('icon_unicode')->nullable();
+            $table->string('icon_family')->default('MaterialIcons');
             $table->timestamps();
         });
     }

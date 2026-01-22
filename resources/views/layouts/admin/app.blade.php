@@ -47,6 +47,7 @@
 
     <!-- Magnific Popup CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    
 
     <!-- Main CSS (إذا كان موجود) -->
     @if (file_exists(public_path('admin/css/main.css')))
