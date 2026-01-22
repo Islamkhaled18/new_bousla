@@ -18,9 +18,27 @@ class JobTitle extends Model
         'icon',
         'icon_color',
         'bg_color',
+
+        'icon_color',
+        'bg_color',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+     protected $appends = ['flutter_icon'];
+
+    /**
+     * Get Flutter-compatible icon data
+     */
+    public function getFlutterIconAttribute(): array
+    {
+        return [
+            'codePoint' => hexdec(str_replace('0x', '', $this->icon_unicode ?? '0xe3f0')),
+            'fontFamily' => $this->icon_family ?? 'MaterialIcons',
+            'color' => $this->icon_color,
+            'backgroundColor' => $this->bg_color,
+        ];
+    }
 }
