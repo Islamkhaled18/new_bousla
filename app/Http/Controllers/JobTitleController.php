@@ -14,7 +14,7 @@ class JobTitleController extends Controller
     public function index()
     {
 
-        $job_titles = JobTitle::paginate(10);
+        $job_titles = JobTitle::paginate(50);
         return view('admin.job_titles.index', compact('job_titles'));
     } //end of index
 

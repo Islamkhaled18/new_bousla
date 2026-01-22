@@ -15,6 +15,9 @@ class JobTitle extends Model
         'name_en',
         'slug',
         'is_active',
+        'icon',
+        'icon_color',
+        'bg_color',
     ];
 
     protected $casts = [

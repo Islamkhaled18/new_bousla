@@ -31,6 +31,7 @@
                                     <th>#</th>
                                     <th>الوظيفه</th>
                                     <th>الوظيفه بالانجليزية</th>
+                                    <th>الايقونه</th>
                                     <th>الحالة</th>
                                     <th>العمليات</th>
 
@@ -43,6 +44,16 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $job_title->name }}</td>
                                         <td>{{ $job_title->name_en }}</td>
+                                        <td>
+                                            <div
+                                                style="display: inline-flex; align-items: center; justify-content: center; 
+                width: 45px; height: 45px; border-radius: 8px; 
+                background-color: {{ $job_title->bg_color }};">
+                                                <i class="fas {{ $job_title->icon }}"
+                                                    style="font-size: 20px; color: {{ $job_title->icon_color }};"></i>
+                                            </div>
+                                        </td>
+
                                         <td>
                                             {{-- @can('jobs.edit') --}}
                                             <div style="display: flex; align-items: center; gap: 8px;">
