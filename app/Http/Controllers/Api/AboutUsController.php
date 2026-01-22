@@ -18,6 +18,6 @@ class AboutUsController extends Controller
             'data' => [
                 'about_us' =>  AboutUsResource::collection($about_us),
             ]
-        ], 201);
+        ], 200);
     }
 }

@@ -18,4 +18,11 @@ class Ad extends Model
         'is_active'  => 'boolean',
         'end_date'   => 'date',
     ];
+
+    //   protected $appends = ['image_url']; // ✅ هيضاف تلقائي
+
+    // public function getImageUrlAttribute()
+    // {
+    //     return $this->image ? asset('storage/' . $this->image) : null;
+    // }
 }

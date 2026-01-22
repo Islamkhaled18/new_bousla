@@ -23,6 +23,6 @@ class TermsConditionController extends Controller
                 'data' => [
                     'term' => new TermConditionResource($term),
                 ]
-            ], 201);
+            ], 200);
     }
 }
