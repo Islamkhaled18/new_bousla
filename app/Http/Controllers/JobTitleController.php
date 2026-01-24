@@ -58,11 +58,12 @@ class JobTitleController extends Controller
 
     public function destroy(JobTitle $job_title)
     {
+        if ($job_title->users()->exists()) {
+             return redirect()->back()->with('error', 'لا يمكن حذف الوظيفة لأنها مرتبطة ببيانات أخرى');
+        }
+        
         DB::beginTransaction();
         try {
-            // if ($job_title->users()->exists()) {
-            //     return back()->with('error', 'لا يمكن حذف الوظيفة لأنها مرتبطة ببيانات أخرى');
-            // }
 
             $job_title->delete();
             DB::commit();

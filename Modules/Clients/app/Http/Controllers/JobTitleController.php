@@ -28,4 +28,26 @@ class JobTitleController extends Controller
             ]
         ], 200);
     }
+
+    public function getDoctorByJobTitle($jobTitleId)
+    {
+        $jobTitle = JobTitle::with(['users' => function ($q) {
+            $q->activeDoctors();
+        }])->find($jobTitleId);
+
+
+        if (!$jobTitle) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Job Title not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'doctors' => $jobTitle->users
+            ]
+        ], 200);
+    }
 }

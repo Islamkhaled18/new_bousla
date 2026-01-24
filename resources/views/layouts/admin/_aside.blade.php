@@ -66,6 +66,14 @@
                 <li><a class="treeview-item" href="{{ route('about-us.index') }}"><i
                             class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">
                             عن المنظمة</span></a></li>
+
+                <li><a class="treeview-item" href="{{ route('faqs.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">
+                            الأسئلة الشائعة</span></a></li>
+
+                <li><a class="treeview-item" href="{{ route('privacy-policies.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i> <span class="app-menu__label">
+                            سياسة الخصوصية</span></a></li>
             </ul>
         </li>
 
