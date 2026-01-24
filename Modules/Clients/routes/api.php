@@ -15,5 +15,6 @@ Route::prefix('clients')->group(function () {
 Route::middleware(['auth:sanctum'])->prefix('clients')->group(function () {
     Route::get('profile', [AuthController::class, 'profile']);
     Route::get('job-titles', [JobTitleController::class, 'index']);
+    Route::get('job-titles/{jobTitleId}/doctors', [JobTitleController::class, 'getDoctorByJobTitle']);
     Route::post('logout', [AuthController::class, 'logout']);
 });

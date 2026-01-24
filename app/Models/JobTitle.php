@@ -27,7 +27,7 @@ class JobTitle extends Model
         'is_active' => 'boolean',
     ];
 
-     protected $appends = ['flutter_icon'];
+    protected $appends = ['flutter_icon'];
 
     /**
      * Get Flutter-compatible icon data
@@ -40,5 +40,10 @@ class JobTitle extends Model
             'color' => $this->icon_color,
             'backgroundColor' => $this->bg_color,
         ];
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'job_title_id');
     }
 }

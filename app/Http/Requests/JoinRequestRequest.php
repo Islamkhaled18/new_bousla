@@ -29,7 +29,7 @@ class JoinRequestRequest extends FormRequest
             'image',
             'mimes:png,jpg,jpeg,webp',
             'max:5120',
-            'dimensions:min_width=300,min_height=200,max_width=3000,max_height=3000'
+            // 'dimensions:min_width=300,min_height=200,max_width=3000,max_height=3000'
         ];
 
         return [

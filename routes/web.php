@@ -8,10 +8,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\JoinRequestController;
 use App\Http\Controllers\MainCategoryController;
+use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -85,6 +87,15 @@ Route::middleware('auth')->group(function () {
     //doctors
     Route::resource('doctors', DoctorController::class)->only(['index', 'show', 'destroy']);
     Route::post('doctors/{doctor}/toggle-status', [DoctorController::class, 'toggleStatus'])->name('doctors.toggle-status')->middleware(['throttle:60,1']);
-});
+
+
+     //faqs
+    Route::resource('faqs', FaqController::class);
+    Route::post('faqs/{faq}/toggle-status', [FaqController::class, 'toggleStatus'])->name('faqs.toggle-status')->middleware(['throttle:60,1']);
+
+     //privacy-policies
+    Route::resource('privacy-policies', PrivacyPolicyController::class);
+
+    });
 
 require __DIR__ . '/auth.php';

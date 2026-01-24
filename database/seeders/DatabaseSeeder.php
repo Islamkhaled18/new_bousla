@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             TermsConditionsTableSeeder::class,
             AboutUsTableSeeder::class,
             JoinRequestTableSeeder::class,
+            FaqSeeder::class,
+            PrivacyPolicySeeder::class,
         ]);
     }
 }

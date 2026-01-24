@@ -104,4 +104,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserImage::class, 'user_id');
     }
+
+
+    //scopes
+
+
+    public function scopeActiveDoctors($query)
+    {
+        return $query->where('is_active', 1)
+            ->where('type', 'doctor');
+    }
 }
