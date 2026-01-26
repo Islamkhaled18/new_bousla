@@ -34,6 +34,7 @@ class User extends Authenticatable
         'is_active',
         'address',
         'email',
+        'gender',
         'about_me',
         'id_number',
         'job_title_id',

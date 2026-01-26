@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Clients\app\Http\Controllers\AuthController;
 use Modules\Clients\app\Http\Controllers\TermsConditionController;
 use Modules\Clients\app\Http\Controllers\JobTitleController;
+use Modules\Clients\app\Http\Controllers\ProfileController;
 
 Route::prefix('clients')->group(function () {
     Route::get('terms-and-conditions', [TermsConditionController::class, 'index']);
@@ -17,4 +18,5 @@ Route::middleware(['auth:sanctum'])->prefix('clients')->group(function () {
     Route::get('job-titles', [JobTitleController::class, 'index']);
     Route::get('job-titles/{jobTitleId}/doctors', [JobTitleController::class, 'getDoctorByJobTitle']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::put('/profile', [ProfileController::class, 'update']);
 });

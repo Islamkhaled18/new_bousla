@@ -18,6 +18,7 @@ class JoinRequest extends Model
         'phone',
         'address',
         'email',
+        'gender',
         'about_me',
         'id_number',
         'job_title_id',
