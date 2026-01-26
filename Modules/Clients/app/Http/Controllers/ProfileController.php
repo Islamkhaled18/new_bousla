@@ -24,15 +24,32 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'type' => 'client',
-            'gender' => $request->gender,
-            'id_number' => $request->id_number,
-        ];
+        // Only include fields that are present in the request
+        $data = [];
+        
+        if ($request->filled('first_name')) {
+            $data['first_name'] = $request->first_name;
+        }
+        
+        if ($request->filled('last_name')) {
+            $data['last_name'] = $request->last_name;
+        }
+        
+        if ($request->filled('email')) {
+            $data['email'] = $request->email;
+        }
+        
+        if ($request->filled('phone')) {
+            $data['phone'] = $request->phone;
+        }
+        
+        if ($request->filled('gender')) {
+            $data['gender'] = $request->gender;
+        }
+        
+        if ($request->filled('id_number')) {
+            $data['id_number'] = $request->id_number;
+        }
 
         if ($request->filled('password') && $request->filled('current_password')) {
             $data['password'] = Hash::make($request->password);

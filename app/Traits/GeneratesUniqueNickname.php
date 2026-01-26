@@ -18,8 +18,8 @@ trait GeneratesUniqueNickname
         });
 
         static::updating(function ($model) {
-            // إذا تم تغيير الاسم الأول أو الأخير وكان nick_name فارغ أو تم حذفه
-            if ($model->isDirty(['first_name', 'last_name']) && empty($model->nick_name)) {
+            // إذا تم تغيير الاسم الأول أو الأخير، نولد nick_name جديد
+            if ($model->isDirty(['first_name', 'last_name'])) {
                 $model->nick_name = $model->generateUniqueNickname();
             }
         });
