@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone');
             $table->text('address')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->enum('gender', ['male', 'female'])->default('male');
             $table->text('about_me')->nullable();
             $table->string('id_number')->unique()->nullable();
             $table->foreignId('job_title_id')->nullable()->constrained('job_titles')->cascadeOnDelete();

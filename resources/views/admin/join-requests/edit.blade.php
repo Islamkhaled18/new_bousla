@@ -26,7 +26,7 @@
                             @method('PUT')
 
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="first_name">الاسم الاول</label>
                                         <input class="form-control" id="first_name" name="first_name"
@@ -38,13 +38,31 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="last_name">الاسم الثاني</label>
                                         <input class="form-control" id="last_name" name="last_name"
                                             value="{{ old('last_name', $joinRequest->last_name) }}" type="text"
                                             placeholder="اكتب الاسم الثاني">
                                         @error('last_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                {{-- gender --}}
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="gender">الجنس</label>
+                                        <select class="form-control" id="gender" name="gender">
+                                            <option value="male"
+                                                {{ old('gender', $joinRequest->gender) == 'male' ? 'selected' : '' }}>ذكر
+                                            </option>
+                                            <option value="female"
+                                                {{ old('gender', $joinRequest->gender) == 'female' ? 'selected' : '' }}>أنثى
+                                            </option>
+                                        </select>
+                                        @error('gender')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>

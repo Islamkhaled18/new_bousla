@@ -22,7 +22,7 @@
                     <div class="tile-body">
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="first_name">الاسم الاول</label>
                                     <input class="form-control" id="first_name" name="first_name" readonly
@@ -32,13 +32,27 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="last_name">الاسم الثاني</label>
                                     <input class="form-control" id="last_name" name="last_name" readonly
                                         value="{{ old('last_name', $joinRequest->last_name) }}" type="text"
                                         placeholder="اكتب الاسم الثاني">
+                                </div>
+                            </div>
 
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="gender">الجنس</label>
+                                    <select class="form-control" id="gender" name="gender" readonly>
+                                        <option value="male"
+                                            {{ old('gender', $joinRequest->gender) == 'male' ? 'selected' : '' }}>ذكر
+                                        </option>
+                                        <option value="female"
+                                            {{ old('gender', $joinRequest->gender) == 'female' ? 'selected' : '' }}>أنثى
+                                        </option>
+                                    </select>
+                                
                                 </div>
                             </div>
                         </div>
@@ -92,8 +106,8 @@
                                 <div class="form-group">
                                     <label for="apartment_number">رقم الشقه</label>
                                     <input class="form-control" id="apartment_number" name="apartment_number" readonly
-                                        value="{{ old('apartment_number', $joinRequest->apartment_number) }}" type="text"
-                                        placeholder="رقم الشقه">
+                                        value="{{ old('apartment_number', $joinRequest->apartment_number) }}"
+                                        type="text" placeholder="رقم الشقه">
 
                                 </div>
                             </div>

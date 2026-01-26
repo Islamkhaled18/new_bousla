@@ -65,6 +65,10 @@ class JoinRequestRequest extends FormRequest
                 'max:191',
                 Rule::unique('join_requests', 'email')->ignore($joinRequestId)
             ],
+            'gender' => [
+                $isCreating ? 'required' : 'sometimes',
+                'in:male,female',
+            ],
             'about_me' => [
                 'required',
                 'string',

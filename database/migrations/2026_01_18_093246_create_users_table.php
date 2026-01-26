@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('phone');
             $table->boolean('is_active')->default(1);
+            $table->enum('gender', ['male', 'female'])->default('male');
 
             //required for admins and doctors
             $table->text('address')->nullable();

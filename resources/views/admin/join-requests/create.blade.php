@@ -11,7 +11,8 @@
             <ul class="app-breadcrumb breadcrumb side">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i><a href="{{ route('dashboard') }}"></a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ route('join-requests.index') }}" title="طلبات الانضمام">طلبات الانضمام</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('join-requests.index') }}" title="طلبات الانضمام">طلبات
+                        الانضمام</a></li>
                 <li class="breadcrumb-item active"><a href="{{ route('join-requests.create') }}"
                         title="انشاء طلب انضمام جديد">إانشاء طلب انضمام جديد</a></li>
             </ul>
@@ -25,7 +26,7 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="first_name">الاسم الاول</label>
                                         <input class="form-control" id="first_name" name="first_name"
@@ -36,12 +37,28 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="last_name">الاسم الثاني</label>
                                         <input class="form-control" id="last_name" name="last_name"
                                             value="{{ old('last_name') }}" type="text" placeholder="اكتب الاسم الثاني">
                                         @error('last_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                {{-- /gender --}}
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="gender">الجنس</label>
+                                        <select class="form-control" id="gender" name="gender">
+                                            <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>ذكر
+                                            </option>
+                                            <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>أنثى
+                                            </option>
+                                        </select>
+                                        @error('gender')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -101,7 +118,8 @@
                                     <div class="form-group">
                                         <label for="apartment_number">رقم الشقه</label>
                                         <input class="form-control" id="apartment_number" name="apartment_number"
-                                            value="{{ old('apartment_number') }}" type="text" placeholder="رقم الشقه">
+                                            value="{{ old('apartment_number') }}" type="text"
+                                            placeholder="رقم الشقه">
                                         @error('apartment_number')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror

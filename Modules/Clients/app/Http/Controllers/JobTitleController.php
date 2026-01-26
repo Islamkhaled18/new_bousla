@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobTitle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Modules\Clients\app\Transformers\DoctorByJobTitleResource;
 use Modules\Clients\app\Transformers\JobTitleResource;
 
 class JobTitleController extends Controller
@@ -46,7 +47,8 @@ class JobTitleController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'doctors' => $jobTitle->users
+                // 'doctors' => $jobTitle->users
+                 'doctors' => DoctorByJobTitleResource::collection($jobTitle->users)
             ]
         ], 200);
     }

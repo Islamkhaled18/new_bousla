@@ -296,6 +296,7 @@ class JoinRequestController extends Controller
                     'is_active' => 1,
                     'address' => $joinRequest->address,
                     'email' => $joinRequest->email,
+                    'gender' => $joinRequest->gender,
                     'about_me' => $joinRequest->about_me,
                     'id_number' => $joinRequest->id_number,
                     'job_title_id' => $joinRequest->job_title_id,
