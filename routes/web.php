@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\FaqController;
@@ -88,14 +89,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('doctors', DoctorController::class)->only(['index', 'show', 'destroy']);
     Route::post('doctors/{doctor}/toggle-status', [DoctorController::class, 'toggleStatus'])->name('doctors.toggle-status')->middleware(['throttle:60,1']);
 
+    //clients
+    Route::resource('clients', ClientController::class)->only(['index', 'show', 'destroy']);
+    Route::post('clients/{client}/toggle-status', [ClientController::class, 'toggleStatus'])->name('clients.toggle-status')->middleware(['throttle:60,1']);
 
-     //faqs
+    //faqs
     Route::resource('faqs', FaqController::class);
     Route::post('faqs/{faq}/toggle-status', [FaqController::class, 'toggleStatus'])->name('faqs.toggle-status')->middleware(['throttle:60,1']);
 
-     //privacy-policies
+    //privacy-policies
     Route::resource('privacy-policies', PrivacyPolicyController::class);
-
-    });
+});
 
 require __DIR__ . '/auth.php';

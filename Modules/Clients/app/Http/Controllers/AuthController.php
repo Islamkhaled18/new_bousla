@@ -79,6 +79,21 @@ class AuthController extends Controller
                 ], 404);
             }
 
+
+            if ($user->type !== 'client') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'عذراً، هذا الحساب ليس حساب عميل',
+                ], 403);
+            }
+
+            if ($user->is_active == 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'حسابك غير مفعل. يرجى التواصل مع الدعم.',
+                ], 403);
+            }
+
             // Check password
             if (!Hash::check($request->password, $user->password)) {
                 return response()->json([

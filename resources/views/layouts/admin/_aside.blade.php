@@ -112,5 +112,16 @@
             </ul>
         </li>
 
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                    class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label"> العملاء
+                </span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+
+                <li><a class="treeview-item" href="{{ route('clients.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
+                        <span class="app-menu__label">العملاء </span></a></li>
+            </ul>
+        </li>
+
     </ul>
 </aside>
