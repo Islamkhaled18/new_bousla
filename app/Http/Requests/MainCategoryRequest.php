@@ -47,7 +47,7 @@ class MainCategoryRequest extends FormRequest
                 'image',
                 'mimes:png,jpg,jpeg,webp', 
                 'max:5120',
-                'dimensions:min_width=100,min_height=100,max_width=2000,max_height=2000'
+                // 'dimensions:min_width=100,min_height=100,max_width=2000,max_height=2000'
             ],
         ];
     }
