@@ -51,6 +51,8 @@ return new class extends Migration
             $table->string('graduation_certificate')->nullable();
             $table->string('professional_license')->nullable();
             $table->string('syndicate_card')->nullable();
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->text('admin_notes')->nullable();
 
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

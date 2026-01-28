@@ -38,20 +38,20 @@ class JoinRequestRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:191',
-                Rule::unique('join_requests', 'first_name')->ignore($joinRequestId)
+                Rule::unique('users', 'first_name')->ignore($joinRequestId)
             ],
             'last_name' => [
                 'nullable',
                 'string',
                 'min:3',
                 'max:191',
-                Rule::unique('join_requests', 'last_name')->ignore($joinRequestId)
+                Rule::unique('users', 'last_name')->ignore($joinRequestId)
             ],
             'phone' => [
                 $isCreating ? 'required' : 'sometimes',
                 'string',
                 'regex:/^01[0-9]{9}$/',
-                Rule::unique('join_requests', 'phone')->ignore($joinRequestId)
+                Rule::unique('users', 'phone')->ignore($joinRequestId)
             ],
             'address' => [
                 $isCreating ? 'required' : 'sometimes',
@@ -63,7 +63,7 @@ class JoinRequestRequest extends FormRequest
                 $isCreating ? 'required' : 'sometimes',
                 'email',
                 'max:191',
-                Rule::unique('join_requests', 'email')->ignore($joinRequestId)
+                Rule::unique('users', 'email')->ignore($joinRequestId)
             ],
             'gender' => [
                 $isCreating ? 'required' : 'sometimes',
@@ -78,7 +78,7 @@ class JoinRequestRequest extends FormRequest
                 $isCreating ? 'required' : 'sometimes',
                 'string',
                 'regex:/^[0-9]{14}$/',
-                Rule::unique('join_requests', 'id_number')->ignore($joinRequestId)
+                Rule::unique('users', 'id_number')->ignore($joinRequestId)
             ],
             'job_title_id' => [
                 $isCreating ? 'required' : 'sometimes',

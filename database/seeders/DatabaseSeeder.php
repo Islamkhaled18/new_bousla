@@ -16,20 +16,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AdminTableSeeder::class,
-            RolePermissionSeeder::class,
-            PermissionTableSeeder::class,
             JobTitleTableSeeder::class,
             GovernorateTableSeeder::class,
             CityTableSeeder::class,
             AreaTableSeeder::class,
+            UserTableSeeder::class,
+            RolePermissionSeeder::class,
+            PermissionTableSeeder::class,
             MainCategoryTableSeeder::class,
             CategoryTableSeeder::class,
             AdTableSeeder::class,
             SettingTableSeeder::class,
             TermsConditionsTableSeeder::class,
             AboutUsTableSeeder::class,
-            JoinRequestTableSeeder::class,
             FaqSeeder::class,
             PrivacyPolicySeeder::class,
         ]);
