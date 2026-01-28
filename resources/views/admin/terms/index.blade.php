@@ -47,7 +47,7 @@
                                         <td>
                                             {{ match ($term->role) {
                                                 'general' => 'عام',
-                                                'patient' => 'مريض',
+                                                'client' => 'عميل',
                                                 'doctor' => 'دكتور',
                                                 default => $term->role,
                                             } }}

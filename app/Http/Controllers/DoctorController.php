@@ -22,7 +22,7 @@ class DoctorController extends Controller
 
     public function index()
     {
-        $doctors = User::where('type', 'doctor')
+        $doctors = User::where('type', 'doctor')->where('status', 'accepted')
             ->orderBy('id', 'DESC')
             ->paginate(15);
 

@@ -18,7 +18,6 @@ class RegisterRequest extends FormRequest
             'phone'      => 'required|string|max:20|unique:users,phone',
             'password'   => 'required|string|min:8|confirmed',
             'is_accept_terms' => 'required|in:1',
-            'terms_condition_uuid' => ['required', 'exists:terms_conditions,uuid', new ValidTermsCondition('patient')],
 
 
         ];
@@ -35,8 +34,6 @@ class RegisterRequest extends FormRequest
             'password.confirmed'  => 'تأكيد كلمة المرور غير متطابق',
             'is_accept_terms.required' => 'يجب الموافقة على الشروط والأحكام',
             'is_accept_terms.in' => 'يجب الموافقة على الشروط والأحكام',
-            'terms_condition_uuid.required' => 'معرف الشروط والأحكام مطلوب',
-            'terms_condition_uuid.exists' => 'الشروط والأحكام غير موجودة',
         ];
     }
 

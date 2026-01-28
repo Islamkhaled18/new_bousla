@@ -23,7 +23,7 @@ class TermsConditionsTableSeeder extends Seeder
                 'name_en' => 'terms and conditions patient',
                 'uuid'    => Str::uuid()->toString(),
                 'version' => 'v1.0',
-                'role'    => 'patient',
+                'role'    => 'client',
                 'is_active' => 1,
 
             ],

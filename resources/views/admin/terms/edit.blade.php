@@ -50,7 +50,7 @@
                                     <label for="role">الدور</label>
                                     <select class="form-control" id="role" name="role">
                                         <option value="general" {{ old('role', $term->role) == 'general' ? 'selected' : '' }}>عام</option>
-                                        <option value="patient" {{ old('role', $term->role) == 'patient' ? 'selected' : '' }}>مريض</option>
+                                        <option value="client" {{ old('role', $term->role) == 'client' ? 'selected' : '' }}>عميل</option>
                                         <option value="doctor" {{ old('role', $term->role) == 'doctor' ? 'selected' : '' }}>طبيب</option>
                                     </select>
                                     @error('role')

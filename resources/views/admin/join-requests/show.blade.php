@@ -52,7 +52,7 @@
                                             {{ old('gender', $joinRequest->gender) == 'female' ? 'selected' : '' }}>أنثى
                                         </option>
                                     </select>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="organization_location_url">رابط الموقع</label>
                                     <div>
@@ -205,7 +205,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="job_title_id">الوظيفة</label>
                                     <select class="form-control" id="job_title_id" name="job_title_id" readonly>
@@ -215,6 +215,23 @@
                                                 {{ $job_title->name }}
                                             </option>
                                         @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
+                                    <select class="form-control" id="is_available_for_home_visits" readonly
+                                        name="is_available_for_home_visits">
+                                        <option value="1"
+                                            {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '1' ? 'selected' : '' }}>
+                                            نعم
+                                        </option>
+                                        <option value="0"
+                                            {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '0' ? 'selected' : '' }}>
+                                            لا
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -237,6 +254,25 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label for="is_accept_terms">موافقة على الشروط</label>
+                                    <select class="form-control" id="is_accept_terms" name="is_accept_terms" readonly>
+                                        <option value="1"
+                                            {{ old('is_accept_terms', $joinRequest->is_accept_terms) == '1' ? 'selected' : '' }}>
+                                            نعم
+                                        </option>
+                                        <option value="0"
+                                            {{ old('is_accept_terms', $joinRequest->is_accept_terms) == '0' ? 'selected' : '' }}>
+                                            لا
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
                                     <label for="personal_image">صورة شخصيه</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
@@ -253,10 +289,8 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="logo">اللوجو</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
@@ -273,7 +307,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="id_image_front">صورة البطاقه الاماميه</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>

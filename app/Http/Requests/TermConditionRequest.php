@@ -41,7 +41,7 @@ class TermConditionRequest extends FormRequest
             ],
             'role' => [
                 'required',
-                Rule::in(['general', 'patient', 'doctor']),
+                Rule::in(['general', 'client', 'doctor']),
             ],
             'version' => [
                 'required',

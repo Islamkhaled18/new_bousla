@@ -46,7 +46,7 @@
                                 <label for="role">الدور</label>
                                 <select class="form-control" id="role" name="role">
                                     <option value="general">عام</option>
-                                    <option value="patient">مريض</option>
+                                    <option value="client">عميل</option>
                                     <option value="doctor">طبيب</option>
                                 </select>
                                 @error('role')
