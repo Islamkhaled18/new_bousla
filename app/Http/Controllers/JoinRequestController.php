@@ -27,7 +27,8 @@ class JoinRequestController extends Controller
 
     public function index()
     {
-        $join_requests = JoinRequest::with('jobTitle', 'area')->get();
+        $join_requests = User::where('type', 'doctor')->where('status', 'pending')
+            ->with('jobTitle', 'area')->get();
         return view('admin.join-requests.index', compact('join_requests'));
     }
 
@@ -43,8 +44,13 @@ class JoinRequestController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->validated();
+            $data['type'] = 'doctor';
+
+            $joinRequest = User::create($data);
 
             $uploadedImages = [];
+
+            $userPath = "doctors/{$joinRequest->id}";
 
             $imageFields = [
                 'personal_image',
@@ -59,21 +65,21 @@ class JoinRequestController extends Controller
             foreach ($imageFields as $field) {
                 if ($request->hasFile($field)) {
                     $file = $request->file($field);
-                    $path = $this->fileUploadService->upload($file, 'join-requests', 'public');
+                    $path = $this->fileUploadService->upload($file, $userPath, 'public');
                     $data[$field] = $path;
                     $uploadedImages[] = $path;
                 }
             }
 
-            $joinRequest = JoinRequest::create($data);
+            $joinRequest->update($data);
 
             if ($request->hasFile('photo')) {
                 foreach ($request->file('photo') as $photo) {
-                    $path = $this->fileUploadService->upload($photo, 'join-requests/photos', 'public');
+                    $path = $this->fileUploadService->upload($photo, "{$userPath}/photos", 'public');
                     $uploadedImages[] = $path;
 
-                    JoinRequestImage::create([
-                        'join_request_id' => $joinRequest->id,
+                    userImage::create([
+                        'user_id' => $joinRequest->id,
                         'photo' => $path
                     ]);
                 }
@@ -92,7 +98,7 @@ class JoinRequestController extends Controller
         }
     } //end of store
 
-    public function show(JoinRequest $joinRequest)
+    public function show(User $joinRequest)
     {
         $joinRequest->load('jobTitle', 'area', 'images');
         $job_titles = JobTitle::where('is_active', 1)->get();
@@ -100,7 +106,7 @@ class JoinRequestController extends Controller
         return view('admin.join-requests.show', compact('joinRequest', 'job_titles', 'areas'));
     }
 
-    public function edit(JoinRequest $joinRequest)
+    public function edit(User $joinRequest)
     {
         $joinRequest->load('jobTitle', 'area', 'images');
         $job_titles = JobTitle::where('is_active', 1)->get();
@@ -108,11 +114,15 @@ class JoinRequestController extends Controller
         return view('admin.join-requests.edit', compact('joinRequest', 'job_titles', 'areas'));
     }
 
-    public function update(JoinRequestRequest $request, JoinRequest $joinRequest)
+    public function update(JoinRequestRequest $request, User $joinRequest)
     {
         DB::beginTransaction();
         try {
             $data = $request->validated();
+            $data['type'] = 'doctor';
+
+            // المسار الأساسي بناءً على ID المستخدم
+            $userPath = "doctors/{$joinRequest->id}";
 
             $uploadedImages = [];
             $oldImages = [];
@@ -136,7 +146,7 @@ class JoinRequestController extends Controller
 
                     // رفع الصورة الجديدة
                     $file = $request->file($field);
-                    $path = $this->fileUploadService->upload($file, 'join-requests', 'public');
+                    $path = $this->fileUploadService->upload($file, $userPath, 'public');
                     $data[$field] = $path;
                     $uploadedImages[] = $path;
                 }
@@ -148,11 +158,11 @@ class JoinRequestController extends Controller
             // التعامل مع صور المنظمة المتعددة
             if ($request->hasFile('photo')) {
                 foreach ($request->file('photo') as $photo) {
-                    $path = $this->fileUploadService->upload($photo, 'join-requests/photos', 'public');
+                    $path = $this->fileUploadService->upload($photo, "{$userPath}/photos", 'public');
                     $uploadedImages[] = $path;
 
-                    JoinRequestImage::create([
-                        'join_request_id' => $joinRequest->id,
+                    userImage::create([
+                        'user_id' => $joinRequest->id,
                         'photo' => $path
                     ]);
                 }
@@ -179,7 +189,7 @@ class JoinRequestController extends Controller
     } //end of update
 
 
-    public function destroy(JoinRequest $joinRequest)
+    public function destroy(User $joinRequest)
     {
         DB::beginTransaction();
         try {
@@ -230,7 +240,7 @@ class JoinRequestController extends Controller
     {
         DB::beginTransaction();
         try {
-            $image = JoinRequestImage::findOrFail($id);
+            $image = userImage::findOrFail($id);
 
             $imagePath = $image->photo;
 
@@ -259,176 +269,20 @@ class JoinRequestController extends Controller
         DB::beginTransaction();
         try {
             // 1. التحقق من وجود الطلب
-            $joinRequest = JoinRequest::findOrFail($id);
+            $joinRequest = User::findOrFail($id);
 
             // 2. Validation
             $request->validate([
                 'status' => 'required|in:pending,accepted,rejected',
+                'admin_notes' => 'required_if:status,rejected|string|max:191'
             ]);
 
             // 3. تحديث الحالة
-            $joinRequest->update(['status' => $request->status]);
+            $joinRequest->update([
+                'status' => $request->status,
+                'admin_notes' => $request->admin_notes
+            ]);
 
-            // 4. إذا كانت الحالة "مقبول" فقط
-            if ($request->status == 'accepted') {
-
-                // 4.1 التحقق من عدم وجود مستخدم بنفس البريد أو الهاتف
-                $existingUser = User::where('email', $joinRequest->email)
-                    ->orWhere('phone', $joinRequest->phone)
-                    ->orWhere('id_number', $joinRequest->id_number)
-                    ->first();
-
-                if ($existingUser) {
-                    throw new \Exception('يوجد مستخدم بالفعل بنفس البريد الإلكتروني أو رقم الهوية او رقم الهاتف');
-                }
-
-                // 4.2 تحميل العلاقات المطلوبة
-                $joinRequest->load('images');
-
-                // 4.3 إنشاء المستخدم
-                $user = User::create([
-                    'type' => 'doctor',
-                    'slug' => 'user-' . uniqid(),
-                    'first_name' => $joinRequest->first_name,
-                    'last_name' => $joinRequest->last_name,
-                    'password' => null,
-                    'phone' => $joinRequest->phone,
-                    'is_active' => 1,
-                    'address' => $joinRequest->address,
-                    'email' => $joinRequest->email,
-                    'gender' => $joinRequest->gender,
-                    'about_me' => $joinRequest->about_me,
-                    'id_number' => $joinRequest->id_number,
-                    'job_title_id' => $joinRequest->job_title_id,
-                    'area_id' => $joinRequest->area_id,
-                    'organization_name' => $joinRequest->organization_name,
-                    'organization_phone_first' => $joinRequest->organization_phone_first,
-                    'organization_phone_second' => $joinRequest->organization_phone_second,
-                    'organization_phone_third' => $joinRequest->organization_phone_third,
-                    'organization_location_url' => $joinRequest->organization_location_url,
-                    'building_number' => $joinRequest->building_number,
-                    'floor_number' => $joinRequest->floor_number,
-                    'apartment_number' => $joinRequest->apartment_number,
-                ]);
-
-                // 4.4 التأكد من إنشاء المستخدم بنجاح
-                if (!$user || !$user->id) {
-                    throw new \Exception('فشل إنشاء حساب المستخدم');
-                }
-
-                // 4.5 تحديد مسار المجلد الجديد
-                $userFolder = "doctors/{$user->id}";
-
-                // 4.6 الصور الفردية
-                $imageFields = [
-                    'personal_image',
-                    'logo',
-                    'id_image_front',
-                    'id_image_back',
-                    'graduation_certificate',
-                    'professional_license',
-                    'syndicate_card'
-                ];
-
-                $movedImages = []; // لتتبع الصور المنقولة
-
-                foreach ($imageFields as $field) {
-                    if ($joinRequest->$field) {
-                        $oldPath = $joinRequest->$field;
-
-                        // التحقق من وجود الملف قبل النقل
-                        if (!Storage::disk('public')->exists($oldPath)) {
-                            throw new \Exception("الملف {$field} غير موجود: {$oldPath}");
-                        }
-
-                        $fileName = basename($oldPath);
-                        $newPath = "bousla/{$userFolder}/personal_data/{$fileName}";
-
-                        // إنشاء المجلد
-                        Storage::disk('public')->makeDirectory("bousla/{$userFolder}/personal_data");
-
-                        // نقل الملف
-                        $moved = Storage::disk('public')->move($oldPath, $newPath);
-
-                        if (!$moved) {
-                            throw new \Exception("فشل نقل الصورة: {$field}");
-                        }
-
-                        // التحقق من وجود الملف في المكان الجديد
-                        if (!Storage::disk('public')->exists($newPath)) {
-                            throw new \Exception("الملف لم ينتقل بنجاح: {$field}");
-                        }
-
-                        // حفظ مسار الصورة المنقولة
-                        $movedImages[] = [
-                            'old' => $oldPath,
-                            'new' => $newPath
-                        ];
-
-                        // تحديث المسار في المستخدم
-                        $user->$field = $newPath;
-                    }
-                }
-
-                // 4.7 حفظ التحديثات على المستخدم
-                $userSaved = $user->save();
-
-                if (!$userSaved) {
-                    throw new \Exception('فشل حفظ بيانات المستخدم');
-                }
-
-                // 4.8 نقل صور المنظمة المتعددة
-                $userImagesCreated = [];
-
-                if ($joinRequest->images && $joinRequest->images->count() > 0) {
-                    foreach ($joinRequest->images as $image) {
-                        $oldPath = $image->photo;
-
-                        // التحقق من وجود الملف
-                        if (!Storage::disk('public')->exists($oldPath)) {
-                            throw new \Exception("صورة المنظمة غير موجودة: {$oldPath}");
-                        }
-
-                        $fileName = basename($oldPath);
-                        $newPath = "bousla/{$userFolder}/photos/{$fileName}";
-
-                        // إنشاء المجلد
-                        Storage::disk('public')->makeDirectory("bousla/{$userFolder}/photos");
-
-                        // نقل الملف
-                        $moved = Storage::disk('public')->move($oldPath, $newPath);
-
-                        if (!$moved) {
-                            throw new \Exception("فشل نقل صورة المنظمة");
-                        }
-
-                        // التحقق من وجود الملف في المكان الجديد
-                        if (!Storage::disk('public')->exists($newPath)) {
-                            throw new \Exception("صورة المنظمة لم تنتقل بنجاح");
-                        }
-
-                        // حفظ في قاعدة البيانات
-                        $userImage = UserImage::create([
-                            'user_id' => $user->id,
-                            'photo' => $newPath,
-                        ]);
-
-                        if (!$userImage) {
-                            throw new \Exception('فشل حفظ صورة المنظمة في قاعدة البيانات');
-                        }
-
-                        $userImagesCreated[] = $userImage->id;
-                    }
-                }
-
-                // 4.9 حذف طلب الانضمام بعد نجاح كل الخطوات
-                $joinRequest->delete();
-
-                // 4.10 التحقق من الحذف
-                if (JoinRequest::find($joinRequest->id)) {
-                    throw new \Exception('فشل حذف طلب الانضمام');
-                }
-            }
 
             // 5. Commit بعد نجاح كل الخطوات
             DB::commit();

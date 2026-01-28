@@ -54,6 +54,8 @@ class User extends Authenticatable
         'building_number',
         'floor_number',
         'apartment_number',
+        'status',
+        'admin_notes',
         'roles_name',
     ];
 
@@ -108,7 +110,6 @@ class User extends Authenticatable
 
 
     //scopes
-
 
     public function scopeActiveDoctors($query)
     {

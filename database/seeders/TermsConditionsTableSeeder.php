@@ -19,11 +19,21 @@ class TermsConditionsTableSeeder extends Seeder
         $terms_conditions = [
             [
                 'id'      => 1,
-                'name'    => 'شروط واحكام شروط واحكام شروط واحكام ',
-                'name_en' => 'terms and conditions and conditions and conditions ',
+                'name'    => 'شروط واحكام مريض  ',
+                'name_en' => 'terms and conditions patient',
                 'uuid'    => Str::uuid()->toString(),
                 'version' => 'v1.0',
                 'role'    => 'patient',
+                'is_active' => 1,
+
+            ],
+            [
+                'id'      => 2,
+                'name'    => 'شروط واحكام طبيب',
+                'name_en' => 'terms and conditions doctor',
+                'uuid'    => Str::uuid()->toString(),
+                'version' => 'v1.0',
+                'role'    => 'doctor',
                 'is_active' => 1,
 
             ],
