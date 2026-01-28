@@ -25,10 +25,11 @@ class AuthController extends Controller
                 'last_name'  => $request->last_name,
                 'phone'      => $request->phone,
                 'password'   => Hash::make($request->password),
+                'is_accept_terms' => $request->is_accept_terms,
                 'type'       => 'client',
             ]);
 
-            $termCondition = TermCondition::where('uuid', $request->terms_condition_uuid)->first();
+            $termCondition = TermCondition::where('role', 'client')->first();
 
             TermsAcceptance::create([
                 'user_id' => $user->id,

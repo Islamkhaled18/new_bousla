@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('name_en')->nullable();
             $table->uuid('uuid')->unique();
 
-            $table->enum('role', ['general', 'patient', 'doctor'])->default('general');
+            $table->enum('role', ['general', 'client', 'doctor'])->default('general');
             $table->string('version'); // مثال: v1.0
             $table->boolean('is_active')->default(1);
             $table->timestamps();

@@ -56,6 +56,8 @@ class User extends Authenticatable
         'apartment_number',
         'status',
         'admin_notes',
+        'is_accept_terms',
+        'is_available_for_home_visits',
         'roles_name',
     ];
 

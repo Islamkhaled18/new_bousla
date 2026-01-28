@@ -38,14 +38,14 @@ class JoinRequestRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:191',
-                Rule::unique('users', 'first_name')->ignore($joinRequestId)
+               
             ],
             'last_name' => [
                 'nullable',
                 'string',
                 'min:3',
                 'max:191',
-                Rule::unique('users', 'last_name')->ignore($joinRequestId)
+               
             ],
             'phone' => [
                 $isCreating ? 'required' : 'sometimes',
@@ -64,6 +64,14 @@ class JoinRequestRequest extends FormRequest
                 'email',
                 'max:191',
                 Rule::unique('users', 'email')->ignore($joinRequestId)
+            ],
+            'is_available_for_home_visits' => [
+                'nullable',
+                'in:0,1',
+            ],
+            'is_accept_terms' => [
+                'required',
+                'in:1',
             ],
             'gender' => [
                 $isCreating ? 'required' : 'sometimes',
@@ -291,6 +299,9 @@ class JoinRequestRequest extends FormRequest
             'photo.*.image' => 'كل ملف من صور المنظمة يجب أن يكون صورة',
             'photo.*.mimes' => 'صور المنظمة يجب أن تكون بصيغة: jpeg, png, jpg, gif',
             'photo.*.max' => 'حجم كل صورة من صور المنظمة يجب ألا يتجاوز 5 ميجابايت',
+
+            'is_available_for_home_visits.in' => 'حقل متاح للزيارات المنزلية يجب أن يكون إما 0 أو 1',
+            'is_accept_terms'
         ];
     }
 
@@ -325,6 +336,8 @@ class JoinRequestRequest extends FormRequest
             'professional_license' => 'الترخيص المهني',
             'syndicate_card' => 'كارنيه النقابة',
             'photo' => 'صور المنظمة',
+            'is_available_for_home_visits' => 'متاح للزيارات المنزلية',
+            'gender' => 'الجنس',
         ];
     }
 

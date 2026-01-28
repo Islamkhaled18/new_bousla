@@ -7,6 +7,8 @@ use App\Models\Area;
 use App\Models\JobTitle;
 use App\Models\JoinRequest;
 use App\Models\JoinRequestImage;
+use App\Models\TermCondition;
+use App\Models\TermsAcceptance;
 use App\Models\User;
 use App\Models\userImage;
 use Illuminate\Http\Request;
@@ -283,6 +285,17 @@ class JoinRequestController extends Controller
                 'admin_notes' => $request->admin_notes
             ]);
 
+            if ($request->status == 'accepted') {
+                $termCondition = TermCondition::where('role', 'client')->first();
+
+                TermsAcceptance::create([
+                    'user_id' => $joinRequest->id,
+                    'terms_condition_id' => $termCondition->id,
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                    'accepted_at' => now(),
+                ]);
+            }
 
             // 5. Commit بعد نجاح كل الخطوات
             DB::commit();
