@@ -10,6 +10,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\JoinRequestController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StatisticeController;
 use App\Http\Controllers\TermConditionController;
 use Illuminate\Support\Facades\Route;
 
@@ -99,6 +101,9 @@ Route::middleware('auth')->group(function () {
 
     //privacy-policies
     Route::resource('privacy-policies', PrivacyPolicyController::class);
+
+    //statistices
+    Route::get('statistices', [StatisticeController::class, 'statistices'])->name('statistices.index');
 });
 
 require __DIR__ . '/auth.php';

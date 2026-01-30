@@ -6,9 +6,11 @@ use Modules\Clients\app\Http\Controllers\AuthController;
 use Modules\Clients\app\Http\Controllers\TermsConditionController;
 use Modules\Clients\app\Http\Controllers\JobTitleController;
 use Modules\Clients\app\Http\Controllers\ProfileController;
+use Modules\Clients\app\Http\Controllers\FavoriteController;
 
 Route::prefix('clients')->group(function () {
     Route::get('terms-and-conditions', [TermsConditionController::class, 'index']);
+    Route::get('terms-and-conditions/{term}', [TermsConditionController::class, 'show']);
     Route::post('register', [AuthController::class, 'register'])->middleware('throttle:clients.register');
     Route::post('login', [AuthController::class, 'login'])->middleware('throttle:clients.login');
 });
@@ -19,4 +21,11 @@ Route::middleware(['auth:sanctum'])->prefix('clients')->group(function () {
     Route::get('job-titles/{jobTitleId}/doctors', [JobTitleController::class, 'getDoctorByJobTitle']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::put('/profile', [ProfileController::class, 'update']);
+
+    // favorites
+    Route::prefix('favorites')->group(function () {
+        Route::post('toggle', [FavoriteController::class, 'toggle']);
+        Route::get('/', [FavoriteController::class, 'index']);
+        Route::get('check/{doctorId}', [FavoriteController::class, 'check']);
+    });
 });

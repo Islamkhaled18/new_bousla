@@ -42,6 +42,7 @@ class TermConditionRequest extends FormRequest
             'role' => [
                 'required',
                 Rule::in(['general', 'client', 'doctor']),
+                Rule::unique('terms_conditions', 'role')->ignore($termConditionId)
             ],
             'version' => [
                 'required',
@@ -62,6 +63,14 @@ class TermConditionRequest extends FormRequest
             'name_en.min' => 'يجب أن يكون النص بالإنجليزية على الأقل 10 أحرف',
             'name_en.max' => 'يجب ألا يزيد النص بالإنجليزية عن 10000 حرف',
             'name_en.unique' => 'هذا النص بالإنجليزية موجود مسبقاً',
+
+            'role.required' => 'هذا الحقل مطلوب',
+            'role.in' => 'هذا الصلاحية غير صالحة',
+            'role.unique' => 'هذا الصلاحية موجود مسبقاً',
+
+            'version.required' => 'هذا الحقل مطلوب',
+            'version.string' => 'هذا الحقل يجب أن يكون نصاً',
+            'version.max' => 'يجب ألا يزيد النص عن 20 حرف',
         ];
     }
 

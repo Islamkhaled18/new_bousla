@@ -15,7 +15,7 @@ class TermsConditionController extends Controller
     public function index()
     {
         $term = TermCondition::where('is_active', 1)
-            ->where('role', 'patient')
+            ->where('role', 'client')
             ->first();
 
           return response()->json([
