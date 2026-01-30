@@ -110,12 +110,24 @@ class User extends Authenticatable
         return $this->hasMany(UserImage::class, 'user_id');
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'client_id', 'doctor_id')
+            ->withTimestamps();
+    }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'doctor_id', 'client_id')
+            ->withTimestamps();
+    }
+
 
     //scopes
 
     public function scopeActiveDoctors($query)
     {
         return $query->where('is_active', 1)
-            ->where('type', 'doctor');
+            ->where('type', 'doctor')->where('is_accept_terms', 1)->where('status', 'accepted');
     }
 }

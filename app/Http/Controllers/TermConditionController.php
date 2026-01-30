@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TermConditionRequest;
 use App\Models\TermCondition;
 use App\Models\TermsAcceptance;
+use App\Models\User;
 use App\Traits\ToggleStatusTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,15 @@ class TermConditionController extends Controller
         DB::beginTransaction();
         try {
             $term->update($request->validated());
+
+            if ($term->role == 'client') {
+                User::where('type', 'client')->update(['is_accept_terms' => 0]);
+                $this->logoutUsersByType('client');
+            } elseif ($term->role == 'doctor') {
+                User::where('type', 'doctor')->update(['is_accept_terms' => 0]);
+                $this->logoutUsersByType('doctor');
+            }
+
             DB::commit();
             return redirect()->route('terms.index')->with('success', 'تم التعديل بنجاح');
         } catch (\Exception $e) {
@@ -79,5 +89,24 @@ class TermConditionController extends Controller
             ->paginate(10);
 
         return view('admin.terms.acceptances', compact('acceptances'));
+    }
+
+    /**
+     * Logout all users of specific type (Sanctum)
+     */
+    private function logoutUsersByType($type)
+    {
+        $userIds = User::where('type', $type)->pluck('id');
+
+        // Delete all Sanctum tokens for these users
+        DB::table('personal_access_tokens')
+            ->whereIn('tokenable_id', $userIds)
+            ->where('tokenable_type', User::class)
+            ->delete();
+
+        // Delete web sessions for these users
+        DB::table('sessions')
+            ->whereIn('user_id', $userIds)
+            ->delete();
     }
 }

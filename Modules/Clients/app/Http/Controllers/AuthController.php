@@ -95,6 +95,13 @@ class AuthController extends Controller
                 ], 403);
             }
 
+            if ($user->is_accept_terms == 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'تم تعديل الشروط والاحكام الخاصه بالبرنامج برجاء قرائتها والموافقه عليها حتى تتمكن من استخدام البرنامج',
+                ], 403);
+            }
+
             // Check password
             if (!Hash::check($request->password, $user->password)) {
                 return response()->json([

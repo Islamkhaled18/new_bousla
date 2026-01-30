@@ -109,6 +109,10 @@
                 <li><a class="treeview-item" href="{{ route('doctors.index') }}"><i
                             class="app-menu__icon fa fa-user"></i>
                         <span class="app-menu__label">الاطباء </span></a></li>
+
+                <li><a class="treeview-item" href="{{ route('statistices.index') }}"><i
+                            class="app-menu__icon fa fa-user"></i>
+                        <span class="app-menu__label"> الاحصائيات </span></a></li>
             </ul>
         </li>
 
