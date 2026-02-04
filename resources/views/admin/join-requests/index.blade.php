@@ -107,6 +107,35 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal لأسباب الرفض -->
+    <div class="modal fade" id="rejectionModal" tabindex="-1" role="dialog" aria-labelledby="rejectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectionModalLabel">أسباب الرفض</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="rejectionForm">
+                        <div class="form-group">
+                            <label for="admin_notes">اكتب أسباب الرفض <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="admin_notes" name="admin_notes" rows="4" 
+                                placeholder="يرجى كتابة أسباب رفض الطلب..." required></textarea>
+                            <small class="form-text text-danger" id="admin_notes_error" style="display: none;"></small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="confirmRejection">تأكيد الرفض</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @push('scripts')
 <script type="text/javascript">
@@ -114,6 +143,10 @@
     $('#sampleTable').DataTable();
 
     const toggleStatusRoute = "{{ route('join-requests.toggleStatus', ':id') }}";
+    
+    // متغيرات لحفظ الـ dropdown والـ id المؤقتين
+    let currentDropdown = null;
+    let currentJoinRequestId = null;
 
     $('.status-dropdown').on('change', function() {
 
@@ -121,17 +154,88 @@
         const status = $(this).val();
         const dropdown = $(this);
 
+        // لو اختار "مرفوض" نفتح الـ popup
+        if (status === 'rejected') {
+            currentDropdown = dropdown;
+            currentJoinRequestId = id;
+            
+            // نمسح أي بيانات قديمة في الـ popup
+            $('#admin_notes').val('');
+            $('#admin_notes_error').hide();
+            
+            // نفتح الـ Modal
+            $('#rejectionModal').modal('show');
+            
+            // نرجع الـ dropdown للقيمة السابقة مؤقتاً
+            dropdown.val(dropdown.data('previous-value'));
+            
+            return; // نوقف التنفيذ هنا
+        }
+
+        // لو اختار "مقبول" أو "في الانتظار" ننفذ عادي
+        updateStatus(id, status, dropdown, null);
+    });
+
+    // عند الضغط على زر تأكيد الرفض في الـ Modal
+    $('#confirmRejection').on('click', function() {
+        const adminNotes = $('#admin_notes').val().trim();
+        
+        // التحقق من أن الحقل مش فاضي
+        if (adminNotes === '') {
+            $('#admin_notes_error').text('يرجى كتابة أسباب الرفض').show();
+            $('#admin_notes').focus();
+            return;
+        }
+        
+        if (adminNotes.length < 10) {
+            $('#admin_notes_error').text('يجب أن تكون أسباب الرفض 10 أحرف على الأقل').show();
+            $('#admin_notes').focus();
+            return;
+        }
+        
+        // إخفاء الـ Modal
+        $('#rejectionModal').modal('hide');
+        
+        // تنفيذ عملية التحديث مع أسباب الرفض
+        updateStatus(currentJoinRequestId, 'rejected', currentDropdown, adminNotes);
+    });
+
+    // عند إلغاء الـ Modal، نرجع الـ dropdown للقيمة السابقة
+    $('#rejectionModal').on('hidden.bs.modal', function () {
+        if (currentDropdown) {
+            currentDropdown.val(currentDropdown.data('previous-value'));
+        }
+        currentDropdown = null;
+        currentJoinRequestId = null;
+    });
+
+    // دالة تحديث الحالة
+    function updateStatus(id, status, dropdown, adminNotes) {
+        const data = {
+            status: status,
+            _token: '{{ csrf_token() }}'
+        };
+        
+        // لو في admin_notes نضيفها للـ request
+        if (adminNotes) {
+            data.admin_notes = adminNotes;
+        }
+
         $.ajax({
             url: toggleStatusRoute.replace(':id', id),
             type: 'POST',
-            data: {
-                status: status,
-                _token: '{{ csrf_token() }}'
-            },
+            data: data,
             success: function(response) {
                 if (response.success) {
 
-                    // toastr.success(response.message);
+                    // نعرض رسالة نجاح (إذا كنت بتستخدم toastr)
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(response.message);
+                    }
+
+                    // نحدث القيمة السابقة
+                    dropdown.data('previous-value', status);
+                    dropdown.val(status);
 
                     if (status === 'accepted' || status === 'rejected') {
                         setTimeout(function () {
@@ -145,16 +249,38 @@
 
                 } else {
                     console.log(response);
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error('حدث خطأ أثناء تحديث الحالة');
+                    }
+                    dropdown.val(dropdown.data('previous-value'));
                 }
             },
             error: function(xhr) {
-                toastr.error('حدث خطأ أثناء تحديث الحالة');
+                let errorMessage = 'حدث خطأ أثناء تحديث الحالة';
+                
+                // نعرض رسالة الخطأ من السيرفر لو موجودة
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMessage = xhr.responseJSON.message;
+                }
+                
+                // نعرض أخطاء الـ validation لو موجودة
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    const errors = xhr.responseJSON.errors;
+                    if (errors.admin_notes) {
+                        errorMessage = errors.admin_notes[0];
+                    }
+                }
+                
+                if (typeof toastr !== 'undefined') {
+                    toastr.error(errorMessage);
+                } else {
+                    alert(errorMessage);
+                }
+                
                 dropdown.val(dropdown.data('previous-value'));
             }
         });
-
-        dropdown.data('previous-value', status);
-    });
+    }
 
     // Store initial values
     $('.status-dropdown').each(function() {
