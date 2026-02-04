@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JoinRequestRequest;
 use App\Models\Area;
+use App\Models\DoctorSchedule;
 use App\Models\JobTitle;
-use App\Models\JoinRequest;
-use App\Models\JoinRequestImage;
 use App\Models\TermCondition;
 use App\Models\TermsAcceptance;
 use App\Models\User;
@@ -87,6 +86,29 @@ class JoinRequestController extends Controller
                 }
             }
 
+            // ================================
+            //  (Doctor Schedules)
+            // ================================
+            if ($request->has('schedules') && is_array($request->schedules)) {
+                foreach ($request->schedules as $schedule) {
+                    // ignore empty inputs
+                    if (empty($schedule['day_of_week']) || empty($schedule['from_time']) || empty($schedule['to_time'])) {
+                        continue;
+                    }
+
+                    DoctorSchedule::create([
+                        'user_id' => $joinRequest->id,
+                        'day_of_week' => $schedule['day_of_week'],
+                        'from_time' => $schedule['from_time'],
+                        'to_time' => $schedule['to_time'],
+                        'booking_type' => $schedule['booking_type'] ?? 'time_slots',
+                        'slot_duration' => $schedule['booking_type'] === 'time_slots' ? ($schedule['slot_duration'] ?? null) : null,
+                        'max_patients_per_hour' => $schedule['booking_type'] === 'hourly_capacity' ? ($schedule['max_patients_per_hour'] ?? null) : null,
+                        'is_active' => $schedule['is_active'] ?? 1,
+                    ]);
+                }
+            }
+
             DB::commit();
             return redirect()->route('join-requests.index')->with('success', 'تم الحفظ بنجاح');
         } catch (\Exception $e) {
@@ -95,6 +117,10 @@ class JoinRequestController extends Controller
             foreach ($uploadedImages as $imagePath) {
                 $this->fileUploadService->delete($imagePath, 'public');
             }
+
+            Log::error('Join Request Store Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
 
             return back()->with('error', 'حدث خطأ أثناء الحفظ')->withInput();
         }
@@ -110,7 +136,7 @@ class JoinRequestController extends Controller
 
     public function edit(User $joinRequest)
     {
-        $joinRequest->load('jobTitle', 'area', 'images');
+        $joinRequest->load('jobTitle', 'area', 'images', 'schedules');
         $job_titles = JobTitle::where('is_active', 1)->get();
         $areas = Area::where('is_active', 1)->get();
         return view('admin.join-requests.edit', compact('joinRequest', 'job_titles', 'areas'));
@@ -123,7 +149,6 @@ class JoinRequestController extends Controller
             $data = $request->validated();
             $data['type'] = 'doctor';
 
-            // المسار الأساسي بناءً على ID المستخدم
             $userPath = "doctors/{$joinRequest->id}";
 
             $uploadedImages = [];
@@ -170,6 +195,67 @@ class JoinRequestController extends Controller
                 }
             }
 
+            // ================================
+            // تحديث مواعيد العمل
+            // ================================
+            if ($request->has('schedules')) {
+                // Log المواعيد القديمة
+                $oldCount = DoctorSchedule::where('user_id', $joinRequest->id)->count();
+                Log::info('Deleting old schedules', [
+                    'doctor_id' => $joinRequest->id,
+                    'old_count' => $oldCount
+                ]);
+
+                // حذف المواعيد القديمة
+                DoctorSchedule::where('user_id', $joinRequest->id)->delete();
+
+                // إضافة المواعيد الجديدة
+                if (is_array($request->schedules)) {
+                    Log::info('Adding new schedules', [
+                        'doctor_id' => $joinRequest->id,
+                        'new_count' => count($request->schedules)
+                    ]);
+
+                    foreach ($request->schedules as $index => $schedule) {
+                        // تجاهل الفارغة
+                        if (
+                            empty($schedule['day_of_week']) ||
+                            empty($schedule['from_time']) ||
+                            empty($schedule['to_time'])
+                        ) {
+                            continue;
+                        }
+
+                        $created = DoctorSchedule::create([
+                            'user_id' => $joinRequest->id,
+                            'day_of_week' => $schedule['day_of_week'],
+                            'from_time' => $schedule['from_time'],
+                            'to_time' => $schedule['to_time'],
+                            'booking_type' => $schedule['booking_type'] ?? 'time_slots',
+                            'slot_duration' => $schedule['booking_type'] === 'time_slots'
+                                ? ($schedule['slot_duration'] ?? null)
+                                : null,
+                            'max_patients_per_hour' => $schedule['booking_type'] === 'hourly_capacity'
+                                ? ($schedule['max_patients_per_hour'] ?? null)
+                                : null,
+                            'is_active' => $schedule['is_active'] ?? 1,
+                        ]);
+
+                        Log::info('Schedule created', [
+                            'id' => $created->id,
+                            'day' => $created->day_of_week
+                        ]);
+                    }
+
+                    // Log النتيجة النهائية
+                    $finalCount = DoctorSchedule::where('user_id', $joinRequest->id)->count();
+                    Log::info('Schedules update completed', [
+                        'doctor_id' => $joinRequest->id,
+                        'final_count' => $finalCount
+                    ]);
+                }
+            }
+
             DB::commit();
 
             // حذف الصور القديمة بعد نجاح العملية
@@ -186,7 +272,12 @@ class JoinRequestController extends Controller
                 $this->fileUploadService->delete($imagePath, 'public');
             }
 
-            return back()->with('error', 'حدث خطأ أثناء التحديث')->withInput();
+            Log::error('Join Request Update Error: ' . $e->getMessage(), [
+                'join_request_id' => $joinRequest->id,
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return back()->with('error', 'حدث خطأ أثناء التحديث: ' . $e->getMessage())->withInput();
         }
     } //end of update
 

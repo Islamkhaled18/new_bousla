@@ -23,43 +23,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'type',
-        'slug',
-        'first_name',
-        'last_name',
-        'nick_name',
-        'password',
-        'phone',
-        'is_active',
-        'address',
-        'email',
-        'gender',
-        'about_me',
-        'id_number',
-        'job_title_id',
-        'area_id',
-        'organization_name',
-        'organization_phone_first',
-        'organization_phone_second',
-        'organization_phone_third',
-        'organization_location_url',
-        'personal_image',
-        'logo',
-        'id_image_front',
-        'id_image_back',
-        'graduation_certificate',
-        'professional_license',
-        'syndicate_card',
-        'building_number',
-        'floor_number',
-        'apartment_number',
-        'status',
-        'admin_notes',
-        'is_accept_terms',
-        'is_available_for_home_visits',
-        'roles_name',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -122,6 +86,38 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    /**
+     * العلاقة مع مواعيد عمل الطبيب
+     */
+    public function schedules()
+    {
+        return $this->hasMany(DoctorSchedule::class, 'user_id');
+    }
+
+    /**
+     * الحصول على المواعيد النشطة فقط
+     */
+    public function activeSchedules()
+    {
+        return $this->hasMany(DoctorSchedule::class, 'user_id')->where('is_active', 1);
+    }
+
+    /**
+     * العلاقة مع الحجوزات كطبيب
+     */
+    public function doctorAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+
+    /**
+     * العلاقة مع الحجوزات كمريض
+     */
+    public function patientAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_id');
+    }
+
 
     //scopes
 
@@ -129,5 +125,23 @@ class User extends Authenticatable
     {
         return $query->where('is_active', 1)
             ->where('type', 'doctor')->where('is_accept_terms', 1)->where('status', 'accepted');
+    }
+
+    /**
+     * Scope للأطباء الذين لديهم مواعيد عمل
+     */
+    public function scopeWithSchedules($query)
+    {
+        return $query->whereHas('schedules');
+    }
+
+    /**
+     * Scope للأطباء الذين لديهم مواعيد عمل نشطة
+     */
+    public function scopeWithActiveSchedules($query)
+    {
+        return $query->whereHas('schedules', function ($q) {
+            $q->where('is_active', 1);
+        });
     }
 }
