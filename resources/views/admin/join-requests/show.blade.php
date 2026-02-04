@@ -193,7 +193,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="organization_location_url">رابط الموقع</label>
                                     <div>
@@ -205,7 +205,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="job_title_id">الوظيفة</label>
                                     <select class="form-control" id="job_title_id" name="job_title_id" readonly>
@@ -218,24 +218,61 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
-                                    <select class="form-control" id="is_available_for_home_visits" readonly
-                                        name="is_available_for_home_visits">
-                                        <option value="1"
-                                            {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '1' ? 'selected' : '' }}>
-                                            نعم
-                                        </option>
-                                        <option value="0"
-                                            {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '0' ? 'selected' : '' }}>
-                                            لا
-                                        </option>
-                                    </select>
+
+                          <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="clinic_fees">سعر الكشف</label>
+                                        <input class="form-control" id="clinic_fees" name="clinic_fees" readonly
+                                            value="{{ old('clinic_fees', $joinRequest->clinic_fees) }}" type="text"
+                                            placeholder="سعر الكشف">
+                                       
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="urgent_fees">سعر الكشف المستعجل</label>
+                                        <input class="form-control" id="urgent_fees" name="urgent_fees" readonly
+                                            value="{{ old('urgent_fees', $joinRequest->urgent_fees) }}" type="text"
+                                            placeholder="سعر الكشف المستعجل">
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
+                                        <select class="form-control" id="is_available_for_home_visits" readonly
+                                            name="is_available_for_home_visits">
+                                            <option value="1"
+                                                {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '1' ? 'selected' : '' }}>
+                                                نعم
+                                            </option>
+                                            <option value="0"
+                                                {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '0' ? 'selected' : '' }}>
+                                                لا
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="home_visit_fees">سعر زيارة المنزل</label>
+                                        <input class="form-control" id="home_visit_fees" name="home_visit_fees" readonly
+                                            value="{{ old('home_visit_fees', $joinRequest->home_visit_fees) }}"
+                                            type="text" placeholder="سعر الزيارة المنزلية">
+                                      
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
 
                         <div class="row">
                             <div class="col-lg-6">
@@ -430,6 +467,9 @@
                                 </div>
                             @endif
                         </div>
+
+
+                         @include('admin.join-requests.parts.doctor_schedules', ['isShowPage' => true])
                     </div>
                 </div>
             </div>

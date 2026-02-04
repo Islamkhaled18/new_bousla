@@ -52,7 +52,10 @@ return new class extends Migration
             $table->string('professional_license')->nullable();
             $table->string('syndicate_card')->nullable();
             $table->boolean('is_accept_terms')->default(0);
+            $table->float('clinic_fees')->default(0);
+            $table->float('urgent_fees')->default(0);
             $table->boolean('is_available_for_home_visits')->default(0);
+            $table->float('home_visit_fees')->default(0);
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->text('admin_notes')->nullable();
 

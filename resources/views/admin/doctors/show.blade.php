@@ -192,7 +192,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="organization_location_url">رابط الموقع</label>
                                     <div>
@@ -204,7 +204,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="job_title_id">الوظيفة</label>
                                     <select class="form-control" id="job_title_id" name="job_title_id" readonly>
@@ -217,7 +217,35 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="clinic_fees">سعر الكشف</label>
+                                    <input class="form-control" id="clinic_fees" name="clinic_fees" readonly
+                                        value="{{ old('clinic_fees', $doctor->clinic_fees) }}" type="text"
+                                        placeholder="سعر الكشف">
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="urgent_fees">سعر الكشف المستعجل</label>
+                                    <input class="form-control" id="urgent_fees" name="urgent_fees" readonly
+                                        value="{{ old('urgent_fees', $doctor->urgent_fees) }}" type="text"
+                                        placeholder="سعر الكشف المستعجل">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
                                     <select class="form-control" id="is_available_for_home_visits" readonly
@@ -231,6 +259,16 @@
                                             لا
                                         </option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="home_visit_fees">سعر زيارة المنزل</label>
+                                    <input class="form-control" id="home_visit_fees" name="home_visit_fees" readonly
+                                        value="{{ old('home_visit_fees', $doctor->home_visit_fees) }}" type="text"
+                                        placeholder="سعر الزيارة المنزلية">
+
                                 </div>
                             </div>
                         </div>
@@ -250,7 +288,7 @@
                                 </div>
                             </div>
 
-                             <div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="is_accept_terms">موافقة على الشروط</label>
                                     <select class="form-control" id="is_accept_terms" name="is_accept_terms" readonly>
@@ -267,11 +305,11 @@
                             </div>
 
 
-                           
+
                         </div>
 
                         <div class="row">
-                             <div class="col-lg-4">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="personal_image">صورة شخصيه</label>
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
@@ -426,6 +464,9 @@
                                 </div>
                             @endif
                         </div>
+
+                        @include('admin.doctors.parts.doctor_schedules', ['isShowPage' => true])
+
                     </div>
                 </div>
             </div>
