@@ -28,7 +28,7 @@ class JoinRequestController extends Controller
 
     public function index()
     {
-        $join_requests = User::where('type', 'doctor')->where('status', 'pending')
+        $join_requests = User::where('type', 'doctor')->whereIn('status', ['pending', 'rejected'])
             ->with('jobTitle', 'area')->get();
         return view('admin.join-requests.index', compact('join_requests'));
     }
@@ -377,6 +377,9 @@ class JoinRequestController extends Controller
             ]);
 
             if ($request->status == 'accepted') {
+                $joinRequest->update([
+                    'admin_notes' => null,
+                ]);
                 $termCondition = TermCondition::where('role', 'client')->first();
 
                 TermsAcceptance::create([
