@@ -49,6 +49,8 @@ class UserTableSeeder extends Seeder
                 'address' => 'البندر - امتداد شارع جامع عبد الحي خليل بجوار مول الشيشيني',
                 'email' => 'sameh.kamel@gmail.com',
                 'is_accept_terms' => 1,
+                'password' => bcrypt('123456789'),
+
             ],
             [
                 'id'       => 4,
@@ -73,7 +75,8 @@ class UserTableSeeder extends Seeder
                 'floor_number' => 2,
                 'apartment_number' => 2,
                 'is_accept_terms' => 1,
-            
+                'password' => bcrypt('123456789'),
+
             ],
 
 

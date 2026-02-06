@@ -150,6 +150,49 @@ class JoinRequestRequest extends FormRequest
                 'numeric',
                 'min:0',
             ],
+            'urgent_fees_again' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
+            'clinic_fees_again' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
+            'home_visit_fees_again' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
+            'public_name' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:191',
+            ],
+            'address_label' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:191',
+            ],
+            'facebook_url' => [
+                'nullable',
+                'url',
+                'max:191',
+            ],
+            'instagram_url' => [
+                'nullable',
+                'url',
+                'max:191',
+            ],
+            'date_of_birth' => [
+                'nullable',
+                'date',
+            ],
+
+            // Images Validation
 
             'personal_image' => $imageValidationRules,
             'logo' => $imageValidationRules,

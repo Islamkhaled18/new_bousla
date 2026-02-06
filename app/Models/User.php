@@ -46,7 +46,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'roles_name' => 'array',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'is_accept_terms' => 'boolean',
+            'is_available_for_home_visits' => 'boolean',
+            'clinic_fees' => 'float',
+            'clinic_fees_again' => 'float',
+            'urgent_fees' => 'float',
+            'urgent_fees_again' => 'float',
+            'home_visit_fees' => 'float',
+            'home_visit_fees_again' => 'float',
+            'date_of_birth' => 'date',
         ];
     }
 

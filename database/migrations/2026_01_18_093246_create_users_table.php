@@ -30,8 +30,11 @@ return new class extends Migration
 
             //required for client and doctor
             $table->string('email')->unique()->nullable();
-
+            
             //required for doctor
+            $table->string('public_name')->nullable();//اسم الشهره
+            $table->string('address_label')->nullable();// علامه مميزه
+
             $table->text('about_me')->nullable();
             $table->string('id_number')->unique()->nullable();
             $table->foreignId('job_title_id')->nullable()->constrained('job_titles')->cascadeOnDelete();
@@ -41,6 +44,10 @@ return new class extends Migration
             $table->string('organization_phone_second')->nullable();
             $table->string('organization_phone_third')->nullable();
             $table->string('organization_location_url')->nullable();
+            $table->string('facebook_url')->nullable();
+            $table->string('instagram_url')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])->nullable();
             $table->integer('building_number')->nullable();
             $table->integer('floor_number')->nullable();
             $table->integer('apartment_number')->nullable();
@@ -53,9 +60,12 @@ return new class extends Migration
             $table->string('syndicate_card')->nullable();
             $table->boolean('is_accept_terms')->default(0);
             $table->float('clinic_fees')->default(0);
+            $table->float('clinic_fees_again')->default(0);
             $table->float('urgent_fees')->default(0);
+            $table->float('urgent_fees_again')->default(0);
             $table->boolean('is_available_for_home_visits')->default(0);
             $table->float('home_visit_fees')->default(0);
+            $table->float('home_visit_fees_again')->default(0);
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->text('admin_notes')->nullable();
 

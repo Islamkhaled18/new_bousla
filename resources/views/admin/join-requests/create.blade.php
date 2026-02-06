@@ -47,7 +47,22 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="public_name">اسم الشهره (ان وجد)</label>
+                                        <input class="form-control" id="public_name" name="public_name"
+                                            value="{{ old('public_name') }}" type="text"
+                                            placeholder="اكتب اسم الشهره (ان وجد)">
+                                        @error('public_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
 
+
+                            </div>
+
+                            <div class="row">
                                 {{-- /gender --}}
                                 <div class="col-lg-4">
                                     <div class="form-group">
@@ -63,70 +78,19 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="phone">الهاتف</label>
+                                        <label for="phone">الهاتف الشخصي</label>
                                         <input class="form-control" id="phone" name="phone"
-                                            value="{{ old('phone') }}" type="text" placeholder="اكتب الهاتف">
+                                            value="{{ old('phone') }}" type="text" placeholder=" اكتب الهاتف الشخصي">
                                         @error('phone')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="address">العنوان</label>
-                                        <input class="form-control" id="address" name="address"
-                                            value="{{ old('address') }}" type="text" placeholder="اكتب العنوان">
-                                        @error('address')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="building_number">رقم العماره</label>
-                                        <input class="form-control" id="building_number" name="building_number"
-                                            value="{{ old('building_number') }}" type="text" placeholder="رقم العماره">
-                                        @error('building_number')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="floor_number">رقم الطابق</label>
-                                        <input class="form-control" id="floor_number" name="floor_number"
-                                            value="{{ old('floor_number') }}" type="text" placeholder="رقم الطابق">
-                                        @error('floor_number')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="apartment_number">رقم الشقه</label>
-                                        <input class="form-control" id="apartment_number" name="apartment_number"
-                                            value="{{ old('apartment_number') }}" type="text"
-                                            placeholder="رقم الشقه">
-                                        @error('apartment_number')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="email">البريد الالكتروني</label>
                                         <input class="form-control" id="email" name="email"
@@ -140,7 +104,81 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="address">العنوان</label>
+                                        <input class="form-control" id="address" name="address"
+                                            value="{{ old('address') }}" type="text" placeholder="اكتب العنوان">
+                                        @error('address')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="address_label">علامه مميزه</label>
+                                        <input class="form-control" id="address_label" name="address_label"
+                                            value="{{ old('address_label') }}" type="text"
+                                            placeholder="اكتب علامه مميزه">
+                                        @error('address_label')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="area_id">المنطقة</label>
+                                        <select class="form-control" id="area_id" name="area_id">
+                                            @foreach ($areas as $area)
+                                                <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="building_number">رقم العماره</label>
+                                        <input class="form-control" id="building_number" name="building_number"
+                                            value="{{ old('building_number') }}" type="text"
+                                            placeholder="رقم العماره">
+                                        @error('building_number')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="floor_number">رقم الطابق</label>
+                                        <input class="form-control" id="floor_number" name="floor_number"
+                                            value="{{ old('floor_number') }}" type="text" placeholder="رقم الطابق">
+                                        @error('floor_number')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="apartment_number">رقم الشقه</label>
+                                        <input class="form-control" id="apartment_number" name="apartment_number"
+                                            value="{{ old('apartment_number') }}" type="text"
+                                            placeholder="رقم الشقه">
+                                        @error('apartment_number')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="about_me">نبذه عن الدكتور</label>
                                         <input class="form-control" id="about_me" name="about_me"
@@ -152,7 +190,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="id_number">رقم البطاقه</label>
                                         <input class="form-control" id="id_number" name="id_number"
@@ -163,10 +201,23 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="date_of_birth">تاريخ الميلاد</label>
+                                        <input class="form-control" id="date_of_birth" name="date_of_birth"
+                                            value="{{ old('date_of_birth') }}" type="date"
+                                            placeholder="تاريخ الميلاد">
+                                        @error('date_of_birth')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="organization_name">اسم المنظمة</label>
                                         <input class="form-control" id="organization_name" name="organization_name"
@@ -178,7 +229,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="organization_phone_first">رقم هاتف المنظمة</label>
                                         <input class="form-control" id="organization_phone_first"
@@ -189,10 +240,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="organization_phone_second">رقم هاتف ثاني للمنظمة</label>
                                         <input class="form-control" id="organization_phone_second"
@@ -205,7 +254,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="organization_phone_third">رقم هاتف ثالث للمنظمة</label>
                                         <input class="form-control" id="organization_phone_third"
@@ -221,11 +270,11 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="organization_location_url">رابط الموقع</label>
+                                        <label for="organization_location_url">رابط العنوان على جوجل مابس</label>
                                         <input class="form-control" id="organization_location_url"
                                             name="organization_location_url"
                                             value="{{ old('organization_location_url') }}" type="text"
-                                            placeholder="رابط الموقع">
+                                            placeholder="رابط العنوان على جوجل مابس">
                                         @error('organization_location_url')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -246,19 +295,29 @@
 
                             <div class="row">
 
-                               <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="clinic_fees">سعر الكشف</label>
                                         <input class="form-control" id="clinic_fees" name="clinic_fees"
-                                            value="{{ old('clinic_fees') }}" type="text"
-                                            placeholder="سعر الكشف">
+                                            value="{{ old('clinic_fees') }}" type="text" placeholder="سعر الكشف">
                                         @error('clinic_fees')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="clinic_fees_again">سعر إعادة الكشف</label>
+                                        <input class="form-control" id="clinic_fees_again" name="clinic_fees_again"
+                                            value="{{ old('clinic_fees_again') }}" type="text"
+                                            placeholder="سعر إعادة الكشف">
+                                        @error('clinic_fees_again')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="urgent_fees">سعر الكشف المستعجل</label>
                                         <input class="form-control" id="urgent_fees" name="urgent_fees"
@@ -269,12 +328,23 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="urgent_fees_again">سعر إعادة الكشف المستعجل</label>
+                                        <input class="form-control" id="urgent_fees_again" name="urgent_fees_again"
+                                            value="{{ old('urgent_fees_again') }}" type="text"
+                                            placeholder="سعر إعادة الكشف المستعجل">
+                                        @error('urgent_fees_again')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
 
                             </div>
 
                             <div class="row">
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
                                         <select class="form-control" id="is_available_for_home_visits"
@@ -292,7 +362,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="home_visit_fees">سعر زيارة المنزل</label>
                                         <input class="form-control" id="home_visit_fees" name="home_visit_fees"
@@ -303,24 +373,50 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="home_visit_fees_again">سعر إعادة زيارة المنزل</label>
+                                        <input class="form-control" id="home_visit_fees_again"
+                                            name="home_visit_fees_again" value="{{ old('home_visit_fees_again') }}"
+                                            type="text" placeholder="سعر إعادة الزيارة المنزلية">
+                                        @error('home_visit_fees_again')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
 
                             </div>
 
 
                             <div class="row">
-                                <div class="col-lg-6">
+
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="area_id">المنطقة</label>
-                                        <select class="form-control" id="area_id" name="area_id">
-                                            @foreach ($areas as $area)
-                                                <option value="{{ $area->id }}">{{ $area->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="facebook_url">رابط صفحة الفيسبوك (ان وجد)</label>
+                                        <input class="form-control" id="facebook_url" name="facebook_url"
+                                            value="{{ old('facebook_url') }}" type="text"
+                                            placeholder="رابط صفحة الفيسبوك (ان وجد)">
+                                        @error('facebook_url')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="instagram_url">رابط صفحة الانستاجرام (ان وجد)</label>
+                                        <input class="form-control" id="instagram_url" name="instagram_url"
+                                            value="{{ old('instagram_url') }}" type="text"
+                                            placeholder="رابط صفحة الانستاجرام (ان وجد)">
+                                        @error('instagram_url')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-6">
+
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="is_accept_terms">موافقة على الشروط والاحكام</label>
 
@@ -340,7 +436,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="personal_image">صورة شخصيه</label>
                                         <input class="form-control" id="personal_image" name="personal_image"
@@ -353,7 +449,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="logo">اللوجو</label>
                                         <input class="form-control" id="logo" name="logo" type="file"
@@ -366,7 +462,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="id_image_front">صورة البطاقه الاماميه</label>
                                         <input class="form-control" id="id_image_front" name="id_image_front"
@@ -378,10 +474,8 @@
                                         <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="id_image_back">صورة البطاقه الخلفيه</label>
                                         <input class="form-control" id="id_image_back" name="id_image_back"
@@ -393,8 +487,12 @@
                                         <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-lg-6">
+                            <div class="row">
+
+
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="graduation_certificate">شهادة التخرج</label>
                                         <input class="form-control" id="graduation_certificate"
@@ -406,10 +504,8 @@
                                         <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="professional_license">شهادة مزاولة المهنه</label>
                                         <input class="form-control" id="professional_license" name="professional_license"
@@ -422,7 +518,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="syndicate_card">كارنية النقابة</label>
                                         <input class="form-control" id="syndicate_card" name="syndicate_card"

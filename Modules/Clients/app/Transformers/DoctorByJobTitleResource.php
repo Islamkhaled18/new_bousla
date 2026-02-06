@@ -20,6 +20,9 @@ class DoctorByJobTitleResource extends JsonResource
             'nick_name' => $this->nick_name,
             'phone' => $this->phone,
             'email' => $this->email,
+            'gender' => $this->gender == 'male' ? 'ذكر' : 'أنثى',
+            'date_of_birth' => $this->date_of_birth ?? 'لا يوجد',
+
 
             // Job Title
             'job_title' => [
