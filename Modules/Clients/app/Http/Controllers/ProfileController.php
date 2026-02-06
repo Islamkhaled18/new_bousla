@@ -26,29 +26,35 @@ class ProfileController extends Controller
 
         // Only include fields that are present in the request
         $data = [];
-        
+
         if ($request->filled('first_name')) {
             $data['first_name'] = $request->first_name;
         }
-        
+
         if ($request->filled('last_name')) {
             $data['last_name'] = $request->last_name;
         }
-        
+
         if ($request->filled('email')) {
             $data['email'] = $request->email;
         }
-        
+
         if ($request->filled('phone')) {
             $data['phone'] = $request->phone;
         }
-        
+
         if ($request->filled('gender')) {
             $data['gender'] = $request->gender;
         }
-        
+
         if ($request->filled('id_number')) {
             $data['id_number'] = $request->id_number;
+        }
+        if ($request->filled('date_of_birth')) {
+            $data['date_of_birth'] = $request->date_of_birth;
+        }
+        if ($request->filled('blood_type')) {
+            $data['blood_type'] = $request->blood_type;
         }
 
         if ($request->filled('password') && $request->filled('current_password')) {
@@ -59,7 +65,7 @@ class ProfileController extends Controller
 
         if ($request->hasFile('personal_image')) {
             $file = $request->file('personal_image');
-           
+
             $path = $this->fileUploadService->upload($file, 'clients/' . $user->id, 'public');
             $data['personal_image'] = $path;
         }

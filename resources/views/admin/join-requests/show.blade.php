@@ -146,7 +146,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="organization_name">اسم المنظمة</label>
                                     <input class="form-control" id="organization_name" name="organization_name" readonly
@@ -156,7 +156,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="organization_phone_first">رقم هاتف المنظمة</label>
                                     <input class="form-control" id="organization_phone_first"
@@ -166,10 +166,8 @@
 
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
+               
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="organization_phone_second">رقم هاتف ثاني للمنظمة</label>
                                     <input class="form-control" id="organization_phone_second" readonly
@@ -180,7 +178,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="organization_phone_third">رقم هاتف ثالث للمنظمة</label>
                                     <input class="form-control" id="organization_phone_third" readonly

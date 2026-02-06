@@ -35,6 +35,8 @@ class ProfileRequest extends FormRequest
                 'max:14',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'date_of_birth' => ['nullable', 'date'],
+            'blood_type' => ['nullable', 'in:A+,A-,B+,B-,AB+,AB-,O+,O-'],
             'personal_image' => 'image|mimes:jpeg,png,jpg|max:5120',
         ];
 
