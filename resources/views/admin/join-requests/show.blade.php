@@ -28,7 +28,6 @@
                                     <input class="form-control" id="first_name" name="first_name" readonly
                                         value="{{ old('first_name', $joinRequest->first_name) }}" type="text"
                                         placeholder="اكتب الاسم الاول">
-
                                 </div>
                             </div>
 
@@ -40,7 +39,20 @@
                                         placeholder="اكتب الاسم الثاني">
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="public_name">اسم الشهره (ان وجد)</label>
+                                    <input class="form-control" id="public_name" name="public_name" readonly
+                                        value="{{ old('public_name', $joinRequest->public_name) }}" type="text"
+                                        placeholder="اكتب اسم الشهره (ان وجد)">
+                                </div>
+                            </div>
 
+
+                        </div>
+
+                        <div class="row">
+                            {{-- gender --}}
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="gender">الجنس</label>
@@ -49,98 +61,120 @@
                                             {{ old('gender', $joinRequest->gender) == 'male' ? 'selected' : '' }}>ذكر
                                         </option>
                                         <option value="female"
-                                            {{ old('gender', $joinRequest->gender) == 'female' ? 'selected' : '' }}>أنثى
+                                            {{ old('gender', $joinRequest->gender) == 'female' ? 'selected' : '' }}>
+                                            أنثى
                                         </option>
                                     </select>
-
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="phone">الهاتف</label>
                                     <input class="form-control" id="phone" name="phone" readonly
                                         value="{{ old('phone', $joinRequest->phone) }}" type="text"
                                         placeholder="اكتب الهاتف">
-
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="address">العنوان</label>
-                                    <input class="form-control" id="address" name="address" readonly
-                                        value="{{ old('address', $joinRequest->address) }}" type="text"
-                                        placeholder="اكتب العنوان">
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="building_number">رقم العماره</label>
-                                    <input class="form-control" id="building_number" name="building_number" readonly
-                                        value="{{ old('building_number', $joinRequest->building_number) }}" type="text"
-                                        placeholder="رقم العماره">
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="floor_number">رقم الطابق</label>
-                                    <input class="form-control" id="floor_number" name="floor_number" readonly
-                                        value="{{ old('floor_number', $joinRequest->floor_number) }}" type="text"
-                                        placeholder="رقم الطابق">
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="apartment_number">رقم الشقه</label>
-                                    <input class="form-control" id="apartment_number" name="apartment_number" readonly
-                                        value="{{ old('apartment_number', $joinRequest->apartment_number) }}"
-                                        type="text" placeholder="رقم الشقه">
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="email">البريد الالكتروني</label>
                                     <input class="form-control" id="email" name="email" readonly
                                         value="{{ old('email', $joinRequest->email) }}" type="text"
                                         placeholder="اكتب البريد الالكتروني">
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="address">العنوان</label>
+                                    <input class="form-control" id="address" name="address" readonly
+                                        value="{{ old('address', $joinRequest->address) }}" type="text"
+                                        placeholder="اكتب العنوان">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="address_label">علامه مميزه</label>
+                                    <input class="form-control" id="address_label" name="address_label" readonly
+                                        value="{{ old('address_label', $joinRequest->address_label) }}" type="text"
+                                        placeholder="اكتب علامه مميزه">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="area_id">المنطقة</label>
+                                    <select class="form-control" id="area_id" name="area_id" readonly>
+                                        @foreach ($areas as $area)
+                                            <option value="{{ $area->id }}"
+                                                {{ old('area_id', $joinRequest->area_id) == $area->id ? 'selected' : '' }}>
+                                                {{ $area->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="building_number">رقم العماره</label>
+                                    <input class="form-control" id="building_number" name="building_number" readonly
+                                        value="{{ old('building_number', $joinRequest->building_number) }}"
+                                        type="text" placeholder="رقم العماره">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="floor_number">رقم الطابق</label>
+                                    <input class="form-control" id="floor_number" name="floor_number" readonly
+                                        value="{{ old('floor_number', $joinRequest->floor_number) }}" type="text"
+                                        placeholder="رقم الطابق">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="apartment_number">رقم الشقه</label>
+                                    <input class="form-control" id="apartment_number" name="apartment_number" readonly
+                                        value="{{ old('apartment_number', $joinRequest->apartment_number) }}"
+                                        type="text" placeholder="رقم الشقه">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="about_me">نبذه عن الدكتور</label>
                                     <input class="form-control" id="about_me" name="about_me" readonly
                                         value="{{ old('about_me', $joinRequest->about_me) }}" type="text"
                                         placeholder="اكتب نبذة عن الدكتور">
-
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="id_number">رقم البطاقه</label>
                                     <input class="form-control" id="id_number" name="id_number" readonly
                                         value="{{ old('id_number', $joinRequest->id_number) }}" type="text"
                                         placeholder="اكتب رقم البطاقه">
+                                </div>
+                            </div>
 
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="date_of_birth">تاريخ الميلاد</label>
+                                    <input class="form-control" id="date_of_birth" name="date_of_birth" readonly
+                                        value="{{ old('date_of_birth', $joinRequest->date_of_birth) }}" type="date"
+                                        placeholder="تاريخ الميلاد">
                                 </div>
                             </div>
                         </div>
@@ -152,40 +186,36 @@
                                     <input class="form-control" id="organization_name" name="organization_name" readonly
                                         value="{{ old('organization_name', $joinRequest->organization_name) }}"
                                         type="text" placeholder="اكتب اسم المنظمة">
-
                                 </div>
                             </div>
 
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="organization_phone_first">رقم هاتف المنظمة</label>
-                                    <input class="form-control" id="organization_phone_first"
-                                        name="organization_phone_first" readonly
+                                    <input class="form-control" id="organization_phone_first" readonly
+                                        name="organization_phone_first"
                                         value="{{ old('organization_phone_first', $joinRequest->organization_phone_first) }}"
                                         type="text" placeholder="اكتب رقم هاتف المنظمة">
-
                                 </div>
                             </div>
-               
+
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="organization_phone_second">رقم هاتف ثاني للمنظمة</label>
-                                    <input class="form-control" id="organization_phone_second" readonly
-                                        name="organization_phone_second"
+                                    <input class="form-control" id="organization_phone_second"
+                                        name="organization_phone_second" readonly
                                         value="{{ old('organization_phone_second', $joinRequest->organization_phone_second) }}"
                                         type="text" placeholder="رقم هاتف ثاني للمنظمة">
-
                                 </div>
                             </div>
 
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="organization_phone_third">رقم هاتف ثالث للمنظمة</label>
-                                    <input class="form-control" id="organization_phone_third" readonly
-                                        name="organization_phone_third"
+                                    <input class="form-control" id="organization_phone_third"
+                                        name="organization_phone_third" readonly
                                         value="{{ old('organization_phone_third', $joinRequest->organization_phone_third) }}"
                                         type="text" placeholder="رقم هاتف ثالث للمنظمة">
-
                                 </div>
                             </div>
                         </div>
@@ -193,7 +223,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="organization_location_url">رابط الموقع</label>
+                                    <label for="organization_location_url">رابط العنوان على جوجل مابس</label>
                                     <div>
                                         <a href="{{ $joinRequest->organization_location_url }}" target="_blank"
                                             class="btn btn-outline-primary">
@@ -216,78 +246,100 @@
                                     </select>
                                 </div>
                             </div>
+
                         </div>
 
-
-                          <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="clinic_fees">سعر الكشف</label>
-                                        <input class="form-control" id="clinic_fees" name="clinic_fees" readonly
-                                            value="{{ old('clinic_fees', $joinRequest->clinic_fees) }}" type="text"
-                                            placeholder="سعر الكشف">
-                                       
-                                    </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="clinic_fees">سعر الكشف</label>
+                                    <input class="form-control" id="clinic_fees" name="clinic_fees" readonly
+                                        value="{{ old('clinic_fees', $joinRequest->clinic_fees) }}" type="text"
+                                        placeholder="سعر الكشف">
                                 </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="urgent_fees">سعر الكشف المستعجل</label>
-                                        <input class="form-control" id="urgent_fees" name="urgent_fees" readonly
-                                            value="{{ old('urgent_fees', $joinRequest->urgent_fees) }}" type="text"
-                                            placeholder="سعر الكشف المستعجل">
-                                       
-                                    </div>
-                                </div>
-
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
-                                        <select class="form-control" id="is_available_for_home_visits" readonly
-                                            name="is_available_for_home_visits">
-                                            <option value="1"
-                                                {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '1' ? 'selected' : '' }}>
-                                                نعم
-                                            </option>
-                                            <option value="0"
-                                                {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '0' ? 'selected' : '' }}>
-                                                لا
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="home_visit_fees">سعر زيارة المنزل</label>
-                                        <input class="form-control" id="home_visit_fees" name="home_visit_fees" readonly
-                                            value="{{ old('home_visit_fees', $joinRequest->home_visit_fees) }}"
-                                            type="text" placeholder="سعر الزيارة المنزلية">
-                                      
-                                    </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="clinic_fees_again">سعر إعادة الكشف</label>
+                                    <input class="form-control" id="clinic_fees_again" name="clinic_fees_again" readonly
+                                        value="{{ old('clinic_fees_again', $joinRequest->clinic_fees_again) }}"
+                                        type="text" placeholder="سعر إعادة الكشف">
                                 </div>
                             </div>
 
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="urgent_fees">سعر الكشف المستعجل</label>
+                                    <input class="form-control" id="urgent_fees" name="urgent_fees" readonly
+                                        value="{{ old('urgent_fees', $joinRequest->urgent_fees) }}" type="text"
+                                        placeholder="سعر الكشف المستعجل">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="urgent_fees_again">سعر إعادة الكشف المستعجل</label>
+                                    <input class="form-control" id="urgent_fees_again" name="urgent_fees_again" readonly
+                                        value="{{ old('urgent_fees_again', $joinRequest->urgent_fees_again) }}"
+                                        type="text" placeholder="سعر إعادة الكشف المستعجل">
+                                </div>
+                            </div>
+
+                        </div>
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label for="area_id">المنطقة</label>
-                                    <select class="form-control" id="area_id" name="area_id" readonly>
-                                        @foreach ($areas as $area)
-                                            <option value="{{ $area->id }}"
-                                                {{ old('area_id', $joinRequest->area_id) == $area->id ? 'selected' : '' }}>
-                                                {{ $area->name }}
-                                            </option>
-                                        @endforeach
+                                    <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
+                                    <select class="form-control" id="is_available_for_home_visits" readonly
+                                        name="is_available_for_home_visits">
+                                        <option value="1"
+                                            {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '1' ? 'selected' : '' }}>
+                                            نعم
+                                        </option>
+                                        <option value="0"
+                                            {{ old('is_available_for_home_visits', $joinRequest->is_available_for_home_visits) == '0' ? 'selected' : '' }}>
+                                            لا
+                                        </option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="home_visit_fees">سعر زيارة المنزل</label>
+                                    <input class="form-control" id="home_visit_fees" name="home_visit_fees" readonly
+                                        value="{{ old('home_visit_fees', $joinRequest->home_visit_fees) }}"
+                                        type="text" placeholder="سعر الزيارة المنزلية">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="home_visit_fees_again">سعر إعادة زيارة المنزل</label>
+                                    <input class="form-control" id="home_visit_fees_again" name="home_visit_fees_again" readonly
+                                        value="{{ old('home_visit_fees_again', $joinRequest->home_visit_fees_again) }}"
+                                        type="text" placeholder="سعر إعادة الزيارة المنزلية">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="facebook_url">رابط صفحة الفيسبوك (ان وجد)</label>
+                                    <input class="form-control" id="facebook_url" name="facebook_url" readonly
+                                        value="{{ old('facebook_url', $joinRequest->facebook_url) }}" type="text"
+                                        placeholder="سعر إعادة الزيارة المنزلية">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="instagram_url">رابط صفحة الانستاجرام (ان وجد)</label>
+                                    <input class="form-control" id="instagram_url" name="instagram_url" readonly
+                                        value="{{ old('instagram_url', $joinRequest->instagram_url) }}" type="text"
+                                        placeholder="سعر إعادة الزيارة المنزلية">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="is_accept_terms">موافقة على الشروط</label>
                                     <select class="form-control" id="is_accept_terms" name="is_accept_terms" readonly>
@@ -302,41 +354,88 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="personal_image">صورة شخصيه</label>
+                                  
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
                                     @if ($joinRequest->personal_image)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->personal_image) }}"
-                                                target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->personal_image) }}"
-                                                    alt="Personal Image" class="img-thumbnail"
-                                                    style="max-width: 150px; cursor: pointer;">
-                                            </a>
-                                            <p class="text-muted small">الصورة الحالية (اضغط للعرض بحجم كامل)</p>
+                                            <img src="{{ asset('storage/' . $joinRequest->personal_image) }}"
+                                                alt="Personal Image" class="img-thumbnail" style="max-width: 150px;">
+                                            <p class="text-muted small">الصورة الحالية</p>
                                         </div>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="logo">اللوجو</label>
+                                
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
                                     @if ($joinRequest->logo)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->logo) }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->logo) }}" alt="Logo"
-                                                    class="img-thumbnail" style="max-width: 150px; cursor: pointer;">
-                                            </a>
-                                            <p class="text-muted small">الشعار الحالي (اضغط للعرض بحجم كامل)</p>
+                                            <img src="{{ asset('storage/' . $joinRequest->logo) }}" alt="Logo"
+                                                class="img-thumbnail" style="max-width: 150px;">
+                                            <p class="text-muted small">الشعار الحالي</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="id_image_front">صورة البطاقه الاماميه</label>
+                                  
+                                    <span class="text-danger" id="imageError" style="display: none;"></span>
+                                    <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
+                                    @if ($joinRequest->id_image_front)
+                                        <div class="mt-2">
+                                            <img src="{{ asset('storage/' . $joinRequest->id_image_front) }}"
+                                                alt="ID Front" class="img-thumbnail" style="max-width: 150px;">
+                                            <p class="text-muted small">الصورة الحالية</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="id_image_back">صورة البطاقه الخلفيه</label>
+                                  
+                                    <span class="text-danger" id="imageError" style="display: none;"></span>
+                                    <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
+                                    @if ($joinRequest->id_image_back)
+                                        <div class="mt-2">
+                                            <img src="{{ asset('storage/' . $joinRequest->id_image_back) }}"
+                                                alt="ID Back" class="img-thumbnail" style="max-width: 150px;">
+                                            <p class="text-muted small">الصورة الحالية</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="graduation_certificate">شهادة التخرج</label>
+                                    
+                                    <span class="text-danger" id="imageError" style="display: none;"></span>
+                                    <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
+                                    @if ($joinRequest->graduation_certificate)
+                                        <div class="mt-2">
+                                            <img src="{{ asset('storage/' . $joinRequest->graduation_certificate) }}"
+                                                alt="Graduation Certificate" class="img-thumbnail"
+                                                style="max-width: 150px;">
+                                            <p class="text-muted small">الشهادة الحالية</p>
                                         </div>
                                     @endif
                                 </div>
@@ -344,98 +443,32 @@
 
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label for="id_image_front">صورة البطاقه الاماميه</label>
-                                    <span class="text-danger" id="imageError" style="display: none;"></span>
-                                    <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->id_image_front)
-                                        <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->id_image_front) }}"
-                                                target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->id_image_front) }}"
-                                                    alt="ID Front" class="img-thumbnail"
-                                                    style="max-width: 150px; cursor: pointer;">
-                                            </a>
-                                            <p class="text-muted small">الصورة الحالية (اضغط للعرض بحجم كامل)</p>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="id_image_back">صورة البطاقه الخلفيه</label>
-                                    <span class="text-danger" id="imageError" style="display: none;"></span>
-                                    <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->id_image_back)
-                                        <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->id_image_back) }}"
-                                                target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->id_image_back) }}"
-                                                    alt="ID Back" class="img-thumbnail"
-                                                    style="max-width: 150px; cursor: pointer;">
-                                            </a>
-                                            <p class="text-muted small">الصورة الحالية (اضغط للعرض بحجم كامل)</p>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="graduation_certificate">شهادة التخرج</label>
-                                    <span class="text-danger" id="imageError" style="display: none;"></span>
-                                    <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
-                                    @if ($joinRequest->graduation_certificate)
-                                        <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->graduation_certificate) }}"
-                                                target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->graduation_certificate) }}"
-                                                    alt="Graduation Certificate" class="img-thumbnail"
-                                                    style="max-width: 150px; cursor: pointer;">
-                                            </a>
-                                            <p class="text-muted small">الشهادة الحالية (اضغط للعرض بحجم كامل)</p>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
                                     <label for="professional_license">شهادة مزاولة المهنه</label>
+                                   
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
                                     @if ($joinRequest->professional_license)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->professional_license) }}"
-                                                target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->professional_license) }}"
-                                                    alt="Professional License" class="img-thumbnail"
-                                                    style="max-width: 150px; cursor: pointer;">
-                                            </a>
-                                            <p class="text-muted small">الشهادة الحالية (اضغط للعرض بحجم كامل)</p>
+                                            <img src="{{ asset('storage/' . $joinRequest->professional_license) }}"
+                                                alt="Professional License" class="img-thumbnail"
+                                                style="max-width: 150px;">
+                                            <p class="text-muted small">الشهادة الحالية</p>
                                         </div>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="syndicate_card">كارنيه النقابة</label>
+                                   
                                     <span class="text-danger" id="imageError" style="display: none;"></span>
                                     <small class="form-text text-muted">الحد الأقصى لحجم الصورة: 5 ميجابايت</small>
                                     @if ($joinRequest->syndicate_card)
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/' . $joinRequest->syndicate_card) }}"
-                                                target="_blank">
-                                                <img src="{{ asset('storage/' . $joinRequest->syndicate_card) }}"
-                                                    alt="Syndicate Card" class="img-thumbnail"
-                                                    style="max-width: 150px; cursor: pointer;">
-                                            </a>
-                                            <p class="text-muted small">الكارنيه الحالي (اضغط للعرض بحجم كامل)</p>
+                                            <img src="{{ asset('storage/' . $joinRequest->syndicate_card) }}"
+                                                alt="Syndicate Card" class="img-thumbnail" style="max-width: 150px;">
+                                            <p class="text-muted small">الكارنيه الحالي</p>
                                         </div>
                                     @endif
                                 </div>
@@ -467,7 +500,7 @@
                         </div>
 
 
-                         @include('admin.join-requests.parts.doctor_schedules', ['isShowPage' => true])
+                        @include('admin.join-requests.parts.doctor_schedules', ['isShowPage' => true])
                     </div>
                 </div>
             </div>
