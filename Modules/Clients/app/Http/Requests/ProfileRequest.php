@@ -14,10 +14,9 @@ class ProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $isCreating = $this->isMethod('post');
         $rules = [
-            'first_name' => [$isCreating ? 'required' : 'sometimes', 'string', 'max:255'],
-            'last_name' => [$isCreating ? 'required' : 'sometimes', 'string', 'max:255'],
+            'first_name' => ['sometimes', 'string', 'max:255'],
+            'last_name' => ['sometimes', 'string', 'max:255'],
             'gender' => ['in:male,female'],
             'email' => [
                 'nullable',
@@ -26,7 +25,7 @@ class ProfileRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'phone' => [
-                $isCreating ? 'required' : 'sometimes',
+                'sometimes',
                 'regex:/^01[0-9]{9}$/'
             ],
             'id_number' => [
@@ -40,20 +39,17 @@ class ProfileRequest extends FormRequest
             'personal_image' => 'image|mimes:jpeg,png,jpg|max:5120',
         ];
 
-        if ($this->isMethod('POST')) {
-            $rules['password'] = ['required', 'confirmed', 'min:8'];
-        } else {
-            if ($this->filled('password')) {
-                $rules['current_password'] = [
-                    'required',
-                    function ($attribute, $value, $fail) {
-                        if (!Hash::check($value, $this->user()->password)) {
-                            $fail('كلمة المرور القديمة غير صحيحة');
-                        }
+        // Password validation - only required if user wants to change it
+        if ($this->filled('password')) {
+            $rules['current_password'] = [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (!Hash::check($value, $this->user()->password)) {
+                        $fail('كلمة المرور القديمة غير صحيحة');
                     }
-                ];
-                $rules['password'] = ['required', 'confirmed', 'min:8'];
-            }
+                }
+            ];
+            $rules['password'] = ['required', 'confirmed', 'min:8'];
         }
 
         return $rules;
