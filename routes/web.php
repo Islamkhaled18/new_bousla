@@ -94,6 +94,9 @@ Route::middleware('auth')->group(function () {
     //clients
     Route::resource('clients', ClientController::class)->only(['index', 'show', 'destroy']);
     Route::post('clients/{client}/toggle-status', [ClientController::class, 'toggleStatus'])->name('clients.toggle-status')->middleware(['throttle:60,1']);
+    //families
+    Route::get('clients/{client}/families', [ClientController::class, 'families'])->name('clients.families');
+
 
     //faqs
     Route::resource('faqs', FaqController::class);

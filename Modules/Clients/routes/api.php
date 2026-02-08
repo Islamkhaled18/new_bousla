@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Clients\app\Http\Controllers\AuthController;
+use Modules\Clients\app\Http\Controllers\FamilyController;
 use Modules\Clients\app\Http\Controllers\TermsConditionController;
 use Modules\Clients\app\Http\Controllers\JobTitleController;
 use Modules\Clients\app\Http\Controllers\ProfileController;
@@ -27,5 +28,12 @@ Route::middleware(['auth:sanctum'])->prefix('clients')->group(function () {
         Route::post('toggle', [FavoriteController::class, 'toggle']);
         Route::get('/', [FavoriteController::class, 'index']);
         Route::get('check/{doctorId}', [FavoriteController::class, 'check']);
+    });
+
+    //families
+    Route::prefix('families')->group(function () {
+        Route::get('/', [FamilyController::class, 'index']);
+        Route::post('', [FamilyController::class, 'store']);
+        Route::delete('{id}', [FamilyController::class, 'destroy']);
     });
 });
