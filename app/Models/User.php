@@ -95,6 +95,11 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    public function families()
+    {
+        return $this->hasMany(Family::class, 'user_id');
+    }
+
     /**
      * العلاقة مع مواعيد عمل الطبيب
      */

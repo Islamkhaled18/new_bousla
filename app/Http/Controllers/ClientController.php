@@ -84,4 +84,12 @@ class ClientController extends Controller
     {
         return $this->toggleStatusModel($client);
     } //end of toggleStatus
+
+    public function families(User $client)
+    {
+        $families = $client->families()->get();
+
+        return view('admin.clients.families', compact('families'));
+    }
+
 }

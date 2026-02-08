@@ -68,6 +68,9 @@
                                                 <button type="'submit" class="btn btn-danger delete btn-sm"><i
                                                         class="fa fa-trash"></i>حذف</button>
                                             </form>
+
+                                             <a class="btn btn-sm btn-warning" href="{{ route('clients.families', $client->slug)}}"
+                                                title="افراد العائلة">افراد العائلة</a>
                                         </td>
                                     </tr>
                                 @endforeach
