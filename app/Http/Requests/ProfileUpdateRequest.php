@@ -27,4 +27,28 @@ class ProfileUpdateRequest extends FormRequest
             ],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'الاسم مطلوب',
+            'name.string'   => 'الاسم يجب أن يكون نصًا',
+            'name.max'      => 'الاسم يجب ألا يزيد عن 255 حرف',
+
+            'email.required' => 'البريد الإلكتروني مطلوب',
+            'email.string'   => 'البريد الإلكتروني غير صالح',
+            'email.lowercase' => 'البريد الإلكتروني يجب أن يكون بحروف صغيرة',
+            'email.email'    => 'صيغة البريد الإلكتروني غير صحيحة',
+            'email.max'      => 'البريد الإلكتروني طويل جدًا',
+            'email.unique'   => 'البريد الإلكتروني مستخدم بالفعل',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'الاسم',
+            'email' => 'البريد الإلكتروني',
+        ];
+    }
 }

@@ -252,178 +252,146 @@ class JoinRequestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            // First Name
+
+            // =====================
+            // Basic Info
+            // =====================
             'first_name.required' => 'الاسم الأول مطلوب',
-            'first_name.string' => 'الاسم الأول يجب أن يكون نصاً',
-            'first_name.min' => 'الاسم الأول يجب أن يكون 3 أحرف على الأقل',
-            'first_name.max' => 'الاسم الأول يجب ألا يتجاوز 191 حرفاً',
+            'first_name.string'   => 'الاسم الأول يجب أن يكون نصًا',
+            'first_name.min'      => 'الاسم الأول يجب ألا يقل عن 3 حروف',
+            'first_name.max'      => 'الاسم الأول يجب ألا يزيد عن 191 حرف',
 
-            // Last Name
-            'last_name.string' => 'اسم العائلة يجب أن يكون نصاً',
-            'last_name.min' => 'اسم العائلة يجب أن يكون 3 أحرف على الأقل',
-            'last_name.max' => 'اسم العائلة يجب ألا يتجاوز 191 حرفاً',
+            'last_name.string' => 'اسم العائلة يجب أن يكون نصًا',
+            'last_name.min'    => 'اسم العائلة يجب ألا يقل عن 3 حروف',
+            'last_name.max'    => 'اسم العائلة يجب ألا يزيد عن 191 حرف',
 
-            // Phone
             'phone.required' => 'رقم الهاتف مطلوب',
-            'phone.string' => 'رقم الهاتف يجب أن يكون نصاً',
-            'phone.regex' => 'رقم الهاتف يجب أن يكون بصيغة صحيحة (11 رقم يبدأ بـ 01)',
-            'phone.unique' => 'رقم الهاتف مستخدم بالفعل',
+            'phone.string'   => 'رقم الهاتف غير صالح',
+            'phone.regex'    => 'رقم الهاتف يجب أن يبدأ بـ 01 ويتكون من 11 رقم',
+            'phone.unique'   => 'رقم الهاتف مستخدم بالفعل',
 
-            // Address
-            'address.required' => 'العنوان مطلوب',
-            'address.string' => 'العنوان يجب أن يكون نصاً',
-            'address.min' => 'العنوان يجب أن يكون 3 أحرف على الأقل',
-            'address.max' => 'العنوان يجب ألا يتجاوز 191 حرفاً',
-
-            // Email
             'email.required' => 'البريد الإلكتروني مطلوب',
-            'email.email' => 'البريد الإلكتروني يجب أن يكون بصيغة صحيحة',
-            'email.max' => 'البريد الإلكتروني يجب ألا يتجاوز 191 حرفاً',
-            'email.unique' => 'البريد الإلكتروني مستخدم بالفعل',
+            'email.email'    => 'البريد الإلكتروني غير صالح',
+            'email.max'      => 'البريد الإلكتروني طويل جدًا',
+            'email.unique'   => 'البريد الإلكتروني مستخدم بالفعل',
 
-            // Gender
-            'gender.required' => 'الجنس مطلوب',
-            'gender.in' => 'الجنس يجب أن يكون ذكر أو أنثى',
+            'gender.required' => 'النوع مطلوب',
+            'gender.in'       => 'النوع يجب أن يكون ذكر أو أنثى',
 
-            // About Me
-            'about_me.required' => 'نبذة عني مطلوبة',
-            'about_me.string' => 'نبذة عني يجب أن تكون نصاً',
-            'about_me.max' => 'نبذة عني يجب ألا تتجاوز 191 حرفاً',
+            'date_of_birth.date' => 'تاريخ الميلاد غير صالح',
 
-            // ID Number
-            'id_number.required' => 'رقم الهوية مطلوب',
-            'id_number.string' => 'رقم الهوية يجب أن يكون نصاً',
-            'id_number.regex' => 'رقم الهوية يجب أن يكون 14 رقماً',
-            'id_number.unique' => 'رقم الهوية مستخدم بالفعل',
-
-            // Job Title
-            'job_title_id.required' => 'المسمى الوظيفي مطلوب',
-            'job_title_id.exists' => 'المسمى الوظيفي المحدد غير موجود',
-
-            // Area
-            'area_id.required' => 'المنطقة مطلوبة',
-            'area_id.exists' => 'المنطقة المحددة غير موجودة',
-
-            // Organization Name
-            'organization_name.required' => 'اسم المنظمة مطلوب',
-            'organization_name.string' => 'اسم المنظمة يجب أن يكون نصاً',
-            'organization_name.min' => 'اسم المنظمة يجب أن يكون 3 أحرف على الأقل',
-            'organization_name.max' => 'اسم المنظمة يجب ألا يتجاوز 191 حرفاً',
-
-            // Organization Phone First
-            'organization_phone_first.required' => 'رقم هاتف المنظمة الأول مطلوب',
-            'organization_phone_first.regex' => 'رقم هاتف المنظمة الأول يجب أن يكون بصيغة صحيحة (يبدأ بـ 01 أو 040)',
-
-            // Organization Phone Second
-            'organization_phone_second.string' => 'رقم هاتف المنظمة الثاني يجب أن يكون نصاً',
-            'organization_phone_second.regex' => 'رقم هاتف المنظمة الثاني يجب أن يكون بصيغة صحيحة (يبدأ بـ 01 أو 040)',
-
-            // Organization Phone Third
-            'organization_phone_third.string' => 'رقم هاتف المنظمة الثالث يجب أن يكون نصاً',
-            'organization_phone_third.regex' => 'رقم هاتف المنظمة الثالث يجب أن يكون بصيغة صحيحة (يبدأ بـ 01 أو 040)',
-
-            // Organization Location URL
-            'organization_location_url.required' => 'رابط موقع المنظمة على الخريطة مطلوب',
-            'organization_location_url.url' => 'رابط موقع المنظمة يجب أن يكون رابطاً صحيحاً',
-            'organization_location_url.regex' => 'رابط موقع المنظمة يجب أن يكون من Google Maps',
-            'organization_location_url.max' => 'رابط موقع المنظمة يجب ألا يتجاوز 191 حرفاً',
-
-            // Building Number
-            'building_number.required' => 'رقم المبنى مطلوب',
-            'building_number.string' => 'رقم المبنى يجب أن يكون نصاً',
-            'building_number.max' => 'رقم المبنى يجب ألا يتجاوز 50 حرفاً',
-
-            // Floor Number
-            'floor_number.required' => 'رقم الطابق مطلوب',
-            'floor_number.string' => 'رقم الطابق يجب أن يكون نصاً',
-            'floor_number.max' => 'رقم الطابق يجب ألا يتجاوز 50 حرفاً',
-
-            // Apartment Number
-            'apartment_number.required' => 'رقم الشقة مطلوب',
-            'apartment_number.string' => 'رقم الشقة يجب أن يكون نصاً',
-            'apartment_number.max' => 'رقم الشقة يجب ألا يتجاوز 50 حرفاً',
-
-            // Images Validation
-            'personal_image.required' => 'الصورة الشخصية مطلوبة',
-            'personal_image.image' => 'الصورة الشخصية يجب أن تكون صورة',
-            'personal_image.mimes' => 'الصورة الشخصية يجب أن تكون بصيغة: png, jpg, jpeg, webp',
-            'personal_image.max' => 'حجم الصورة الشخصية يجب ألا يتجاوز 5 ميجابايت',
-
-            'logo.required' => 'شعار المنظمة مطلوب',
-            'logo.image' => 'شعار المنظمة يجب أن يكون صورة',
-            'logo.mimes' => 'شعار المنظمة يجب أن يكون بصيغة: png, jpg, jpeg, webp',
-            'logo.max' => 'حجم شعار المنظمة يجب ألا يتجاوز 5 ميجابايت',
-
-            'id_image_front.required' => 'صورة الهوية (الوجه الأمامي) مطلوبة',
-            'id_image_front.image' => 'صورة الهوية (الوجه الأمامي) يجب أن تكون صورة',
-            'id_image_front.mimes' => 'صورة الهوية (الوجه الأمامي) يجب أن تكون بصيغة: png, jpg, jpeg, webp',
-            'id_image_front.max' => 'حجم صورة الهوية (الوجه الأمامي) يجب ألا يتجاوز 5 ميجابايت',
-
-            'id_image_back.required' => 'صورة الهوية (الوجه الخلفي) مطلوبة',
-            'id_image_back.image' => 'صورة الهوية (الوجه الخلفي) يجب أن تكون صورة',
-            'id_image_back.mimes' => 'صورة الهوية (الوجه الخلفي) يجب أن تكون بصيغة: png, jpg, jpeg, webp',
-            'id_image_back.max' => 'حجم صورة الهوية (الوجه الخلفي) يجب ألا يتجاوز 5 ميجابايت',
-
-            'graduation_certificate.required' => 'شهادة التخرج مطلوبة',
-            'graduation_certificate.image' => 'شهادة التخرج يجب أن تكون صورة',
-            'graduation_certificate.mimes' => 'شهادة التخرج يجب أن تكون بصيغة: png, jpg, jpeg, webp',
-            'graduation_certificate.max' => 'حجم شهادة التخرج يجب ألا يتجاوز 5 ميجابايت',
-
-            'professional_license.required' => 'الترخيص المهني مطلوب',
-            'professional_license.image' => 'الترخيص المهني يجب أن يكون صورة',
-            'professional_license.mimes' => 'الترخيص المهني يجب أن يكون بصيغة: png, jpg, jpeg, webp',
-            'professional_license.max' => 'حجم الترخيص المهني يجب ألا يتجاوز 5 ميجابايت',
-
-            'syndicate_card.required' => 'كارنيه النقابة مطلوب',
-            'syndicate_card.image' => 'كارنيه النقابة يجب أن يكون صورة',
-            'syndicate_card.mimes' => 'كارنيه النقابة يجب أن يكون بصيغة: png, jpg, jpeg, webp',
-            'syndicate_card.max' => 'حجم كارنيه النقابة يجب ألا يتجاوز 5 ميجابايت',
-
-            // Organization Photos (Multiple)
-            'photo.array' => 'صور المنظمة يجب أن تكون مصفوفة',
-            'photo.*.image' => 'كل ملف من صور المنظمة يجب أن يكون صورة',
-            'photo.*.mimes' => 'صور المنظمة يجب أن تكون بصيغة: jpeg, png, jpg, gif',
-            'photo.*.max' => 'حجم كل صورة من صور المنظمة يجب ألا يتجاوز 5 ميجابايت',
-
-            'is_available_for_home_visits.in' => 'حقل متاح للزيارات المنزلية يجب أن يكون إما 0 أو 1',
+            // =====================
+            // Terms
+            // =====================
             'is_accept_terms.required' => 'يجب الموافقة على الشروط والأحكام',
-            'is_accept_terms.in' => 'يجب الموافقة على الشروط والأحكام',
+            'is_accept_terms.in'       => 'يجب الموافقة على الشروط والأحكام',
 
-            'clinic_fees.required' => 'سعر الكشق مطلوب',
-            'clinic_fees.integer' => 'سعر الكشف يجب أن يكون رقماً',
-            'clinic_fees.min' => 'اقل سعر للكشف هو 0',
+            // =====================
+            // Address
+            // =====================
+            'address.required' => 'العنوان مطلوب',
+            'address.string'   => 'العنوان يجب أن يكون نصًا',
+            'address.min'      => 'العنوان قصير جدًا',
+            'address.max'      => 'العنوان طويل جدًا',
 
-            'home_visit_fees.reuired_if' => 'سعر الزياره المنزليه مطلوب في حالة الموافقه على الزياره المنزليه',
-            'home_visit_fees.integer' => 'سعر الكشف المنزلي يجب أن يكون رقماً',
-            'home_visit_fees.min' => 'اقل سعر للكشف المنزلي هو 0',
+            'area_id.required' => 'المنطقة مطلوبة',
+            'area_id.exists'   => 'المنطقة غير موجودة',
 
-            'urgent_fees.integer' => 'سعر الكشف المستعجل يجب أن يكون رقماً',
-            'urgent_fees.min' => 'اقل سعر للكشف المستعجل هو 0',
+            'building_number.required' => 'رقم المبنى مطلوب',
+            'floor_number.required'    => 'رقم الدور مطلوب',
+            'apartment_number.required' => 'رقم الشقة مطلوب',
 
+            // =====================
+            // Job & Organization
+            // =====================
+            'job_title_id.required' => 'المسمى الوظيفي مطلوب',
+            'job_title_id.exists'   => 'المسمى الوظيفي غير صحيح',
 
+            'organization_name.required' => 'اسم الجهة مطلوب',
+            'organization_name.string'   => 'اسم الجهة يجب أن يكون نصًا',
+            'organization_name.min'      => 'اسم الجهة قصير جدًا',
+            'organization_name.max'      => 'اسم الجهة طويل جدًا',
 
-            // ================================
-            // Doctor Schedules Messages
-            // ================================
-            'schedules.array' => 'مواعيد العمل يجب أن تكون مصفوفة',
-            'schedules.*.day_of_week.required_with' => 'يوم الأسبوع مطلوب',
-            'schedules.*.day_of_week.in' => 'يوم الأسبوع غير صحيح',
+            'organization_phone_first.required' => 'رقم هاتف الجهة مطلوب',
+            'organization_phone_first.regex'    => 'رقم هاتف الجهة غير صالح',
+
+            'organization_phone_second.regex' => 'رقم الهاتف غير صالح',
+            'organization_phone_third.regex'  => 'رقم الهاتف غير صالح',
+
+            'organization_location_url.required' => 'رابط موقع الجهة مطلوب',
+            'organization_location_url.url'      => 'رابط الموقع غير صالح',
+            'organization_location_url.regex'    => 'الرابط يجب أن يكون من خرائط جوجل',
+            'organization_location_url.max'      => 'الرابط طويل جدًا',
+
+            // =====================
+            // Identification
+            // =====================
+            'id_number.required' => 'الرقم القومي مطلوب',
+            'id_number.regex'    => 'الرقم القومي يجب أن يتكون من 14 رقم',
+            'id_number.unique'   => 'الرقم القومي مستخدم بالفعل',
+
+            // =====================
+            // About
+            // =====================
+            'about_me.required' => 'نبذة عنك مطلوبة',
+            'about_me.string'   => 'النبذة يجب أن تكون نصًا',
+            'about_me.max'      => 'النبذة طويلة جدًا',
+
+            // =====================
+            // Fees
+            // =====================
+            'clinic_fees.required' => 'سعر الكشف مطلوب',
+            'clinic_fees.numeric'  => 'سعر الكشف يجب أن يكون رقمًا',
+            'clinic_fees.min'      => 'سعر الكشف لا يمكن أن يكون أقل من صفر',
+
+            'home_visit_fees.required_if' => 'سعر الزيارة المنزلية مطلوب',
+            'home_visit_fees.numeric'     => 'سعر الزيارة المنزلية يجب أن يكون رقمًا',
+            'home_visit_fees.min'         => 'سعر الزيارة المنزلية لا يمكن أن يكون أقل من صفر',
+
+            'urgent_fees.numeric' => 'سعر الاستعجال يجب أن يكون رقمًا',
+            'urgent_fees.min'     => 'سعر الاستعجال لا يمكن أن يكون أقل من صفر',
+
+            // =====================
+            // Images
+            // =====================
+            'personal_image.required' => 'الصورة الشخصية مطلوبة',
+            'personal_image.image'    => 'الصورة الشخصية غير صالحة',
+            'personal_image.mimes'    => 'صيغة الصورة غير مدعومة',
+            'personal_image.max'      => 'حجم الصورة كبير جدًا',
+
+            'logo.image' => 'اللوجو غير صالح',
+
+            'id_image_front.required' => 'صورة البطاقة (أمام) مطلوبة',
+            'id_image_back.required'  => 'صورة البطاقة (خلف) مطلوبة',
+
+            'photo.array'   => 'الصور يجب أن تكون في صورة مصفوفة',
+            'photo.*.image' => 'إحدى الصور غير صالحة',
+
+            // =====================
+            // Schedules
+            // =====================
+            'schedules.array' => 'المواعيد يجب أن تكون مصفوفة',
+
+            'schedules.*.day_of_week.required_with' => 'يجب تحديد يوم العمل',
+            'schedules.*.day_of_week.in'            => 'يوم العمل غير صالح',
+
             'schedules.*.from_time.required_with' => 'وقت البداية مطلوب',
-            'schedules.*.from_time.date_format' => 'وقت البداية يجب أن يكون بصيغة ساعة:دقيقة (مثال: 14:00)',
+            'schedules.*.from_time.date_format'   => 'صيغة وقت البداية غير صحيحة',
+
             'schedules.*.to_time.required_with' => 'وقت النهاية مطلوب',
-            'schedules.*.to_time.date_format' => 'وقت النهاية يجب أن يكون بصيغة ساعة:دقيقة (مثال: 19:00)',
-            'schedules.*.to_time.after' => 'وقت النهاية يجب أن يكون بعد وقت البداية',
+            'schedules.*.to_time.date_format'   => 'صيغة وقت النهاية غير صحيحة',
+            'schedules.*.to_time.after'         => 'وقت النهاية يجب أن يكون بعد وقت البداية',
+
             'schedules.*.booking_type.required_with' => 'نوع الحجز مطلوب',
-            'schedules.*.booking_type.in' => 'نوع الحجز يجب أن يكون: مواعيد محددة أو حد أقصى للمرضى',
-            'schedules.*.slot_duration.required_if' => 'مدة الموعد مطلوبة عند اختيار نظام المواعيد المحددة',
-            'schedules.*.slot_duration.integer' => 'مدة الموعد يجب أن تكون رقماً صحيحاً',
-            'schedules.*.slot_duration.min' => 'مدة الموعد يجب أن تكون 5 دقائق على الأقل',
-            'schedules.*.slot_duration.max' => 'مدة الموعد يجب ألا تتجاوز 120 دقيقة',
-            'schedules.*.slot_duration.in' => 'مدة الموعد يجب أن تكون إحدى القيم: 5، 10، 15، 20، 30، 45، 60، 90، 120 دقيقة',
-            'schedules.*.max_patients_per_hour.required_if' => 'عدد المرضى بالساعة مطلوب عند اختيار نظام الحد الأقصى',
-            'schedules.*.max_patients_per_hour.integer' => 'عدد المرضى بالساعة يجب أن يكون رقماً صحيحاً',
-            'schedules.*.max_patients_per_hour.min' => 'عدد المرضى بالساعة يجب أن يكون 1 على الأقل',
-            'schedules.*.max_patients_per_hour.max' => 'عدد المرضى بالساعة يجب ألا يتجاوز 50',
+            'schedules.*.booking_type.in'            => 'نوع الحجز غير صالح',
+
+            'schedules.*.slot_duration.required_if' => 'مدة الحجز مطلوبة',
+            'schedules.*.slot_duration.integer'     => 'مدة الحجز يجب أن تكون رقمًا',
+
+            'schedules.*.max_patients_per_hour.required_if' =>
+            'عدد المرضى في الساعة مطلوب',
+            'schedules.*.max_patients_per_hour.integer' =>
+            'عدد المرضى يجب أن يكون رقمًا',
         ];
     }
 
@@ -433,36 +401,86 @@ class JoinRequestRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            // =====================
+            // Basic Info
+            // =====================
             'first_name' => 'الاسم الأول',
             'last_name' => 'اسم العائلة',
             'phone' => 'رقم الهاتف',
-            'address' => 'العنوان',
             'email' => 'البريد الإلكتروني',
+            'date_of_birth' => 'تاريخ الميلاد',
+            'gender' => 'الجنس',
             'about_me' => 'نبذة عني',
-            'id_number' => 'رقم الهوية',
-            'job_title_id' => 'المسمى الوظيفي',
+            'public_name' => 'الاسم الظاهر للمرضى',
+
+            // =====================
+            // Address
+            // =====================
+            'address' => 'العنوان',
+            'address_label' => 'وصف العنوان',
             'area_id' => 'المنطقة',
-            'organization_name' => 'اسم المنظمة',
-            'organization_phone_first' => 'رقم هاتف المنظمة الأول',
-            'organization_phone_second' => 'رقم هاتف المنظمة الثاني',
-            'organization_phone_third' => 'رقم هاتف المنظمة الثالث',
-            'organization_location_url' => 'رابط موقع المنظمة',
             'building_number' => 'رقم المبنى',
             'floor_number' => 'رقم الطابق',
             'apartment_number' => 'رقم الشقة',
+
+            // =====================
+            // Identification
+            // =====================
+            'id_number' => 'الرقم القومي',
+
+            // =====================
+            // Job & Organization
+            // =====================
+            'job_title_id' => 'المسمى الوظيفي',
+            'organization_name' => 'اسم المنشأة',
+            'organization_phone_first' => 'رقم هاتف المنشأة الأول',
+            'organization_phone_second' => 'رقم هاتف المنشأة الثاني',
+            'organization_phone_third' => 'رقم هاتف المنشأة الثالث',
+            'organization_location_url' => 'رابط موقع المنشأة',
+
+            // =====================
+            // Fees
+            // =====================
+            'clinic_fees' => 'سعر الكشف',
+            'home_visit_fees' => 'سعر الزيارة المنزلية',
+            'urgent_fees' => 'سعر الكشف المستعجل',
+            'clinic_fees_again' => 'سعر إعادة الكشف',
+            'home_visit_fees_again' => 'سعر إعادة الزيارة المنزلية',
+            'urgent_fees_again' => 'سعر إعادة الكشف المستعجل',
+
+            // =====================
+            // Terms
+            // =====================
+            'is_accept_terms' => 'الموافقة على الشروط والأحكام',
+            'is_available_for_home_visits' => 'متاح للزيارات المنزلية',
+
+            // =====================
+            // Images
+            // =====================
             'personal_image' => 'الصورة الشخصية',
-            'logo' => 'شعار المنظمة',
-            'id_image_front' => 'صورة الهوية (الوجه الأمامي)',
-            'id_image_back' => 'صورة الهوية (الوجه الخلفي)',
+            'logo' => 'شعار المنشأة',
+            'id_image_front' => 'صورة البطاقة (الوجه الأمامي)',
+            'id_image_back' => 'صورة البطاقة (الوجه الخلفي)',
             'graduation_certificate' => 'شهادة التخرج',
             'professional_license' => 'الترخيص المهني',
             'syndicate_card' => 'كارنيه النقابة',
-            'photo' => 'صور المنظمة',
-            'is_available_for_home_visits' => 'متاح للزيارات المنزلية',
-            'gender' => 'الجنس',
+            'photo' => 'صور المنشأة',
+            'photo.*' => 'صورة من صور المنشأة',
+
+            // =====================
+            // Schedules
+            // =====================
             'schedules' => 'مواعيد العمل',
+            'schedules.*.day_of_week' => 'يوم العمل',
+            'schedules.*.from_time' => 'وقت البداية',
+            'schedules.*.to_time' => 'وقت النهاية',
+            'schedules.*.booking_type' => 'نوع الحجز',
+            'schedules.*.slot_duration' => 'مدة الحجز',
+            'schedules.*.max_patients_per_hour' => 'عدد المرضى في الساعة',
+            'schedules.*.is_active' => 'الحالة',
         ];
     }
+
 
     public function withValidator($validator): void
     {

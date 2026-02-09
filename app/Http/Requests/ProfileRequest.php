@@ -25,7 +25,6 @@ class ProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $adminId = $this->route('admin')?->id;
 
         $rules = [
             'first_name' => ['required', 'string', 'max:255'],
