@@ -8,12 +8,15 @@ use App\Models\User;
 use App\Traits\ToggleStatusTrait;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ClientController extends Controller
 {
     use ToggleStatusTrait;
 
     protected $fileUploadService;
+    private const CACHE_KEY = 'clients_list';
+    private const CACHE_DURATION = 900; // 15 minutes
 
     public function __construct(FileUploadService $fileUploadService)
     {
@@ -22,9 +25,11 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clients = User::where('type', 'client')
-            ->orderBy('id', 'DESC')
-            ->paginate(15);
+        $clients = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return User::where('type', 'client')
+                ->orderBy('id', 'DESC')
+                ->get();
+        });
 
         return view('admin.clients.index', compact('clients'));
     }
@@ -39,7 +44,6 @@ class ClientController extends Controller
 
     public function destroy(User $client)
     {
-
         DB::beginTransaction();
         try {
             $imagesToDelete = [];
@@ -65,6 +69,10 @@ class ClientController extends Controller
             }
 
             $client->delete();
+            
+            // Clear cache after deleting
+            Cache::forget(self::CACHE_KEY);
+            
             DB::commit();
 
             foreach ($imagesToDelete as $imagePath) {
@@ -82,6 +90,9 @@ class ClientController extends Controller
 
     public function toggleStatus(User $client)
     {
+        // Clear cache when status is toggled
+        Cache::forget(self::CACHE_KEY);
+        
         return $this->toggleStatusModel($client);
     } //end of toggleStatus
 
@@ -91,5 +102,4 @@ class ClientController extends Controller
 
         return view('admin.clients.families', compact('families'));
     }
-
 }

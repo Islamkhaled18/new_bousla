@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\MainCategoryRequest;
 use App\Models\MainCategory;
 use App\Services\FileUploadService;
 use App\Traits\ToggleStatusTrait;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class MainCategoryController extends Controller
 {
     use ToggleStatusTrait;
+    
     protected $fileUploadService;
+    private const CACHE_KEY = 'main_categories_list';
+    private const CACHE_DURATION = 900; // 15 minutes
 
     public function __construct(FileUploadService $fileUploadService)
     {
@@ -21,7 +24,10 @@ class MainCategoryController extends Controller
 
     public function index()
     {
-        $main_categories = MainCategory::paginate(10);
+        $main_categories = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return MainCategory::all();
+        });
+        
         return view('admin.main-categories.index', compact('main_categories'));
     } //end of index
 
@@ -44,6 +50,9 @@ class MainCategoryController extends Controller
             }
 
             MainCategory::create($data);
+
+            // Clear cache after adding
+            Cache::forget(self::CACHE_KEY);
 
             DB::commit();
             return redirect()->route('main-categories.index')->with('success', 'تم الاضافه بنجاح');
@@ -86,6 +95,9 @@ class MainCategoryController extends Controller
                 $this->fileUploadService->delete($oldImage, 'public');
             }
 
+            // Clear cache after updating
+            Cache::forget(self::CACHE_KEY);
+
             DB::commit();
             return redirect()->route('main-categories.index')->with('success', 'تم التعديل بنجاح');
         } catch (\Exception $e) {
@@ -117,6 +129,9 @@ class MainCategoryController extends Controller
                 $this->fileUploadService->delete($imagePath, 'public');
             }
 
+            // Clear cache after deleting
+            Cache::forget(self::CACHE_KEY);
+
             DB::commit();
             return redirect()->route('main-categories.index')->with('success', 'تم الحذف بنجاح');
         } catch (\Exception $e) {
@@ -127,6 +142,9 @@ class MainCategoryController extends Controller
 
     public function toggleStatus(MainCategory $main_category)
     {
+        // Clear cache when status is toggled
+        Cache::forget(self::CACHE_KEY);
+        
         return $this->toggleStatusModel($main_category);
     } //end of toggleStatus
 }

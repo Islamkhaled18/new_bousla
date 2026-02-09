@@ -9,14 +9,22 @@ use App\Models\User;
 use App\Traits\ToggleStatusTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class TermConditionController extends Controller
 {
     use ToggleStatusTrait;
+    
+    private const CACHE_KEY = 'terms_list';
+    private const CACHE_KEY_ACCEPTANCES = 'terms_acceptances_list';
+    private const CACHE_DURATION = 900; // 15 minutes
 
     public function index()
     {
-        $terms = TermCondition::paginate(10);
+        $terms = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return TermCondition::all();
+        });
+        
         return view('admin.terms.index', compact('terms'));
     } //end of index
 
@@ -30,6 +38,10 @@ class TermConditionController extends Controller
         DB::beginTransaction();
         try {
             TermCondition::create($request->validated());
+            
+            // Clear cache after adding
+            Cache::forget(self::CACHE_KEY);
+            
             DB::commit();
             return redirect()->route('terms.index')->with('success', 'تم الحفظ بنجاح');
         } catch (\Exception $e) {
@@ -57,6 +69,9 @@ class TermConditionController extends Controller
                 $this->logoutUsersByType('doctor');
             }
 
+            // Clear cache after updating
+            Cache::forget(self::CACHE_KEY);
+            
             DB::commit();
             return redirect()->route('terms.index')->with('success', 'تم التعديل بنجاح');
         } catch (\Exception $e) {
@@ -70,6 +85,10 @@ class TermConditionController extends Controller
         DB::beginTransaction();
         try {
             $term->delete();
+            
+            // Clear cache after deleting
+            Cache::forget(self::CACHE_KEY);
+            
             DB::commit();
             return redirect()->route('terms.index')->with('success', 'تم الحذف بنجاح');
         } catch (\Exception $e) {
@@ -80,13 +99,18 @@ class TermConditionController extends Controller
 
     public function toggleStatus(TermCondition $term)
     {
+        // Clear cache when status is toggled
+        Cache::forget(self::CACHE_KEY);
+        
         return $this->toggleStatusModel($term);
     } //end of toggleStatus
 
     public function termAcceptances()
     {
-        $acceptances = TermsAcceptance::with(['user:id,first_name,last_name', 'termCondition:id,name,version'])
-            ->paginate(10);
+        $acceptances = Cache::remember(self::CACHE_KEY_ACCEPTANCES, self::CACHE_DURATION, function () {
+            return TermsAcceptance::with(['user:id,first_name,last_name', 'termCondition:id,name,version'])
+                ->get();
+        });
 
         return view('admin.terms.acceptances', compact('acceptances'));
     }

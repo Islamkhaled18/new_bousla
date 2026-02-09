@@ -3,22 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
-use App\Http\Requests\AdminUpdateRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Models\Role;
 use App\Traits\ToggleStatusTrait;
-
 
 class AdminController extends Controller
 {
     use ToggleStatusTrait;
+    
+    private const CACHE_KEY = 'admins_list';
+    private const CACHE_DURATION = 900; // 15 minutes
+
     public function index()
     {
-        $admins = User::where('type', 'admin')->with('roles')
-            ->orderBy('id', 'DESC')
-            ->paginate(15);
+        $admins = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return User::where('type', 'admin')
+                ->with('roles')
+                ->orderBy('id', 'DESC')
+                ->get();
+        });
 
         return view('admin.admins.index', compact('admins'));
     }
@@ -41,6 +46,9 @@ class AdminController extends Controller
         ]);
 
         $admin->assignRole($request->roles_name);
+
+        // Clear cache after adding
+        Cache::forget(self::CACHE_KEY);
 
         return redirect()->route('admins.index')
             ->with('success', 'تم اضافة المشرف بنجاح');
@@ -80,6 +88,9 @@ class AdminController extends Controller
 
         $admin->syncRoles($request->roles_name);
 
+        // Clear cache after updating
+        Cache::forget(self::CACHE_KEY);
+
         return redirect()->route('admins.index')
             ->with('success', 'تم تحديث معلومات المشرف بنجاح');
     }
@@ -93,6 +104,9 @@ class AdminController extends Controller
 
         $admin->delete();
 
+        // Clear cache after deleting
+        Cache::forget(self::CACHE_KEY);
+
         return redirect()->route('admins.index')
             ->with('success', 'تم حذف المشرف بنجاح');
     }
@@ -103,6 +117,10 @@ class AdminController extends Controller
             return redirect()->route('admins.index')
                 ->with('error', 'لا يمكنك تعديل حالة حسابك الخاص');
         }
+
+        // Clear cache when status is toggled
+        Cache::forget(self::CACHE_KEY);
+        
         return $this->toggleStatusModel($admin);
     } //end of toggleStatus
 }
