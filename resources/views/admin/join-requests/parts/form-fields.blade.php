@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="first_name">الاسم الاول</label>
+            <label for="first_name">الاسم الاول<span class="text-danger">*</span></label>
             <input class="form-control" id="first_name" name="first_name"
                 value="{{ old('first_name', $data->first_name ?? '') }}" type="text" placeholder="اكتب الاسم الاول">
             @error('first_name')
@@ -23,7 +23,7 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="last_name">الاسم الثاني</label>
+            <label for="last_name">الاسم الثاني<span class="text-danger">*</span></label>
             <input class="form-control" id="last_name" name="last_name"
                 value="{{ old('last_name', $data->last_name ?? '') }}" type="text" placeholder="اكتب الاسم الثاني">
             @error('last_name')
@@ -49,7 +49,7 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="gender">الجنس</label>
+            <label for="gender">الجنس<span class="text-danger">*</span></label>
             <select class="form-control" id="gender" name="gender">
                 <option value="male" {{ old('gender', $data->gender ?? '') == 'male' ? 'selected' : '' }}>ذكر</option>
                 <option value="female" {{ old('gender', $data->gender ?? '') == 'female' ? 'selected' : '' }}>أنثى
@@ -63,7 +63,10 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="phone">الهاتف الشخصي</label>
+            <label for="phone">الهاتف الشخصي<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
+            
             <input class="form-control" id="phone" name="phone" value="{{ old('phone', $data->phone ?? '') }}"
                 type="text" placeholder=" اكتب الهاتف الشخصي">
             @error('phone')
@@ -74,7 +77,9 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="email">البريد الالكتروني</label>
+            <label for="email">البريد الالكتروني<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <input class="form-control" id="email" name="email" value="{{ old('email', $data->email ?? '') }}"
                 type="text" placeholder="اكتب البريد الالكتروني">
             @error('email')
@@ -88,7 +93,7 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="address">العنوان</label>
+            <label for="address">العنوان<span class="text-danger">*</span></label>
             <input class="form-control" id="address" name="address"
                 value="{{ old('address', $data->address ?? '') }}" type="text" placeholder="اكتب العنوان">
             @error('address')
@@ -111,7 +116,7 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="area_id">المنطقة</label>
+            <label for="area_id">المنطقة<span class="text-danger">*</span></label>
             <select class="form-control" id="area_id" name="area_id">
                 @foreach ($areas as $area)
                     <option value="{{ $area->id }}"
@@ -128,7 +133,7 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="building_number">رقم العماره</label>
+            <label for="building_number">رقم العماره<span class="text-danger">*</span></label>
             <input class="form-control" id="building_number" name="building_number"
                 value="{{ old('building_number', $data->building_number ?? '') }}" type="text"
                 placeholder="رقم العماره">
@@ -140,7 +145,7 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="floor_number">رقم الطابق</label>
+            <label for="floor_number">رقم الطابق<span class="text-danger">*</span></label>
             <input class="form-control" id="floor_number" name="floor_number"
                 value="{{ old('floor_number', $data->floor_number ?? '') }}" type="text"
                 placeholder="رقم الطابق">
@@ -152,7 +157,7 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="apartment_number">رقم الشقه</label>
+            <label for="apartment_number">رقم الشقه<span class="text-danger">*</span></label>
             <input class="form-control" id="apartment_number" name="apartment_number"
                 value="{{ old('apartment_number', $data->apartment_number ?? '') }}" type="text"
                 placeholder="رقم الشقه">
@@ -167,7 +172,7 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="about_me">نبذه عن الدكتور</label>
+            <label for="about_me">نبذه عن الدكتور<span class="text-danger">*</span></label>
             <input class="form-control" id="about_me" name="about_me"
                 value="{{ old('about_me', $data->about_me ?? '') }}" type="text"
                 placeholder="اكتب نبذة عن الدكتور">
@@ -179,7 +184,7 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="id_number">رقم البطاقه</label>
+            <label for="id_number">رقم البطاقه<span class="text-danger">*</span></label>
             <input class="form-control" id="id_number" name="id_number"
                 value="{{ old('id_number', $data->id_number ?? '') }}" type="text"
                 placeholder="اكتب رقم البطاقه">
@@ -191,7 +196,9 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="date_of_birth">تاريخ الميلاد</label>
+            <label for="date_of_birth">تاريخ الميلاد<span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <input class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth"
                 name="date_of_birth"
                 value="{{ old('date_of_birth', isset($data->date_of_birth) ? \Carbon\Carbon::parse($data->date_of_birth)->format('Y-m-d') : '') }}"
@@ -208,7 +215,7 @@
 <div class="row">
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="organization_name">اسم المنظمة</label>
+            <label for="organization_name">اسم المنظمة<span class="text-danger">*</span></label>
             <input class="form-control" id="organization_name" name="organization_name"
                 value="{{ old('organization_name', $data->organization_name ?? '') }}" type="text"
                 placeholder="اكتب اسم المنظمة">
@@ -259,7 +266,7 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="form-group">
-            <label for="organization_location_url">رابط العنوان على جوجل مابس</label>
+            <label for="organization_location_url">رابط العنوان على جوجل مابس<span class="text-danger">*</span></label>
             <input class="form-control" id="organization_location_url" name="organization_location_url"
                 value="{{ old('organization_location_url', $data->organization_location_url ?? '') }}" type="text"
                 placeholder="رابط العنوان على جوجل مابس">
@@ -271,7 +278,7 @@
 
     <div class="col-lg-6">
         <div class="form-group">
-            <label for="job_title_id">الوظيفة</label>
+            <label for="job_title_id">الوظيفة<span class="text-danger">*</span></label>
             <select class="form-control" id="job_title_id" name="job_title_id">
                 @foreach ($job_titles as $job_title)
                     <option value="{{ $job_title->id }}"
@@ -288,7 +295,7 @@
 <div class="row">
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="clinic_fees">سعر الكشف</label>
+            <label for="clinic_fees">سعر الكشف<span class="text-danger">*</span></label>
             <input class="form-control" id="clinic_fees" name="clinic_fees"
                 value="{{ old('clinic_fees', $data->clinic_fees ?? '') }}" type="text" placeholder="سعر الكشف">
             @error('clinic_fees')
@@ -338,7 +345,7 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="is_available_for_home_visits">متاح للزيارات المنزلية</label>
+            <label for="is_available_for_home_visits">متاح للزيارات المنزلية<span class="text-danger">*</span></label>
             <select class="form-control" id="is_available_for_home_visits" name="is_available_for_home_visits">
                 <option value="1"
                     {{ old('is_available_for_home_visits', $data->is_available_for_home_visits ?? '') == '1' ? 'selected' : '' }}>
@@ -406,7 +413,9 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="is_accept_terms">موافقة على الشروط والاحكام</label>
+            <label for="is_accept_terms">موافقة على الشروط والاحكام<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <select class="form-control" id="is_accept_terms" name="is_accept_terms">
                 <option value="1"
                     {{ old('is_accept_terms', $data->is_accept_terms ?? '') == '1' ? 'selected' : '' }}>
@@ -426,7 +435,7 @@
 <div class="row">
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="personal_image">صورة شخصيه</label>
+            <label for="personal_image">صورة شخصيه<span class="text-danger">*</span></label>
             <input class="form-control" id="personal_image" name="personal_image" type="file" accept="image/*">
             @error('personal_image')
                 <span class="text-danger">{{ $message }}</span>
@@ -445,7 +454,7 @@
 
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="logo">اللوجو</label>
+            <label for="logo">اللوجو<span class="text-danger">*</span></label>
             <input class="form-control" id="logo" name="logo" type="file" accept="image/*">
             @error('logo')
                 <span class="text-danger">{{ $message }}</span>
@@ -464,7 +473,9 @@
 
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="id_image_front">صورة البطاقه الاماميه</label>
+            <label for="id_image_front">صورة البطاقه الاماميه<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <input class="form-control" id="id_image_front" name="id_image_front" type="file" accept="image/*">
             @error('id_image_front')
                 <span class="text-danger">{{ $message }}</span>
@@ -483,7 +494,9 @@
 
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="id_image_back">صورة البطاقه الخلفيه</label>
+            <label for="id_image_back">صورة البطاقه الخلفيه<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <input class="form-control" id="id_image_back" name="id_image_back" type="file" accept="image/*">
             @error('id_image_back')
                 <span class="text-danger">{{ $message }}</span>
@@ -505,7 +518,9 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="graduation_certificate">شهادة التخرج</label>
+            <label for="graduation_certificate">شهادة التخرج<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <input class="form-control" id="graduation_certificate" name="graduation_certificate" type="file"
                 accept="image/*">
             @error('graduation_certificate')
@@ -525,7 +540,9 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="professional_license">شهادة مزاولة المهنه</label>
+            <label for="professional_license">شهادة مزاولة المهنه<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <input class="form-control" id="professional_license" name="professional_license" type="file"
                 accept="image/*">
             @error('professional_license')
@@ -545,7 +562,9 @@
 
     <div class="col-lg-4">
         <div class="form-group">
-            <label for="syndicate_card">كارنية النقابة</label>
+            <label for="syndicate_card">كارنية النقابة<span class="text-danger">*</span><span class="text-danger" style="font-size: 8px;">
+    (خاصة بالإدارة ولن يتم عرضها للمرضى)
+</span></label>
             <input class="form-control" id="syndicate_card" name="syndicate_card" type="file" accept="image/*">
             @error('syndicate_card')
                 <span class="text-danger">{{ $message }}</span>

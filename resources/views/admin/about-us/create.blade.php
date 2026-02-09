@@ -28,7 +28,7 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1"> انشاء بيانات عن المنظمه </label>
+                                <label for="exampleInputEmail1"> انشاء بيانات عن المنظمه <span class="text-danger">*</span></label>
                                 <textarea class="form-control" id="editor" name="text"></textarea>
                                 @error('text')
                                 <span class="text-danger">{{ $message }}</span>

@@ -29,7 +29,7 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">الاسم </label>
+                                <label for="exampleInputEmail1">الاسم <span class="text-danger">*</span></label>
                                 <input class="form-control" id="exampleInputEmail1" name="name" value="{{old('name')}}"
                                     type="text" placeholder="اكتب المحافظة ">
                                 @error('name')

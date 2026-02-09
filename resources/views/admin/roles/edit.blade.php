@@ -29,7 +29,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الدور <span class="tx-danger">*</span></label>
+                                            <label>الدور <span class="text-danger">*</span></label>
                                             <input type="text" 
                                                    name="name" 
                                                    class="form-control @error('name') is-invalid @enderror"
@@ -45,7 +45,7 @@
                                 <div class="row mg-b-20">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>الصلاحيات <span class="tx-danger">*</span></label>
+                                            <label>الصلاحيات <span class="text-danger">*</span></label>
                                             
                                             <div class="mb-2">
                                                 <button type="button" class="btn btn-sm btn-primary" id="select-all">

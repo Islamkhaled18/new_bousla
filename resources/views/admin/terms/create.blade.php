@@ -28,7 +28,7 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">محتوى الشروط </label>
+                                <label for="exampleInputEmail1">محتوى الشروط <span class="text-danger">*</span></label>
                                 <textarea class="form-control" id="editor_one" name="name"></textarea>
                                 @error('name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="role">الدور</label>
+                                <label for="role">الدور<span class="text-danger">*</span></label>
                                 <select class="form-control" id="role" name="role">
                                     <option value="general">عام</option>
                                     <option value="client">عميل</option>
@@ -54,7 +54,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="version">الاصدار</label>
+                                <label for="version">الاصدار<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="version" name="version" value="{{old('version')}}" placeholder="مثال: v1.0">
                                 @error('version')
                                 <span class="text-danger">{{ $message }}</span>

@@ -28,7 +28,7 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">الاسم </label>
+                                    <label for="exampleInputEmail1">الاسم <span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="name"
                                         value="{{ old('name') }}" type="text" placeholder="اكتب الاسم ">
                                     @error('name')
@@ -44,7 +44,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="image">صورة القسم الرئيسي</label>
+                                    <label for="image">صورة القسم الرئيسي<span class="text-danger">*</span></label>
                                     <input class="form-control" id="image" name="image" type="file"
                                         accept="image/*">
                                     @error('image')

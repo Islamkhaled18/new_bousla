@@ -39,7 +39,7 @@ class JoinRequestRequest extends FormRequest
                 'max:191',
             ],
             'last_name' => [
-                'nullable',
+                $isCreating ? 'required' : 'sometimes',
                 'string',
                 'min:3',
                 'max:191',
@@ -75,7 +75,7 @@ class JoinRequestRequest extends FormRequest
                 'in:male,female',
             ],
             'about_me' => [
-                'required',
+                $isCreating ? 'required' : 'sometimes',
                 'string',
                 'max:191',
             ],
@@ -135,7 +135,7 @@ class JoinRequestRequest extends FormRequest
                 'max:50',
             ],
             'clinic_fees' => [
-                'required',
+                 $isCreating ? 'required' : 'sometimes',
                 'numeric',
                 'min:0',
             ],
