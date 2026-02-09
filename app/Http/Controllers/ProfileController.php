@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
-use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Models\Role;
 
 class ProfileController extends Controller
 {
+     private const CACHE_KEY = 'admins_list';
+
     /**
      * Display the user's profile form.
      */
@@ -62,6 +62,9 @@ class ProfileController extends Controller
         }
 
         $user->update($data);
+
+          // Clear cache after updating
+        Cache::forget(self::CACHE_KEY);
 
         return redirect()->route('profile.edit')
             ->with('success', 'تم تحديث معلوماتك الشخصيه بنجاح');

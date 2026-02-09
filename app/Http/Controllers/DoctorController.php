@@ -8,12 +8,15 @@ use App\Models\User;
 use App\Traits\ToggleStatusTrait;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class DoctorController extends Controller
 {
     use ToggleStatusTrait;
 
     protected $fileUploadService;
+    private const CACHE_KEY = 'doctors_list';
+    private const CACHE_DURATION = 900; // 15 minutes
 
     public function __construct(FileUploadService $fileUploadService)
     {
@@ -22,9 +25,12 @@ class DoctorController extends Controller
 
     public function index()
     {
-        $doctors = User::where('type', 'doctor')->where('status', 'accepted')
-            ->orderBy('id', 'DESC')
-            ->paginate(15);
+        $doctors = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return User::where('type', 'doctor')
+                ->where('status', 'accepted')
+                ->orderBy('id', 'DESC')
+                ->get();
+        });
 
         return view('admin.doctors.index', compact('doctors'));
     }
@@ -39,7 +45,6 @@ class DoctorController extends Controller
 
     public function destroy(User $doctor)
     {
-
         DB::beginTransaction();
         try {
             $imagesToDelete = [];
@@ -66,6 +71,9 @@ class DoctorController extends Controller
 
             $doctor->delete();
 
+            // Clear cache after deleting
+            Cache::forget(self::CACHE_KEY);
+
             DB::commit();
 
             foreach ($imagesToDelete as $imagePath) {
@@ -83,6 +91,9 @@ class DoctorController extends Controller
 
     public function toggleStatus(User $doctor)
     {
+        // Clear cache when status is toggled
+        Cache::forget(self::CACHE_KEY);
+        
         return $this->toggleStatusModel($doctor);
     } //end of toggleStatus
 }

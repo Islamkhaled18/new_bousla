@@ -7,15 +7,21 @@ use App\Models\Governorate;
 use Illuminate\Http\Request;
 use App\Traits\ToggleStatusTrait;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class GovernorateController extends Controller
 {
     use ToggleStatusTrait;
+    
+    private const CACHE_KEY = 'governorates_list';
+    private const CACHE_DURATION = 900; // 15 minutes
 
     public function index()
     {
-
-        $governorates = Governorate::paginate(10);
+        $governorates = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return Governorate::all();
+        });
+        
         return view('admin.governorates.index', compact('governorates'));
     } //end of index
 
@@ -30,6 +36,10 @@ class GovernorateController extends Controller
         DB::beginTransaction();
         try {
             Governorate::create($request->validated());
+            
+            // Clear cache after adding
+            Cache::forget(self::CACHE_KEY);
+            
             DB::commit();
             return redirect()->route('governorates.index')->with('success', 'تم الحفظ بنجاح');
         } catch (\Exception $e) {
@@ -48,6 +58,10 @@ class GovernorateController extends Controller
         DB::beginTransaction();
         try {
             $governorate->update($request->validated());
+            
+            // Clear cache after updating
+            Cache::forget(self::CACHE_KEY);
+            
             DB::commit();
             return redirect()->route('governorates.index')->with('success', 'تم التعديل بنجاح');
         } catch (\Exception $e) {
@@ -64,6 +78,10 @@ class GovernorateController extends Controller
         DB::beginTransaction();
         try {
             $governorate->delete();
+            
+            // Clear cache after deleting
+            Cache::forget(self::CACHE_KEY);
+            
             DB::commit();
             return redirect()->route('governorates.index')->with('success', 'تم الحذف بنجاح');
         } catch (\Exception $e) {
@@ -74,6 +92,9 @@ class GovernorateController extends Controller
 
     public function toggleStatus(Governorate $governorate)
     {
+        // Clear cache when status is toggled
+        Cache::forget(self::CACHE_KEY);
+        
         return $this->toggleStatusModel($governorate);
     }
     //end of toggleStatus

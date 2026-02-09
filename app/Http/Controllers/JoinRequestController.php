@@ -15,11 +15,13 @@ use App\Services\FileUploadService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class JoinRequestController extends Controller
 {
-
     protected $fileUploadService;
+    private const CACHE_KEY = 'join_requests_list';
+    private const CACHE_DURATION = 900; // 15 minutes
 
     public function __construct(FileUploadService $fileUploadService)
     {
@@ -28,8 +30,13 @@ class JoinRequestController extends Controller
 
     public function index()
     {
-        $join_requests = User::where('type', 'doctor')->whereIn('status', ['pending', 'rejected'])
-            ->with('jobTitle', 'area')->get();
+        $join_requests = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return User::where('type', 'doctor')
+                ->whereIn('status', ['pending', 'rejected'])
+                ->with('jobTitle', 'area')
+                ->get();
+        });
+        
         return view('admin.join-requests.index', compact('join_requests'));
     }
 
@@ -108,6 +115,9 @@ class JoinRequestController extends Controller
                     ]);
                 }
             }
+
+            // Clear cache after adding
+            Cache::forget(self::CACHE_KEY);
 
             DB::commit();
             return redirect()->route('join-requests.index')->with('success', 'تم الحفظ بنجاح');
@@ -256,6 +266,9 @@ class JoinRequestController extends Controller
                 }
             }
 
+            // Clear cache after updating
+            Cache::forget(self::CACHE_KEY);
+
             DB::commit();
 
             // حذف الصور القديمة بعد نجاح العملية
@@ -312,6 +325,9 @@ class JoinRequestController extends Controller
 
             // حذف السجل من قاعدة البيانات (سيحذف تلقائياً الصور المرتبطة بسبب cascade)
             $joinRequest->delete();
+
+            // Clear cache after deleting
+            Cache::forget(self::CACHE_KEY);
 
             DB::commit();
 
@@ -390,6 +406,9 @@ class JoinRequestController extends Controller
                     'accepted_at' => now(),
                 ]);
             }
+
+            // Clear cache when status changes
+            Cache::forget(self::CACHE_KEY);
 
             // 5. Commit بعد نجاح كل الخطوات
             DB::commit();

@@ -7,11 +7,15 @@ use App\Models\Ad;
 use App\Services\FileUploadService;
 use App\Traits\ToggleStatusTrait;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class AdController extends Controller
 {
     use ToggleStatusTrait;
+    
     protected $fileUploadService;
+    private const CACHE_KEY = 'ads_list';
+    private const CACHE_DURATION = 900; // 15 minutes
 
     public function __construct(FileUploadService $fileUploadService)
     {
@@ -20,12 +24,15 @@ class AdController extends Controller
 
     public function index()
     {
+        // Update expired ads
         Ad::where('end_date', '<', now())
             ->where('is_active', 1)
             ->update(['is_active' => 0]);
 
-
-        $ads = Ad::paginate(10);
+        $ads = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
+            return Ad::all();
+        });
+        
         return view('admin.ads.index', compact('ads'));
     } //end of index
 
@@ -49,6 +56,9 @@ class AdController extends Controller
             }
 
             Ad::create($data);
+
+            // Clear cache after adding
+            Cache::forget(self::CACHE_KEY);
 
             DB::commit();
             return redirect()->route('ads.index')->with('success', 'تم الحفظ بنجاح');
@@ -91,6 +101,9 @@ class AdController extends Controller
                 $this->fileUploadService->delete($oldImage, 'public');
             }
 
+            // Clear cache after updating
+            Cache::forget(self::CACHE_KEY);
+
             DB::commit();
             return redirect()->route('ads.index')->with('success', 'تم التعديل بنجاح');
         } catch (\Exception $e) {
@@ -118,6 +131,9 @@ class AdController extends Controller
                 $this->fileUploadService->delete($imagePath, 'public');
             }
 
+            // Clear cache after deleting
+            Cache::forget(self::CACHE_KEY);
+
             DB::commit();
             return redirect()->route('ads.index')->with('success', 'تم الحذف بنجاح');
         } catch (\Exception $e) {
@@ -128,6 +144,9 @@ class AdController extends Controller
 
     public function toggleStatus(Ad $ad)
     {
+        // Clear cache when status is toggled
+        Cache::forget(self::CACHE_KEY);
+        
         return $this->toggleStatusModel($ad);
     } //end of toggleStatus
 }
