@@ -58,47 +58,56 @@ class ProfileRequest extends FormRequest
     public function messages(): array
     {
         return [
-            // الاسم الأول
-            'first_name.required' => 'الاسم الأول مطلوب.',
-            'first_name.string'   => 'الاسم الأول يجب أن يكون نصاً.',
-            'first_name.max'      => 'الاسم الأول يجب ألا يتجاوز 255 حرفاً.',
+            'first_name.string' => 'الاسم الأول يجب أن يكون نصًا',
+            'first_name.max'    => 'الاسم الأول يجب ألا يزيد عن 255 حرف',
 
-            // اسم العائلة
-            'last_name.required'  => 'اسم العائلة مطلوب.',
-            'last_name.string'    => 'اسم العائلة يجب أن يكون نصاً.',
-            'last_name.max'       => 'اسم العائلة يجب ألا يتجاوز 255 حرفاً.',
+            'last_name.string' => 'اسم العائلة يجب أن يكون نصًا',
+            'last_name.max'    => 'اسم العائلة يجب ألا يزيد عن 255 حرف',
 
-            // النوع
-            'gender.in'           => 'النوع المختار غير صحيح، يجب أن يكون ذكر أو أنثى.',
+            'gender.in' => 'الجنس يجب أن يكون ذكر أو أنثى',
 
-            // البريد الإلكتروني
-            'email.email'         => 'يجب إدخال بريد إلكتروني صحيح.',
-            'email.max'           => 'البريد الإلكتروني طويل جداً.',
-            'email.unique'        => 'هذا البريد الإلكتروني مسجل لدينا بالفعل.',
+            'email.email'  => 'صيغة البريد الإلكتروني غير صحيحة',
+            'email.max'    => 'البريد الإلكتروني طويل جدًا',
+            'email.unique' => 'البريد الإلكتروني مستخدم بالفعل',
 
-            // رقم الهاتف
-            'phone.required'      => 'رقم الهاتف مطلوب.',
-            'phone.regex'         => 'رقم الهاتف يجب أن يكون رقم مصري صحيح (01xxxxxxxx).',
+            'phone.regex' => 'رقم الهاتف يجب أن يبدأ بـ 01 ويتكون من 11 رقم',
 
-            // الرقم القومي
-            'id_number.max'       => 'الرقم القومي يجب ألا يتجاوز 14 خانة.',
-            'id_number.unique'    => 'الرقم القومي مسجل لدينا بالفعل.',
+            'id_number.string' => 'الرقم القومي يجب أن يكون نصًا',
+            'id_number.max'    => 'الرقم القومي يجب أن يتكون من 14 رقم',
+            'id_number.unique' => 'الرقم القومي مستخدم بالفعل',
 
-            // الصورة الشخصية
-            'personal_image.image' => 'الملف المرفوع يجب أن يكون صورة.',
-            'personal_image.mimes' => 'يجب أن يكون امتداد الصورة: jpeg, png, jpg.',
-            'personal_image.max'   => 'حجم الصورة لا يجب أن يتخطى 5 ميجابايت.',
+            'date_of_birth.date' => 'تاريخ الميلاد غير صالح',
 
-            // كلمة المرور
-            'password.required'   => 'كلمة المرور مطلوبة.',
-            'password.confirmed'  => 'تأكيد كلمة المرور غير متطابق.',
-            'password.min'        => 'كلمة المرور يجب ألا تقل عن 8 رموز.',
+            'blood_type.in' => 'فصيلة الدم غير صحيحة',
 
-            // كلمة المرور الحالية (تظهر عند التعديل فقط)
-            'current_password.required' => 'يجب إدخال كلمة المرور الحالية لتغيير كلمة المرور.',
+            'personal_image.image' => 'الصورة الشخصية غير صالحة',
+            'personal_image.mimes' => 'صيغة الصورة غير مدعومة',
+            'personal_image.max'   => 'حجم الصورة كبير جدًا',
+
+            // Password
+            'current_password.required' => 'كلمة المرور القديمة مطلوبة',
+            'password.required' => 'كلمة المرور الجديدة مطلوبة',
+            'password.confirmed' => 'تأكيد كلمة المرور غير مطابق',
+            'password.min' => 'كلمة المرور يجب ألا تقل عن 8 أحرف',
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'first_name' => 'الاسم الأول',
+            'last_name' => 'اسم العائلة',
+            'gender' => 'الجنس',
+            'email' => 'البريد الإلكتروني',
+            'phone' => 'رقم الهاتف',
+            'id_number' => 'الرقم القومي',
+            'date_of_birth' => 'تاريخ الميلاد',
+            'blood_type' => 'فصيلة الدم',
+            'personal_image' => 'الصورة الشخصية',
+            'current_password' => 'كلمة المرور القديمة',
+            'password' => 'كلمة المرور الجديدة',
+        ];
+    }
 
     /**
      * Determine if the user is authorized to make this request.
