@@ -34,7 +34,7 @@
                                 <input name="id" value="{{ $privacy_policy->id }}" type="hidden">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">محتوى سياسة الخصوصية</label>
+                                    <label for="exampleInputEmail1">محتوى سياسة الخصوصية<span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="editor_one" name="text">{{ old('text', $privacy_policy->text) }}</textarea>
                                     @error('text')
                                         <span class="text-danger">{{ $message }}</span>

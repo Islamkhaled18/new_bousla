@@ -26,7 +26,7 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">المنطقه </label>
+                                    <label for="exampleInputEmail1">المنطقه <span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="name"
                                         value="{{ old('name') }}" type="text" placeholder="اكتب الاسم ">
                                     @error('name')
@@ -43,7 +43,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">المدينه </label>
+                                    <label for="exampleInputEmail1">المدينه <span class="text-danger">*</span></label>
                                     <select class="form-control" id="exampleInputEmail1" name="city_id">
                                         @foreach ($cities as $city)
                                             <option value="{{ $city->id }}">{{ $city->name }}</option>

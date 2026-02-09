@@ -29,7 +29,7 @@
                                 @method('PUT')
 
                                 <div class="form-group">
-                                    <label for="name">الاسم</label>
+                                    <label for="name">الاسم<span class="text-danger">*</span></label>
                                     <input class="form-control" id="name" name="name"
                                         value="{{ old('name', $job_title->name) }}" type="text" placeholder="اكتب الاسم">
                                     @error('name')
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="icon">الأيقونة (Font Awesome Class)</label>
+                                    <label for="icon">الأيقونة (Font Awesome Class)<span class="text-danger">*</span></label>
                                     <input class="form-control" id="icon" name="icon" 
                                         value="{{ old('icon', $job_title->icon) }}"
                                         type="text" placeholder="مثال: fa-stethoscope">
@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="icon_color">لون الأيقونة</label>
+                                    <label for="icon_color">لون الأيقونة<span class="text-danger">*</span></label>
                                     <input class="form-control" id="icon_color" name="icon_color" 
                                         value="{{ old('icon_color', $job_title->icon_color) }}"
                                         type="color">
@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="bg_color">لون الخلفية</label>
+                                    <label for="bg_color">لون الخلفية<span class="text-danger">*</span></label>
                                     <input class="form-control" id="bg_color" name="bg_color" 
                                         value="{{ old('bg_color', $job_title->bg_color) }}"
                                         type="color">

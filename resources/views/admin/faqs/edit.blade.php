@@ -30,7 +30,7 @@
                                 <input name="id" value="{{ $faq->id }}" type="hidden">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">السؤال</label>
+                                    <label for="exampleInputEmail1">السؤال<span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="question"
                                         value="{{ $faq->question }}" type="text" placeholder="اكتب السؤال">
                                     @error('question')
@@ -38,7 +38,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">الجواب</label>
+                                    <label for="exampleInputEmail1">الجواب<span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="exampleInputEmail1" name="answer" rows="4" placeholder="اكتب الجواب">{{ $faq->answer }}</textarea>
                                     @error('answer')
                                         <span class="text-danger">{{ $message }}</span>

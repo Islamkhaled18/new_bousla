@@ -28,14 +28,14 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1"> انشاء بيانات سياسة الخصوصية </label>
+                                <label for="exampleInputEmail1"> <span class="text-danger">*</span> بيانات سياسة الخصوصية </label>
                                 <textarea class="form-control" id="editor" name="text"></textarea>
                                 @error('text')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1"> انشاء بيانات سياسة الخصوصية باللغه الانجليزيه </label>
+                                <label for="exampleInputEmail1">  بيانات سياسة الخصوصية باللغه الانجليزيه </label>
                                 <textarea class="form-control" id="editor_1" name="text_en"></textarea>
                                 @error('text_en')
                                 <span class="text-danger">{{ $message }}</span>

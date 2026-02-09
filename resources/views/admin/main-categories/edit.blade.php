@@ -33,7 +33,7 @@
                                 <input name="id" value="{{ $main_category->id }}" type="hidden">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">الاسم</label>
+                                    <label for="exampleInputEmail1">الاسم<span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="name"
                                         value="{{ $main_category->name }}" type="text" placeholder="اكتب الاسم">
                                     @error('name')
@@ -51,7 +51,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image" class="form-label">صورة القسم الرئيسي</label>
+                                    <label for="image" class="form-label">صورة القسم الرئيسي<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" id="image" name="image" accept="image/*">
                                     <div class="mt-2">
                                         <img src="{{ $main_category->image_url }}" class="d-block" width="60"

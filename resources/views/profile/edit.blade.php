@@ -30,7 +30,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الاسم الاول <span class="tx-danger">*</span></label>
+                                            <label>الاسم الاول <span class="text-danger">*</span></label>
                                             <input type="text" name="first_name" class="form-control"
                                                 value="{{ old('first_name', $user->first_name) }}"
                                                 placeholder="اكتب الاسم الاول">
@@ -42,7 +42,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الاسم الثاني <span class="tx-danger">*</span></label>
+                                            <label>الاسم الثاني <span class="text-danger">*</span></label>
                                             <input type="text" name="last_name" class="form-control"
                                                 value="{{ old('last_name', $user->last_name) }}"
                                                 placeholder="اكتب الاسم الثاني">
@@ -54,7 +54,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>البريد الالكتروني <span class="tx-danger">*</span></label>
+                                            <label>البريد الالكتروني <span class="text-danger">*</span></label>
                                             <input type="email" name="email" class="form-control"
                                                 value="{{ old('email', $user->email) }}"
                                                 placeholder="اكتب البريد الالكتروني">
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الهاتف <span class="tx-danger">*</span></label>
+                                            <label>الهاتف <span class="text-danger">*</span></label>
                                             <input type="text" name="phone" class="form-control"
                                                 value="{{ old('phone', $user->phone) }}"
                                                 placeholder="اكتب الهاتف">

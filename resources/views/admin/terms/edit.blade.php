@@ -32,7 +32,7 @@
                                 <input name="id" value="{{ $term->id }}" type="hidden">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">الشروط والاحكام</label>
+                                    <label for="exampleInputEmail1">الشروط والاحكام<span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="editor_three" name="name">{{ old('name', $term->name) }}</textarea>
                                     @error('name')
                                         <span class="text-danger">{{ $message }}</span>
@@ -47,7 +47,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="role">الدور</label>
+                                    <label for="role">الدور<span class="text-danger">*</span></label>
                                     <select class="form-control" id="role" name="role">
                                         <option value="general" {{ old('role', $term->role) == 'general' ? 'selected' : '' }}>عام</option>
                                         <option value="client" {{ old('role', $term->role) == 'client' ? 'selected' : '' }}>عميل</option>
@@ -58,7 +58,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="version">الاصدار</label>
+                                    <label for="version">الاصدار<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="version" name="version" placeholder="مثال: v1.0" value="{{ old('version', $term->version) }}">
                                     @error('version')
                                         <span class="text-danger">{{ $message }}</span>

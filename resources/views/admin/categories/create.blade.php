@@ -27,7 +27,7 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> اسم القسم</label>
+                                    <label for="exampleInputEmail1"> اسم القسم<span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="name"
                                         value="{{ old('name') }}" type="text" placeholder="اسم القسم">
                                     @error('name')
@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image">صورة القسم</label>
+                                    <label for="image">صورة القسم<span class="text-danger">*</span></label>
                                     <input class="form-control" id="image" name="image" type="file"
                                         accept="image/*">
                                     @error('image')
@@ -99,7 +99,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="projectinput1">
-                                                القسم الرئيسي
+                                                القسم الرئيسي<span class="text-danger">*</span>
                                             </label>
                                             <select name="main_category_id" class="select2 form-group">
                                                 <optgroup label="اختر القسم الرئيسي">

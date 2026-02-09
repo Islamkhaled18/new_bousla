@@ -32,7 +32,7 @@
                                 <input name="id" value="{{ $category->id }}" type="hidden">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">اسم القسم</label>
+                                    <label for="exampleInputEmail1">اسم القسم<span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="name"
                                         value="{{ $category->name }}" type="text" placeholder="اسم القسم">
                                     @error('name')
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image" class="form-label">صورة القسم الرئيسي</label>
+                                    <label for="image" class="form-label">صورة القسم الرئيسي<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" id="image" name="image"
                                         accept="image/*">
                                     <div class="mt-2">
@@ -106,7 +106,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="projectinput1">
-                                                القسم الرئيسي
+                                                القسم الرئيسي<span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" name="main_category_id">
                                                 <option disabled>Select Parent</option>

@@ -28,7 +28,7 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">اسم الاعلان</label>
+                                    <label for="exampleInputEmail1">اسم الاعلان<span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="name"
                                         value="{{ old('name') }}" type="text" placeholder="اكتب اسم الاعلان">
                                     @error('name')
@@ -45,7 +45,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="end_date">تاريخ النهائة</label>
+                                    <label for="end_date">تاريخ النهائة<span class="text-danger">*</span></label>
                                     <input class="form-control @error('end_date') is-invalid @enderror" id="end_date"
                                         name="end_date" type="date" value="{{ old('end_date') }}">
                                     @error('end_date')
@@ -54,7 +54,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image">صورة الاعلان</label>
+                                    <label for="image">صورة الاعلان<span class="text-danger">*</span></label>
                                     <input class="form-control" id="image" name="image" type="file"
                                         accept="image/*">
                                     @error('image')

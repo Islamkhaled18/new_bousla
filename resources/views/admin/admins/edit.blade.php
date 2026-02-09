@@ -32,7 +32,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الاسم الاول <span class="tx-danger">*</span></label>
+                                            <label>الاسم الاول <span class="text-danger">*</span></label>
                                             <input type="text" name="first_name" class="form-control"
                                                 value="{{ old('first_name', $admin->first_name) }}"
                                                 placeholder="اكتب الاسم الاول">
@@ -44,7 +44,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الاسم الثاني <span class="tx-danger">*</span></label>
+                                            <label>الاسم الثاني <span class="text-danger">*</span></label>
                                             <input type="text" name="last_name" class="form-control"
                                                 value="{{ old('last_name', $admin->last_name) }}"
                                                 placeholder="اكتب الاسم الثاني">
@@ -56,7 +56,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>البريد الالكتروني <span class="tx-danger">*</span></label>
+                                            <label>البريد الالكتروني <span class="text-danger">*</span></label>
                                             <input type="email" name="email" class="form-control"
                                                 value="{{ old('email', $admin->email) }}"
                                                 placeholder="اكتب البريد الالكتروني">
@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>الهاتف <span class="tx-danger">*</span></label>
+                                            <label>الهاتف <span class="text-danger">*</span></label>
                                             <input type="text" name="phone" class="form-control"
                                                 value="{{ old('phone', $admin->phone) }}"
                                                 placeholder="اكتب الهاتف">
@@ -127,7 +127,7 @@
                                 <div class="row mg-b-20">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>صلاحية المستخدم <span class="tx-danger">*</span></label>
+                                            <label>صلاحية المستخدم <span class="text-danger">*</span></label>
                                             <select name="roles_name[]" class="form-control" multiple>
                                                 @foreach ($roles as $key => $role)
                                                     <option value="{{ $key }}"

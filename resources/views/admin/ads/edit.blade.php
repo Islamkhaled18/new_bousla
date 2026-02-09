@@ -32,7 +32,7 @@
                                 <input name="id" value="{{ $ad->id }}" type="hidden">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">اسم الاعلان </label>
+                                    <label for="exampleInputEmail1">اسم الاعلان <span class="text-danger">*</span></label>
                                     <input class="form-control" id="exampleInputEmail1" name="name"
                                         value="{{ $ad->name }}" type="text" placeholder="اكتب اسم الاعلان ">
                                     @error('name')
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="end_date">تاريخ النهاية</label>
+                                    <label for="end_date">تاريخ النهاية<span class="text-danger">*</span></label>
                                     <input class="form-control @error('end_date') is-invalid @enderror" id="end_date"
                                         name="end_date" type="date"
                                         value="{{ old('end_date', $ad->end_date ? \Carbon\Carbon::parse($ad->end_date)->format('Y-m-d') : '') }}">
@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image" class="form-label">صورة الاعلان</label>
+                                    <label for="image" class="form-label">صورة الاعلان<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" id="image" name="image"
                                         accept="image/*">
                                     <div class="mt-2">
