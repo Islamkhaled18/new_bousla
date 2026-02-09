@@ -573,11 +573,11 @@
         <span class="invalid-feedback">{{ $message }}</span>
     @enderror
 
-    @if ($joinRequest->images && $joinRequest->images->count() > 0)
+    @if (isset($data->images) && $data->images->count() > 0)
         <div class="mt-3">
             <label class="form-label">الصور الحالية:</label>
             <div class="row">
-                @foreach ($joinRequest->images as $image)
+                @foreach ($data->images as $image)
                     <div class="col-md-3 mb-3">
                         <div class="position-relative">
                             <img src="{{ asset('storage/' . $image->photo) }}" alt="Organization Photo"
