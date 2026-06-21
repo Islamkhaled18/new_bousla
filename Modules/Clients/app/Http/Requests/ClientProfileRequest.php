@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class ProfileRequest extends FormRequest
+class ClientProfileRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,9 +15,9 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'first_name' => ['sometimes', 'string', 'max:255'],
-            'last_name' => ['sometimes', 'string', 'max:255'],
-            'gender' => ['in:male,female'],
+            'first_name' => ['nullable', 'string', 'max:255'],
+            'last_name' => ['nullable', 'string', 'max:255'],
+            'gender' => ['nullable', 'in:male,female'],
             'email' => [
                 'nullable',
                 'email',
@@ -25,7 +25,7 @@ class ProfileRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'phone' => [
-                'sometimes',
+                'nullable',
                 'regex:/^01[0-9]{9}$/'
             ],
             'id_number' => [
@@ -49,7 +49,7 @@ class ProfileRequest extends FormRequest
                     }
                 }
             ];
-            $rules['password'] = ['required', 'confirmed', 'min:8'];
+            $rules['password'] = ['string', 'confirmed', 'min:8'];
         }
 
         return $rules;

@@ -14,9 +14,6 @@ Route::middleware(['auth:sanctum'])->prefix('general')->group(function () {
     Route::get('ads',[AdController::class,'index']);
     Route::get('faqs',[FaqController::class,'index']);
     Route::get('privacy-policies',[PrivacyPolicyController::class,'index']);
-
-
-    // دي عشان رقم الواتساب اللي في صفحة البروفايل تحت المفروض اما يضغط عليه يحوله على رقم الواتساب بتاعنا
     Route::get('whatsapp-settings',[SettingController::class,'getWatsappNumber']);
 
     

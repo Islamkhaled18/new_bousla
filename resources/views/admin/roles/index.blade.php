@@ -1,24 +1,25 @@
 @extends('layouts.admin.app')
 @section('title')
-    الدور
+    @lang('role.roles')
 @endsection
 @section('content')
     <main class="app sidebar-mini rtl">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-th-list"></i>الدور </h1>
+                <h1><i class="fa fa-th-list"></i>@lang('role.roles') </h1>
             </div>
             <ul class="app-breadcrumb breadcrumb side">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i><a href="{{ route('dashboard') }}"></a>
                 </li>
 
-                <li class="breadcrumb-item active"><a href="{{ route('roles.index') }}" title="الدور">الدور</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('roles.index') }}"
+                        title="@lang('role.roles')">@lang('role.roles')</a></li>
 
             </ul>
         </div>
         <div>
-            <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}" title="انشاء دور جديد">انشاء دور
-                جديد</a>
+            <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}"
+                title="@lang('role.create_new_role')">@lang('role.create_new_role')</a>
         </div>
 
         <div class="row">
@@ -29,8 +30,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>اسم الدور</th>
-                                    <th>العمليات</th>
+                                    <th>@lang('role.role_name')</th>
+                                    <th>@lang('main.actions')</th>
 
                                 </tr>
                             </thead>
@@ -42,17 +43,17 @@
                                         <td>{{ $role->name }}</td>
                                         <td>
                                             <a class="btn btn-sm btn-dark" href="{{ route('roles.edit', $role) }}"
-                                                title="تعديل">تعديل</a>
+                                                title="@lang('main.edit')">@lang('main.edit')</a>
 
                                             <a class="btn btn-sm btn-info" href="{{ route('roles.show', $role) }}"
-                                                title="عرض">عرض</a>
+                                                title="@lang('main.show')">@lang('main.show')</a>
 
-                                            <form action="{{ route('roles.destroy', $role) }}" title="حذف"
-                                                method="post" style="display: inline-block">
+                                            <form action="{{ route('roles.destroy', $role) }}" title="@lang('main.delete')" method="post"
+                                                style="display: inline-block">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="'submit" class="btn btn-danger delete btn-sm"><i
-                                                        class="fa fa-trash"></i>حذف</button>
+                                                        class="fa fa-trash"></i>@lang('main.delete')</button>
                                             </form>
                                         </td>
                                     </tr>

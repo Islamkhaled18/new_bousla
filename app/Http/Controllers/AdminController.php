@@ -12,14 +12,14 @@ use App\Traits\ToggleStatusTrait;
 class AdminController extends Controller
 {
     use ToggleStatusTrait;
-    
+
     private const CACHE_KEY = 'admins_list';
     private const CACHE_DURATION = 900; // 15 minutes
 
     public function index()
     {
         $admins = Cache::remember(self::CACHE_KEY, self::CACHE_DURATION, function () {
-            return User::where('type', 'admin')
+            return User::where('type', 'admin')->select('id', 'full_name', 'email', 'phone', 'slug', 'is_active')
                 ->with('roles')
                 ->orderBy('id', 'DESC')
                 ->get();
@@ -120,7 +120,7 @@ class AdminController extends Controller
 
         // Clear cache when status is toggled
         Cache::forget(self::CACHE_KEY);
-        
+
         return $this->toggleStatusModel($admin);
     } //end of toggleStatus
 }

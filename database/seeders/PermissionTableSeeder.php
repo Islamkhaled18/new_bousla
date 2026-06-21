@@ -52,7 +52,7 @@ class PermissionTableSeeder extends Seeder
             'job title status',
 
             //settings
-            'edit settigns',
+            'edit settings',
 
             //terms and conditions
             'show all terms and conditions',

@@ -12,8 +12,10 @@ use Modules\Clients\app\Http\Controllers\FavoriteController;
 Route::prefix('clients')->group(function () {
     Route::get('terms-and-conditions', [TermsConditionController::class, 'index']);
     Route::get('terms-and-conditions/{term}', [TermsConditionController::class, 'show']);
-    Route::post('register', [AuthController::class, 'register'])->middleware('throttle:clients.register');
-    Route::post('login', [AuthController::class, 'login'])->middleware('throttle:clients.login');
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    // Route::post('register', [AuthController::class, 'register'])->middleware('throttle:clients.register');
+    // Route::post('login', [AuthController::class, 'login'])->middleware('throttle:clients.login');
 });
 
 Route::middleware(['auth:sanctum'])->prefix('clients')->group(function () {
