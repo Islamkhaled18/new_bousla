@@ -27,7 +27,7 @@ class LoginResource extends JsonResource
             'address' => $this->address ?? 'لا يوجد',
             'id_number' => $this->id_number ?? 'لا يوجد',
             'area_id' => $this->area_id ?? 'لا يوجد',
-            'date_of_birth' => $this->date_of_birth ?? 'لا يوجد',
+            'date_of_birth' => $this->date_of_birth ?? 'MM/DD/YYYY',
             'blood_type' => $this->blood_type ?? 'لا يوجد',
             
             'personal_image' => $this->personal_image ? asset($this->personal_image) : asset('main_images/logo.jpeg'),

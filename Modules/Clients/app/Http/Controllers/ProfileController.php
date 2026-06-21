@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Modules\Clients\app\Http\Requests\ProfileRequest;
+use Modules\Clients\app\Http\Requests\ClientProfileRequest;
 use App\Services\FileUploadService;
 
 class ProfileController extends Controller
@@ -20,7 +20,7 @@ class ProfileController extends Controller
 
 
     // ProfileController.php
-    public function update(ProfileRequest $request)
+    public function update(ClientProfileRequest $request)
     {
         $user = Auth::user();
 
